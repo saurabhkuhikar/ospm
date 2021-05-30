@@ -35,7 +35,7 @@ class OspmController extends Controller
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout','dashboard'],
+                        'actions' => ['logout','dashboard','profile'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -87,14 +87,12 @@ class OspmController extends Controller
     public function actionProfile()
     {
         $model = $this->findProfile(Yii::$app->user->identity->id); 
-        Yii::$app->session->setFlash('success','Profile Updated Successfully'); 
         $model->setScenario('updateProfile');
-            if($model->load(Yii::$app->request->post())){
-
-            }
-            if($model->save()){
-                return $this->redirect(['ospm/profile']);
-            }
+        
+        if($model->load(Yii::$app->request->post()) && $model->save()){
+            Yii::$app->session->setFlash('success','Profile Updated Successfully'); 
+            return $this->redirect(['ospm/profile']);
+        }
         return $this->render('profile', ['model' => $model]);
     }        
      
