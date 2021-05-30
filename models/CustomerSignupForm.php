@@ -6,10 +6,10 @@ use app\models\User;
 
 
 /**
-* SignupForm is the model behind the login form.
+* CustomerSignupForm is the model behind the login form.
 */
 
-class SignupForm extends Model
+class CustomerSignupForm extends Model
 {
     public $first_name;
     public $last_name;
@@ -36,11 +36,10 @@ class SignupForm extends Model
             [['first_name','last_name','email', 'password','phone_number','gender','address','state','city','identity_proof','aadhar_card_number'], 'required'],
             ['email','email'],
             [['account_type'],'safe'],
-            [['age','phone_number'],'integer'],
+            [['age','phone_number'],'number'],
             [['password',], 'string', 'min' => 6],
             [['first_name','last_name'], 'match', 'pattern' => '/^[a-zA-Z_ ]*$/', 'message' => 'Only alphabetic characters allowed'],
             ['email', 'unique', 'targetClass' => 'app\models\User', 'message' => 'This email is already registered with us.'],
-            [['phone_number'],'number'],
             ['phone_number', 'unique', 'targetClass' => 'app\models\User', 'message' => 'This mobile already registered with us.'],
             ['phone_number', 'match', 'pattern' =>'/^[0-9]{10}$/','message' => 'Phone Number Must be Exactly 10 Digit.'],
             ['aadhar_card_number', 'match', 'pattern' =>'/^[0-9]{12}$/','message' => 'Adharcard Number Must be Exactly 12 Digit.'],
@@ -83,7 +82,7 @@ class SignupForm extends Model
             $model->city = $this->city;
             $model->identity_proof = $this->identity_proof;
             $model->aadhar_card_number = $this->aadhar_card_number;  
-            $model->account_type = $this->account_type;          
+            $model->account_type = "Customer";       
             $model->status = 'Enabled';                      
             $model->created = date('Y-m-d h:i:s');
             $model->updated = date('Y-m-d h:i:s');
