@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\CylinderLists */
+/* @var $model app\models\CylinderList */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="cylinder-lists-form">
+<div class="cylinder-list-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -19,8 +19,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'cylinder_quantity')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'cylinder_price')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
 
 
     <div class="form-group">

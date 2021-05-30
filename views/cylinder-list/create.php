@@ -3,14 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\CylinderLists */
+/* @var $model app\models\CylinderList */
 
-$this->title = 'Update Cylinder Lists: ' . $model->id;
+$this->title = 'Create Cylinder List';
 $this->params['breadcrumbs'][] = ['label' => 'Cylinder Lists', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cylinder-lists-update">
+<div class="cylinder-list-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

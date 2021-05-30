@@ -11,11 +11,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\SignupForm;
 use app\models\Profile;
-use app\models\CylinderLists;
-use yii\controllers\CylinderlistsController;
-use yii\controllers\HomeController;
-use app\models\SupplierForm;
-use app\models\Supplier;
+//use app\models\CylinderLists;
+// use app\models\SupplierForm;
+// use app\models\Supplier;
 
 
 
@@ -63,18 +61,18 @@ class OspmController extends Controller
     }
     /* Supplier form */
 
-    public function actionSupplier()
-    {
-        $model = new SupplierForm();
-        Yii::$app->session->setFlash('success','Successfully entered !..');
+    // public function actionSupplier()
+    // {
+    //     $model = new SupplierForm();
+    //     Yii::$app->session->setFlash('success','Successfully entered !..');
 
-        if($model->load(Yii::$app->request->post()) && $model->supplier()){
+    //     if($model->load(Yii::$app->request->post()) && $model->supplier()){
 
-            return $this->redirect(['/ospm/supplier']);
+    //         return $this->redirect(['/ospm/supplier']);
                         
-        }
-        return $this->render('supplier', ['model' => $model]);
-    }
+    //     }
+    //     return $this->render('supplier', ['model' => $model]);
+    // }
    
 
      /* dashboard view*/

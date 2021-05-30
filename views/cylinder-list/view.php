@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\CylinderLists */
+/* @var $model app\models\CylinderList */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Cylinder Lists', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="cylinder-lists-view">
+<div class="cylinder-list-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

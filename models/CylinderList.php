@@ -15,7 +15,7 @@ use Yii;
  * @property string $created
  * @property string $updated
  */
-class CylinderLists extends \yii\db\ActiveRecord
+class CylinderList extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -31,10 +31,10 @@ class CylinderLists extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'cylinder_price', 'created'], 'required'],
+            [['user_id', 'cylinder_price'], 'required'],
             [['created', 'updated'], 'safe'],
             [['user_id', 'cylinder_type', 'cylinder_quantity'], 'string', 'max' => 255],
-            [['cylinder_price'], 'integer', 'max' => 10],
+            [['cylinder_price'], 'string', 'max' => 10],
         ];
     }
 

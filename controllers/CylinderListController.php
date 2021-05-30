@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\CylinderLists;
-use app\models\CylinderListsSearch;
+use app\models\CylinderList;
+use app\models\CylinderListSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CylinderlistsController implements the CRUD actions for CylinderLists model.
+ * CylinderListController implements the CRUD actions for CylinderList model.
  */
-class CylinderlistsController extends Controller
+class CylinderListController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class CylinderlistsController extends Controller
     }
 
     /**
-     * Lists all CylinderLists models.
+     * Lists all CylinderList models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CylinderListsSearch();
+        $searchModel = new CylinderListSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class CylinderlistsController extends Controller
     }
 
     /**
-     * Displays a single CylinderLists model.
+     * Displays a single CylinderList model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class CylinderlistsController extends Controller
     }
 
     /**
-     * Creates a new CylinderLists model.
+     * Creates a new CylinderList model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new CylinderLists();
+        $model = new CylinderList();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class CylinderlistsController extends Controller
     }
 
     /**
-     * Updates an existing CylinderLists model.
+     * Updates an existing CylinderList model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class CylinderlistsController extends Controller
     }
 
     /**
-     * Deletes an existing CylinderLists model.
+     * Deletes an existing CylinderList model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class CylinderlistsController extends Controller
     }
 
     /**
-     * Finds the CylinderLists model based on its primary key value.
+     * Finds the CylinderList model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CylinderLists the loaded model
+     * @return CylinderList the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CylinderLists::findOne($id)) !== null) {
+        if (($model = CylinderList::findOne($id)) !== null) {
             return $model;
         }
 

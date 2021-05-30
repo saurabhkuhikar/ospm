@@ -44,7 +44,7 @@ AppAsset::register($this);
                     <?php if (!Yii::$app->user->isGuest) { ?>
                         <li><a href="/ospm/dashboard">Dashboard</a></li>
                         <li><a href="/ospm/profile">My Profile</a></li>                                              
-                        <li><a href="/ospm/supplier">Supplier Menu</a></li>                     
+                        <li><a href="/cylinder-list/index">Cylinder List</a></li>                     
                         <li> 
                             <form action="<?= Yii::getAlias('@homeUrl') .'/site/logout';?>" method="post">
                                 <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">

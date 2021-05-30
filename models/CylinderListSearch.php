@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\CylinderLists;
+use app\models\CylinderList;
 
 /**
- * CylinderListsSearch represents the model behind the search form of `app\models\CylinderLists`.
+ * CylinderListSearch represents the model behind the search form of `app\models\CylinderList`.
  */
-class CylinderListsSearch extends CylinderLists
+class CylinderListSearch extends CylinderList
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class CylinderListsSearch extends CylinderLists
      */
     public function search($params)
     {
-        $query = CylinderLists::find();
+        $query = CylinderList::find();
 
         // add conditions that should always apply here
 
