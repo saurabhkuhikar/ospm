@@ -11,9 +11,7 @@ $this->title = 'Cylinder Lists';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cylinder-list-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Add Cylinder', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
