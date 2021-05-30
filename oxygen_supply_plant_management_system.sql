@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 30, 2021 at 10:55 AM
--- Server version: 5.7.31
--- PHP Version: 7.3.21
+-- Generation Time: May 30, 2021 at 01:58 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -804,17 +805,33 @@ CREATE TABLE IF NOT EXISTS `cylinder_lists` (
   `cylinder_type` varchar(255) DEFAULT NULL,
   `cylinder_quantity` varchar(255) DEFAULT NULL,
   `cylinder_price` varchar(10) NOT NULL,
-  `created` date NOT NULL,
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cylinder_lists`
 --
 
 INSERT INTO `cylinder_lists` (`id`, `user_id`, `cylinder_type`, `cylinder_quantity`, `cylinder_price`, `created`, `updated`) VALUES
-(1, '1', '5liter', '2', '17000', '2012-12-21', '2012-12-20 18:30:00');
+(1, '1', '5liter', '2', '17000', '2012-12-20 18:30:00', '2012-12-20 18:30:00'),
+(2, '1', '5lite', '6', '15000', '2021-05-30 13:01:36', '2021-05-30 13:01:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cylinder_types`
+--
+
+DROP TABLE IF EXISTS `cylinder_types`;
+CREATE TABLE IF NOT EXISTS `cylinder_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `litre` float NOT NULL,
+  `created` date NOT NULL,
+  `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -871,34 +888,6 @@ INSERT INTO `states` (`id`, `country_name`, `state_name`) VALUES
 (34, 'India', 'Lakshadweep'),
 (35, 'India', 'National Capital Territory of Delhi'),
 (36, 'India', 'Puducherry');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `suppliers`
---
-
-DROP TABLE IF EXISTS `suppliers`;
-CREATE TABLE IF NOT EXISTS `suppliers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cylinder_type` varchar(255) NOT NULL,
-  `cylinder_quantity` varchar(255) NOT NULL,
-  `cylinder_price` varchar(50) NOT NULL,
-  `cylinder_status` varchar(100) NOT NULL,
-  `created` date NOT NULL,
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `suppliers`
---
-
-INSERT INTO `suppliers` (`id`, `cylinder_type`, `cylinder_quantity`, `cylinder_price`, `cylinder_status`, `created`, `updated`) VALUES
-(1, '5 liter', '4', '1000', 'active', '2011-12-11', '2011-03-20 18:30:00'),
-(2, '5 liter', '4', '1000', 'active', '2011-12-11', '2015-03-20 18:30:00'),
-(3, '5 liter', '4', '12000', 'active', '2011-12-11', '2015-03-20 18:30:00'),
-(4, '8liter', '4', '1000', 'active', '2011-12-11', '2015-03-20 18:30:00');
 
 -- --------------------------------------------------------
 
