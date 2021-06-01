@@ -9,19 +9,13 @@ use app\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\SignupForm;
+use app\models\CustomerSignupForm;
 use app\models\Profile;
-//use app\models\CylinderLists;
-// use app\models\SupplierForm;
-// use app\models\Supplier;
+use yii\web\UploadedFile;
 
-
-
-/**
- * OsmpController implements the CRUD actions for Users model.
- */
-class OspmController extends Controller
+class CustomerController extends \yii\web\Controller
 {
+
     /**
      * {@inheritdoc}
      */
@@ -48,52 +42,38 @@ class OspmController extends Controller
         ];
     }
 
-        /* Signup form */
-        public function actionSignup()
-    {
-        $model = new SignupForm();
-
-        if($model->load(Yii::$app->request->post()) && $model->signup()){
-            return $this->redirect(['/ospm/dashboard']);
-            
-        }
-        return $this->render('signup', ['model' => $model]);
-    }
-    /* Supplier form */
-
-    // public function actionSupplier()
-    // {
-    //     $model = new SupplierForm();
-    //     Yii::$app->session->setFlash('success','Successfully entered !..');
-
-    //     if($model->load(Yii::$app->request->post()) && $model->supplier()){
-
-    //         return $this->redirect(['/ospm/supplier']);
-                        
-    //     }
-    //     return $this->render('supplier', ['model' => $model]);
-    // }
-   
-
      /* dashboard view*/
-    public function actionDashboard()
-    {
-        return $this->render('/ospm/dashboard');
-          
-    }   
-
+     public function actionDashboard()
+     {
+         return $this->render('/customer/dashboard');
+           
+     }  
+    /* Profile of supplier */
     public function actionProfile()
     {
         $model = $this->findProfile(Yii::$app->user->identity->id); 
         $model->setScenario('updateProfile');
-        
-        if($model->load(Yii::$app->request->post()) && $model->save()){
-            Yii::$app->session->setFlash('success','Profile Updated Successfully'); 
-            return $this->redirect(['ospm/profile']);
+        $indentityPic = (isset($model->identity_proof_type) && !empty($model->identity_proof_type))? $model->identity_proof_type : Null;
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $indentityPictureObject = UploadedFile::getInstance($model,'identity_proof_type');
+
+            if(!empty($indentityPictureObject)){
+                $model->identity_proof_type = $indentityPictureObject;
+                $fileName = time().'.'.$model->identity_proof_type->extension;
+                $model->identity_proof_type->saveAs('upload/indentity_proof_images/'.$fileName);
+                $indentityPic = $fileName;
+            }
+            $model->identity_proof_type = $indentityPic;
+            if($model->save()){
+                Yii::$app->session->setFlash('success', "Profile Picture updated successfully.");
+                return $this->redirect(['customer/profile']);
+            }
         }
-        return $this->render('profile', ['model' => $model]);
-    }        
-     
+        return $this->render('profile', ['model' => $model]); 
+    } 
+    
 
     /**
      * Finds the Users model based on its primary key value.
@@ -109,6 +89,5 @@ class OspmController extends Controller
         }       
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }   
-
+    } 
 }

@@ -41,10 +41,19 @@ AppAsset::register($this);
                     <li><a href="/site/index">Home</a></li>  
                     <li><a href="/site/contact">Contact</a></li>                  
                     <li><a href="/site/about">About</a></li>
-                    <?php if (!Yii::$app->user->isGuest) { ?>
-                        <li><a href="/ospm/dashboard">Dashboard</a></li>
-                        <li><a href="/ospm/profile">My Profile</a></li>                                              
-                        <li><a href="/cylinder-list/index">Cylinder List</a></li>                     
+                    <?php if (!Yii::$app->user->isGuest){ 
+                        if(Yii::$app->user->identity->account_type == "Customer"){?>
+                        <li><a href="/customer/dashboard">Dashboard</a></li>
+                        <li><a href="/customer/profile">My Profile</a></li>  
+                        <?php }if(Yii::$app->user->identity->account_type == "Supplier")
+                        {
+                            ?>
+                            <li><a href="/cylinder-list/index">Cylinder List</a></li>  
+                            <li><a href="/supplier/dashboard">Dashboard</a></li>
+                            <li><a href="/supplier/profile">My Profile</a></li>  
+                        <?php                                            
+                        }
+                        ?>                                           
                         <li> 
                             <form action="<?= Yii::getAlias('@homeUrl') .'/site/logout';?>" method="post">
                                 <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
@@ -52,9 +61,10 @@ AppAsset::register($this);
                             </form>
                         </li>
                     <?php }else{ ?>
-                        <li><a href="/site/login">Login</a></li>
-                    <?php } ?>
-                    
+                        <li><a href="/account/customer-signup">Customer SignUp</a></li>
+                        <li><a href="/account/supplier-signup">Supplier SignUp</a></li>
+                        <li><a href="/account/login">Login</a></li>
+                    <?php } ?>                    
                 </ul>
             </div>
         </div>

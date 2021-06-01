@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-2"></div>
         <div class="col-md-12">       
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
-                    <div class="panel panel-success">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <strong> Sign in to continue</strong>
                         </div>
@@ -25,8 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group">
+                                    <div class="form-group">                                                                             
                                         <?= $form->field($model, 'username')->textInput(['autofocus' => true,'placeholder' => 'Username']) ?>    
+                                       
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -38,11 +39,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?> &nbsp;&nbsp;
-                                   
+                                    <div class="form-group">
+                                        <?= Html::submitButton('Login', ['class' => 'btn btn-success btn-block', 'name' => 'login-button']) ?>
+                                    
+                                    </div>
                                 </div>
-                            </div>                            
-                            
+                            </div></br>  
+                            <div class="row">                          
+                                <p class="col-md-12">
+                                <a href="/account/forgot-password">I forgot my password</a>
+                                </p>
+                            </div>
                           
                                 <?php ActiveForm::end(); ?>
                         </div>

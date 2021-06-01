@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "cylinder_types".
  *
  * @property int $id
- * @property float $litre
+ * @property float $liter
  * @property string $created
  * @property string $updated
  */
@@ -28,8 +28,8 @@ class CylinderType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['litre', 'created'], 'required'],
-            [['litre'], 'number'],
+            [['liter'], 'required'],
+            [['liter'], 'string'],
             [['created', 'updated'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class CylinderType extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'litre' => 'Litre',
+            'liter' => 'Liter',
             'created' => 'Created',
             'updated' => 'Updated',
         ];

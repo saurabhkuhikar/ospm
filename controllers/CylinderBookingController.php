@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\CylinderList;
-use app\models\CylinderListSearch;
+use app\models\CylinderBooking;
+use app\models\CylinderBookingSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CylinderListController implements the CRUD actions for CylinderList model.
+ * CylinderBookingController implements the CRUD actions for CylinderBooking model.
  */
-class CylinderListController extends Controller
+class CylinderBookingController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class CylinderListController extends Controller
     }
 
     /**
-     * Lists all CylinderList models.
+     * Lists all CylinderBooking models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CylinderListSearch();
+        $searchModel = new CylinderBookingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class CylinderListController extends Controller
     }
 
     /**
-     * Displays a single CylinderList model.
+     * Displays a single CylinderBooking model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,27 +58,32 @@ class CylinderListController extends Controller
     }
 
     /**
-     * Creates a new CylinderList model.
+     * Creates a new CylinderBooking model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new CylinderList();
+        $model = new CylinderBooking();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_id = \Yii::$app->user->identity->id;
+            if(Yii::$app->user->identity->account_type == "Customer"){
+                $model->customer_id = \Yii::$app->user->identity->id;
+            }else{
+                $model->supplier_id = \Yii::$app->user->identity->id;
+            }
             if($model->save()){
-               return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
+
         return $this->render('create', [
             'model' => $model,
         ]);
     }
 
     /**
-     * Updates an existing CylinderList model.
+     * Updates an existing CylinderBooking model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -89,10 +94,14 @@ class CylinderListController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_id = \Yii::$app->user->identity->id;
-           if($model->save()){
-               return $this->redirect(['view', 'id' => $model->id]);
-           }
+            if(Yii::$app->user->identity->account_type == "Customer"){
+                $model->customer_id = \Yii::$app->user->identity->id;
+            }else{
+                $model->supplier_id = \Yii::$app->user->identity->id;
+            }
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -101,7 +110,7 @@ class CylinderListController extends Controller
     }
 
     /**
-     * Deletes an existing CylinderList model.
+     * Deletes an existing CylinderBooking model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -115,15 +124,15 @@ class CylinderListController extends Controller
     }
 
     /**
-     * Finds the CylinderList model based on its primary key value.
+     * Finds the CylinderBooking model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CylinderList the loaded model
+     * @return CylinderBooking the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CylinderList::findOne($id)) !== null) {
+        if (($model = CylinderBooking::findOne($id)) !== null) {
             return $model;
         }
 

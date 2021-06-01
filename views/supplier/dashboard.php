@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <h3>Check all bookings</h3>
 
- <a href="/home/index" target="booking" >click booking list</a>
+ <p>this is Supplier dashboard file </p>
 
 
 </div>

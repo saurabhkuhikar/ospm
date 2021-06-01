@@ -5,14 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CylinderList */
 
-$this->title = 'Create Cylinder List';
+$this->title = 'Add Cylinder List';
 $this->params['breadcrumbs'][] = ['label' => 'Cylinder Lists', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cylinder-list-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

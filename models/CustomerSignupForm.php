@@ -23,7 +23,7 @@ class CustomerSignupForm extends Model
     public $city;
     public $identity_proof;
     public $aadhar_card_number;    
-    public $account_type;    
+    public $account_type;  
    
    
     /**
@@ -33,16 +33,14 @@ class CustomerSignupForm extends Model
     {
         return [
             // email and password are both required
-            [['first_name','last_name','email', 'password','phone_number','gender','address','state','city','identity_proof','aadhar_card_number'], 'required'],
+            [['first_name','last_name','email', 'password','phone_number'], 'required'],
             ['email','email'],
             [['account_type'],'safe'],
-            [['age','phone_number'],'number'],
+            [['phone_number'],'number'],
             [['password',], 'string', 'min' => 6],
             [['first_name','last_name'], 'match', 'pattern' => '/^[a-zA-Z_ ]*$/', 'message' => 'Only alphabetic characters allowed'],
             ['email', 'unique', 'targetClass' => 'app\models\User', 'message' => 'This email is already registered with us.'],
-            ['phone_number', 'unique', 'targetClass' => 'app\models\User', 'message' => 'This mobile already registered with us.'],
             ['phone_number', 'match', 'pattern' =>'/^[0-9]{10}$/','message' => 'Phone Number Must be Exactly 10 Digit.'],
-            ['aadhar_card_number', 'match', 'pattern' =>'/^[0-9]{12}$/','message' => 'Adharcard Number Must be Exactly 12 Digit.'],
         ];
     }
     /**
@@ -73,16 +71,9 @@ class CustomerSignupForm extends Model
             $model->first_name = $this->first_name;
             $model->last_name = $this->last_name;
             $model->email = $this->email;
-            $model->password = md5($this->password);
-            $model->gender = $this->gender;
-            $model->phone_number = $this->phone_number;
-            $model->address = $this->address;
-            $model->state = $this->state;
-            $model->age = $this->age;
-            $model->city = $this->city;
-            $model->identity_proof = $this->identity_proof;
-            $model->aadhar_card_number = $this->aadhar_card_number;  
-            $model->account_type = "Customer";       
+            $model->password = md5($this->password);          
+            $model->phone_number = $this->phone_number;            
+            $model->account_type = "Customer";          
             $model->status = 'Enabled';                      
             $model->created = date('Y-m-d h:i:s');
             $model->updated = date('Y-m-d h:i:s');
@@ -120,16 +111,9 @@ class CustomerSignupForm extends Model
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'email' => 'Email',
-            'password' => 'Password',
-            'auth_key' => 'Auth Key',
-            'phone_number' => 'Phone Number',
-            'age' => 'Age',
-            'gender' => 'Gender',
-            'address' => 'Address',
-            'state' => 'State',
-            'city' => 'City',
-            'identity_proof' => 'Identity Proof',
-            'aadhar_card_number' => 'Aadhar Card Number',
+            'password' => 'Password',           
+            'phone_number' => 'Phone Number',  
+            
             'account_type' => 'Account Type',
             'status' => 'Status',
             'created' => 'Created',

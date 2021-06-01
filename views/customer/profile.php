@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= Yii::$app->session->getFlash('success') ?>
                     </div>
                 <?php endif; ?>
-                <?php $form = ActiveForm::begin(['id' => 'register-form']); ?>
+                <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data'],'id' => 'update-profile','method' => 'post','action' => '/supplier/profile']); ?>
                     
                         <div class="row">
                             <div class="col-md-6">
@@ -49,28 +49,30 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'phone_number')->textInput(['autofocus'=>true,'placeholder'=>'Phone Number']) ?>
+                                    <?= $form->field($model, 'phone_number')->textInput(['autofocus'=>true,'readOnly'=>true,'placeholder'=>'Phone Number']) ?>
                                 </div>  
                             </div>                            
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <?= $form->field($model, 'age')->textInput(['autofocus'=>true,'placeholder'=>'Age']) ?>
+                                    <?= $form->field($model, 'gender')->radioList(['male'=>'male', 'female' => 'female'], ['unselect' => null])?>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">                                    
-                                    <?= $form->field($model, 'gender')->radioList(['male'=>'male', 'female' => 'female'], ['unselect' => null])?>
+                                <?= $form->field($model, 'age')->textInput(['autofocus'=>true,'placeholder'=>'Age']) ?>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                 <?= $form->field($model, 'address')->textInput(['autofocus'=>true,'placeholder'=>'Enter the Address','autocomplete' => 'offgg']) ?>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?= $form->field($model, 'state')->widget(Select2::classname(), [
@@ -81,8 +83,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ?> 
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <?= $form->field($model, 'city')->widget(Select2::classname(), [
@@ -93,23 +93,32 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ?>   
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">                            
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <?= $form->field($model, 'identity_proof')->textInput(['autofocus'=>true,'placeholder'=>'Identity Proof']) ?>  
-                                </div>
+                                <?php $data = array('Adhaar card(UID)'=>'Adhaar card(UID)','Passport'=>'Passport','Driving License'=>'Driving License',
+                                        'Ration Card with address'=>'Ration Card with address','Pan Card'=>'Pan Card')?>
+                                <?= $form->field($model, 'identity_proof')->widget(Select2::classname(), [
+                                        'data' => $data,                                        
+                                        'options' => ['placeholder' => 'Select Identity Proof'],
+                                        'pluginOptions' => ['allowClear' => true],  
+                                    ]); 
+                                    ?>                                   
+                                </div> 
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <?= $form->field($model, 'identity_proof_type')->fileInput()?>
+                                </div>
+                            </div>  
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?= $form->field($model, 'aadhar_card_number')->textInput(['autofocus'=>true,'placeholder'=>'Enter your Aadharcard Number']) ?>  
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <?= $form->field($model, 'account_type')->textInput(['autofocus'=>true,'readonly'=>true,'placeholder'=>'Acccount type'])?>
-                                </div>
-                            </div>                            
+                            </div>                                                                                   
                         </div>
                         <div class="row">
                             <div class="col-md-12">

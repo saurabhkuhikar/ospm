@@ -24,6 +24,7 @@ class SupplierSignupForm extends Model
     public $identity_proof;
     public $aadhar_card_number;    
     public $account_type;    
+    public $company_name;    
    
    
     /**
@@ -33,7 +34,7 @@ class SupplierSignupForm extends Model
     {
         return [
             // email and password are both required
-            [['first_name','last_name','email', 'password','phone_number','gender','address','state','city','identity_proof','aadhar_card_number'], 'required'],
+            [['first_name','last_name','email','company_name','password','phone_number','gender','address','state','city','aadhar_card_number'], 'required'],
             ['email','email'],
             [['account_type'],'safe'],
             [['age','phone_number'],'number'],
@@ -82,7 +83,8 @@ class SupplierSignupForm extends Model
             $model->city = $this->city;
             $model->identity_proof = $this->identity_proof;
             $model->aadhar_card_number = $this->aadhar_card_number;  
-            $model->account_type = "Supplier";          
+            $model->account_type = "Supplier"; 
+            $model->company_name = $this->company_name;
             $model->status = 'Enabled';                      
             $model->created = date('Y-m-d h:i:s');
             $model->updated = date('Y-m-d h:i:s');
@@ -131,6 +133,7 @@ class SupplierSignupForm extends Model
             'identity_proof' => 'Identity Proof',
             'aadhar_card_number' => 'Aadhar Card Number',
             'account_type' => 'Account Type',
+            'company_name' => 'Comapany Name',
             'status' => 'Status',
             'created' => 'Created',
             'updated' => 'Updated',

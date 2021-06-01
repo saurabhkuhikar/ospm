@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\CylinderList;
+use app\models\CylinderType;
 
 /**
- * CylinderListSearch represents the model behind the search form of `app\models\CylinderList`.
+ * CylinderTypeSearch represents the model behind the search form of `app\models\CylinderType`.
  */
-class CylinderListSearch extends CylinderList
+class CylinderTypeSearch extends CylinderType
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,8 @@ class CylinderListSearch extends CylinderList
     {
         return [
             [['id'], 'integer'],
-            [['user_id', 'cylinder_type', 'cylinder_quantity', 'cylinder_price', 'created', 'updated'], 'safe'],
+            [['liter'], 'string'],
+            [['created', 'updated'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class CylinderListSearch extends CylinderList
      */
     public function search($params)
     {
-        $query = CylinderList::find();
+        $query = CylinderType::find();
 
         // add conditions that should always apply here
 
@@ -59,15 +60,10 @@ class CylinderListSearch extends CylinderList
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id'=>\Yii::$app->user->identity->id,
+            'liter' => $this->liter,
             'created' => $this->created,
             'updated' => $this->updated,
         ]);
-
-        // $query->andFilterWhere(['like', 'user_id', $this->user_id])
-        $query->andFilterWhere(['like', 'cylinder_type', $this->cylinder_type])
-            ->andFilterWhere(['like', 'cylinder_quantity', $this->cylinder_quantity])
-            ->andFilterWhere(['like', 'cylinder_price', $this->cylinder_price]);
 
         return $dataProvider;
     }

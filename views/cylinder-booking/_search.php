@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\CylinderBookingsSearch */
+/* @var $model app\models\CylinderBookingSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="cylinder-bookings-search">
+<div class="cylinder-booking-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'last_name') ?>
 
-    <?= $form->field($model, 'user_id') ?>
+    <?= $form->field($model, 'customer_id') ?>
 
     <?= $form->field($model, 'covid_test_result') ?>
 

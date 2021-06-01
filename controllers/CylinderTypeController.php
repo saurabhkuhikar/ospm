@@ -3,18 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\CylinderBookings;
-use app\models\CylinderBookingsSearch;
+use app\models\CylinderType;
+use app\models\CylinderTypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\controllers\OspmController;
-use yii\controllers\CylinderlistsController;
 
 /**
- * HomeController implements the CRUD actions for CylinderBookings model.
+ * CylinderTypeController implements the CRUD actions for CylinderType model.
  */
-class HomeController extends Controller
+class CylinderTypeController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -32,12 +30,12 @@ class HomeController extends Controller
     }
 
     /**
-     * Lists all CylinderBookings models.
+     * Lists all CylinderType models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CylinderBookingsSearch();
+        $searchModel = new CylinderTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +45,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Displays a single CylinderBookings model.
+     * Displays a single CylinderType model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,13 +58,13 @@ class HomeController extends Controller
     }
 
     /**
-     * Creates a new CylinderBookings model.
+     * Creates a new CylinderType model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new CylinderBookings();
+        $model = new CylinderType();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -78,7 +76,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Updates an existing CylinderBookings model.
+     * Updates an existing CylinderType model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +96,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Deletes an existing CylinderBookings model.
+     * Deletes an existing CylinderType model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,22 +108,17 @@ class HomeController extends Controller
 
         return $this->redirect(['index']);
     }
-    /* Supplier form*/
-
-    
-
-
 
     /**
-     * Finds the CylinderBookings model based on its primary key value.
+     * Finds the CylinderType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CylinderBookings the loaded model
+     * @return CylinderType the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CylinderBookings::findOne($id)) !== null) {
+        if (($model = CylinderType::findOne($id)) !== null) {
             return $model;
         }
 

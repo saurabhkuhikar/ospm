@@ -1,7 +1,28 @@
 <?php
 namespace app\models;
 use Yii;
-
+/**
+ * This is the model class for table "user".
+ *
+ * @property int $id
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property string $email
+ * @property string $password
+ * @property string $auth_key
+ * @property int $phone_number
+ * @property string|null $indentity_proof
+ * @property string|null $indentity_proof_type
+ * @property string|null $aadhar_card_number
+ * @property string|null $age
+ * @property string|null $gender
+ * @property string|null $address
+ * @property string|null $state
+ * @property string|null $city
+ * @property string|null $status
+ * @property string|null $created
+ * @property string|null $updated
+ */
 
 
 class Profile extends \yii\db\ActiveRecord
@@ -23,7 +44,9 @@ class Profile extends \yii\db\ActiveRecord
             [['first_name','last_name','email','phone_number','gender','address','state','city','identity_proof','aadhar_card_number'], 'required','on'=>'updateProfile'],
             [['age','phone_number'],'integer'],
             [['email'],'email'],
-            [['identity_proof','account_type','created', 'updated'],'safe'],
+            [['identity_proof','company_name','account_type','created', 'updated'],'safe'],
+            [['identity_proof_type'],'file','skipOnEmpty'=> true,'extensions' => 'png,jpg,pdf'],
+            // [['profile_picture'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             [['gender'], 'string', 'max' => 10],
             [['state', 'city'], 'string', 'max' => 50],
             [['auth_key'], 'string', 'max' => 32],
@@ -51,13 +74,14 @@ class Profile extends \yii\db\ActiveRecord
             'address' => 'Address',
             'state' => 'State',
             'city' => 'City',
-            'identity_proof' => 'Identity Proof',
+            'identity_proof' => 'Identification proof provided/Type of ID',
+            'identity_proof_type'=>'Identity proof File',
             'aadhar_card_number' => 'Aadhar Card Number',
             'account_type' => 'Account Type',
+            'company_name' => 'Comapany Name',
             'status' => 'Status',
             'created' => 'Created',
-            'updated' => 'Updated',
-           
+            'updated' => 'Updated',           
         ];
     }    
 }
