@@ -65,15 +65,12 @@ class CylinderBookingController extends Controller
     public function actionCreate()
     {
         $model = new CylinderBooking();
-
+        
         if ($model->load(Yii::$app->request->post())) {
-            if(Yii::$app->user->identity->account_type == "Customer"){
-                $model->customer_id = \Yii::$app->user->identity->id;
-            }else{
-                $model->supplier_id = \Yii::$app->user->identity->id;
-            }
+            $model->customer_id = \Yii::$app->user->identity->id;
+            $model->supplier_id = $_GET['id'];            
             if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view','id' => $model->id]);
             }
         }
 
@@ -94,11 +91,7 @@ class CylinderBookingController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            if(Yii::$app->user->identity->account_type == "Customer"){
-                $model->customer_id = \Yii::$app->user->identity->id;
-            }else{
-                $model->supplier_id = \Yii::$app->user->identity->id;
-            }
+            $model->customer_id = \Yii::$app->user->identity->id;           
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }

@@ -9,7 +9,6 @@ use app\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\CustomerSignupForm;
 use app\models\Profile;
 use yii\web\UploadedFile;
 
@@ -67,7 +66,7 @@ class CustomerController extends \yii\web\Controller
             }
             $model->identity_proof_type = $indentityPic;
             if($model->save()){
-                Yii::$app->session->setFlash('success', "Profile Picture updated successfully.");
+                Yii::$app->session->setFlash('success', "Profile updated successfully.");
                 return $this->redirect(['customer/profile']);
             }
         }

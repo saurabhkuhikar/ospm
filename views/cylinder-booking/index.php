@@ -16,9 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                    <p>
+                    <!-- <p>
                         <?= Html::a('Create Cylinder Booking', ['create'], ['class' => 'btn btn-success']) ?>
-                    </p>
+                    </p> -->
 
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
                     <?= GridView::widget([

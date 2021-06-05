@@ -9,6 +9,7 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\models\CylinderBooking */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="cylinder-booking-form">
@@ -65,7 +66,7 @@ use kartik\select2\Select2;
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $form->field($model, 'total_amount')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'total_amount')->textInput(['readOnly'=>true,'maxlength' => true]) ?>
                         </div>        
                         <div class="col-md-6">
                             <?= $form->field($model, 'order_date')->widget(DatePicker::className(),

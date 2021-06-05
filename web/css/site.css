@@ -114,7 +114,8 @@ a.desc:after {
     outline: none;
 }
 .panel-heading {
-    padding: 5px 15px;
+    padding: 5px 15px;   
+
 }
 
 .panel-footer {
@@ -130,4 +131,13 @@ a.desc:after {
 	-moz-border-radius: 50%;
 	-webkit-border-radius: 50%;
 	border-radius: 50%;
+}
+.center-txt{
+    text-align: center;
+}
+.txt{
+    display:inline;
+}
+.cylinder-booking-form{
+    margin-top: 60px;
 }

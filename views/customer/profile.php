@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= Yii::$app->session->getFlash('success') ?>
                     </div>
                 <?php endif; ?>
-                <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data'],'id' => 'update-profile','method' => 'post','action' => '/supplier/profile']); ?>
+                <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data'],'id' => 'update-profile','method' => 'post','action' => '/customer/profile']); ?>
                     
                         <div class="row">
                             <div class="col-md-6">

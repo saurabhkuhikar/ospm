@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
 use app\controller\HomeController;
 
 class SiteController extends Controller
@@ -62,7 +63,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        Yii::$app->session->setFlash('login_first', "Please login first and then place the order");
+        $query = (new \yii\db\Query())->select(['company_name','id'])->from('users')->where(['account_type' => ['Supplier']]);
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        $model = $data;
+        $query = (new \yii\db\Query())->select(['user_id','cylinder_type','cylinder_quantity'])->from('cylinder_lists');
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        
+      return $this->render('index',['model'=>$model,'data'=>$data]);
     }
 
     /**
