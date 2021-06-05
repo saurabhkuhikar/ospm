@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Cylinder Bookings';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cylinder-booking-index">
     <div class="panel panel-primary">
@@ -37,14 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'cylinder_quantity',
                             //'total_amount',
                             'order_date',
-                            // 'order_status',
+                            'order_status',
                             //'payment_id',
                             //'payment_token',
                             //'payment_status',
                             //'created',
                             //'updated',
 
-                            ['class' => 'yii\grid\ActionColumn'],
+                            // ['class' => 'yii\grid\ActionColumn'],
                         ],
                     ]); ?>
                 </div>

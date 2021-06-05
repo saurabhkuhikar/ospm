@@ -37,11 +37,35 @@ class CylinderBookingController extends Controller
     {
         $searchModel = new CylinderBookingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
+        // // print_r($_GET['id']);
+        if($_GET['id'] == "Pending"){                
+           $searchModel = new CylinderBookingSearch(['order_status'=>'Pending','customer_id'=>Yii::$app->user->identity->id]);
+           $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+           return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+            ]);
+        }
+        if($_GET['id'] == "Process"){                
+           $searchModel = new CylinderBookingSearch(['order_status'=>'Process','customer_id'=>Yii::$app->user->identity->id]);
+           $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+           return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            ]);
+        }
+        if($_GET['id'] == "Delivered"){                
+           $searchModel = new CylinderBookingSearch(['order_status'=>'Delivered','customer_id'=>Yii::$app->user->identity->id]);
+           $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+           return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            ]);
+        }
+        // return $this->render('index', [
+        //     'searchModel' => $searchModel,
+        //     'dataProvider' => $dataProvider,
+        // ]);
     }
 
     /**
@@ -64,19 +88,32 @@ class CylinderBookingController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CylinderBooking();
-        
-        if ($model->load(Yii::$app->request->post())) {
-            $model->customer_id = \Yii::$app->user->identity->id;
-            $model->supplier_id = $_GET['id'];            
-            if($model->save()){
-                return $this->redirect(['view','id' => $model->id]);
-            }
-        }
+        if (!Yii::$app->user->isGuest){
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            $model = new CylinderBooking();
+            
+            if ($model->load(Yii::$app->request->post())) {
+                $model->customer_id = \Yii::$app->user->identity->id;
+                $model->supplier_id = $_GET['id'];
+
+                $query = (new \yii\db\Query())->select(['user_id','cylinder_quantity','cylinder_price'])
+                        ->from('cylinder_lists')->where(['user_id' => $_GET['id']]);
+                $command = $query->createCommand();
+                $models = $command->queryAll();
+                print_r($models);
+                
+        
+                // return $this->render('/customer/dashboard',['model' => $model]);            
+                if($model->save()){
+                    return $this->redirect(['view','id' => $model->id]);
+                }
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+            }
+        return $this->redirect(['account/login']);
     }
 
     /**

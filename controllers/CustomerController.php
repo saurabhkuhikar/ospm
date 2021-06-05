@@ -44,7 +44,15 @@ class CustomerController extends \yii\web\Controller
      /* dashboard view*/
      public function actionDashboard()
      {
-         return $this->render('/customer/dashboard');
+       if (!Yii::$app->user->isGuest){ 
+            if(Yii::$app->user->identity->account_type == "Customer"){
+                $query = (new \yii\db\Query())->select(['order_status','customer_id'])->from('cylinder_bookings');
+                $command = $query->createCommand();
+                $model = $command->queryAll();
+                return $this->render('/customer/dashboard',['model' => $model]);
+            }
+       }
+       return $this->redirect(['account/login']);
            
      }  
     /* Profile of supplier */

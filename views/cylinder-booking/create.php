@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Cylinder Booking';
 
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cylinder-booking-create">
 

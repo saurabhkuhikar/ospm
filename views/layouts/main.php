@@ -37,12 +37,11 @@ AppAsset::register($this);
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">My Application</a></div><div id="w0-collapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-                <ul id="w1" class="navbar-nav navbar-right nav">
-                    <li><a href="/site/index">Home</a></li>  
-                    <li><a href="/site/contact">Contact</a></li>                  
-                    <li><a href="/site/about">About</a></li>
+                <ul id="w1" class="navbar-nav navbar-right nav">                  
+                  
                     <?php if (!Yii::$app->user->isGuest){ 
                         if(Yii::$app->user->identity->account_type == "Customer"){?>
+                        <li><a href="/site/index">Home</a></li>    
                         <li><a href="/customer/dashboard">Dashboard</a></li>
                         <li><a href="/customer/profile">My Profile</a></li>  
                         <?php }if(Yii::$app->user->identity->account_type == "Supplier")
@@ -61,6 +60,9 @@ AppAsset::register($this);
                             </form>
                         </li>
                     <?php }else{ ?>
+                        <li><a href="/site/index">Home</a></li>  
+                        <li><a href="/site/contact">Contact</a></li>                  
+                        <li><a href="/site/about">About</a></li>
                         <li><a href="/account/customer-signup">Customer SignUp</a></li>
                         <li><a href="/account/supplier-signup">Supplier SignUp</a></li>
                         <li><a href="/account/login">Login</a></li>

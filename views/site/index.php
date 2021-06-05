@@ -6,7 +6,8 @@ $this->title = 'My Yii Application';
 ?>       
 <div class="container">
     <div class="row">
-    <?php if (!Yii::$app->user->isGuest){
+    <?php 
+    // if (Yii::$app->user->isGuest){
        foreach($model as $models)
          { ?>
         <div class="col-md-4">
@@ -32,23 +33,16 @@ $this->title = 'My Yii Application';
                         <?php }}?>                                                
                         </tbody>
                     </table>
+                    <?php  if (!Yii::$app->user->isGuest){?>
                     <div class="row">
                         <div class="center-txt">
                          <?= Html::a('Book', ['/cylinder-booking/create','id'=>$models['id']], ['class'=>'btn btn-success'])?>
-                                                    
                         </div>                        
                     </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
-        <?php }
-        }else{?>
-        <div class="alert alert-success alert-dismissable">
-            <?= "please login first and then try to book cylinder"?>
-        </div>
-        <?php        
-        }
-        ?>
-       
+        <?php } ?>    
     </div>
 </div>    

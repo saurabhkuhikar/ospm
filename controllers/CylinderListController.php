@@ -64,17 +64,20 @@ class CylinderListController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CylinderList();
+        if (!Yii::$app->user->isGuest){
+            $model = new CylinderList();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->user_id = \Yii::$app->user->identity->id;
-            if($model->save()){
-               return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post())) {
+                $model->user_id = \Yii::$app->user->identity->id;
+                if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
-        }
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+            }
+        return $this->redirect(['account/login']);
     }
 
     /**
