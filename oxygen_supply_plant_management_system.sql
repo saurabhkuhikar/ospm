@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 30, 2021 at 01:58 PM
--- Server version: 5.7.26
--- PHP Version: 7.2.18
+-- Generation Time: Jun 06, 2021 at 04:45 PM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -769,28 +768,33 @@ CREATE TABLE IF NOT EXISTS `cylinder_bookings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `user_id` varchar(255) NOT NULL,
+  `customer_id` varchar(3) DEFAULT NULL,
+  `supplier_id` varchar(3) DEFAULT NULL,
   `covid_test_result` varchar(20) NOT NULL,
   `covid_test_date` date NOT NULL,
   `cylinder_type` varchar(255) NOT NULL,
   `cylinder_quantity` varchar(20) NOT NULL,
   `total_amount` varchar(10) NOT NULL,
   `order_date` date NOT NULL,
-  `order_status` varchar(255) NOT NULL,
+  `order_status` varchar(255) DEFAULT 'Pending',
   `payment_id` varchar(255) DEFAULT NULL,
   `payment_token` varchar(255) DEFAULT NULL,
   `payment_status` varchar(255) DEFAULT NULL,
-  `created` date DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cylinder_bookings`
 --
 
-INSERT INTO `cylinder_bookings` (`id`, `first_name`, `last_name`, `user_id`, `covid_test_result`, `covid_test_date`, `cylinder_type`, `cylinder_quantity`, `total_amount`, `order_date`, `order_status`, `payment_id`, `payment_token`, `payment_status`, `created`, `updated`) VALUES
-(1, 'nandini', 'kose', '1', 'negative', '2021-05-10', '5 litrer', '1', '12,000', '2021-05-27', 'active', '1341571465400', '', 'pending', NULL, '2021-05-28 11:54:43');
+INSERT INTO `cylinder_bookings` (`id`, `first_name`, `last_name`, `customer_id`, `supplier_id`, `covid_test_result`, `covid_test_date`, `cylinder_type`, `cylinder_quantity`, `total_amount`, `order_date`, `order_status`, `payment_id`, `payment_token`, `payment_status`, `created`, `updated`) VALUES
+(1, 'abc', 'cnvc', '15', '12', 'Negative', '2021-04-28', '5 liter', '1', '8000', '2021-05-11', 'Pending', NULL, NULL, NULL, '2021-06-06 15:27:17', '2021-06-06 15:27:17'),
+(2, 'customer', 'abc', '15', '12', 'Negative', '2021-05-04', '15 liter', '2', '26000', '2021-06-10', 'Pending', NULL, NULL, NULL, '2021-06-06 15:29:19', '2021-06-06 15:29:19'),
+(3, 'customer', 'acbcgds', '10', '8', 'Negative', '2021-05-30', '10 liter', '2', '20000', '2021-06-16', 'Pending', NULL, NULL, NULL, '2021-06-06 16:00:04', '2021-06-06 16:00:04'),
+(4, 'cuisrs', 'osafniaen', '10', '11', 'Positive', '2021-03-17', '15 liter', '4', '56000', '2021-06-11', 'Pending', NULL, NULL, NULL, '2021-06-06 16:02:53', '2021-06-06 16:02:53'),
+(5, 'stsere', 'aerwaerwer', '15', '12', 'Negative', '2021-06-03', '15 liter', '3', '39000', '2021-06-23', 'Pending', NULL, NULL, NULL, '2021-06-06 16:40:58', '2021-06-06 16:40:58');
 
 -- --------------------------------------------------------
 
@@ -801,22 +805,29 @@ INSERT INTO `cylinder_bookings` (`id`, `first_name`, `last_name`, `user_id`, `co
 DROP TABLE IF EXISTS `cylinder_lists`;
 CREATE TABLE IF NOT EXISTS `cylinder_lists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(255) NOT NULL,
+  `user_id` int(2) DEFAULT NULL,
   `cylinder_type` varchar(255) DEFAULT NULL,
   `cylinder_quantity` varchar(255) DEFAULT NULL,
   `cylinder_price` varchar(10) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cylinder_lists`
 --
 
 INSERT INTO `cylinder_lists` (`id`, `user_id`, `cylinder_type`, `cylinder_quantity`, `cylinder_price`, `created`, `updated`) VALUES
-(1, '1', '5liter', '2', '17000', '2012-12-20 18:30:00', '2012-12-20 18:30:00'),
-(2, '1', '5lite', '6', '15000', '2021-05-30 13:01:36', '2021-05-30 13:01:55');
+(1, 11, '5 liter', '6', '8000', '2021-06-01 09:04:50', '2021-06-01 09:04:50'),
+(2, 11, '10 liter', '5', '10000', '2021-06-01 09:05:37', '2021-06-01 09:05:37'),
+(3, 11, '15 liter', '12', '14000', '2021-06-01 09:06:00', '2021-06-01 09:06:00'),
+(4, 8, '5 liter', '8', '7000', '2021-06-01 09:09:08', '2021-06-01 09:09:08'),
+(5, 8, '10 liter', '4', '10000', '2021-06-01 09:09:38', '2021-06-05 06:42:57'),
+(6, 8, '15 liter', '20', '13000', '2021-06-01 09:09:51', '2021-06-01 09:09:51'),
+(7, 12, '5 liter', '9', '8000', '2021-06-01 09:11:47', '2021-06-01 20:37:45'),
+(8, 12, '10 liter', '10', '11500', '2021-06-01 09:12:13', '2021-06-01 09:12:13'),
+(9, 12, '15 liter', '6', '13000', '2021-06-01 09:12:32', '2021-06-01 09:12:32');
 
 -- --------------------------------------------------------
 
@@ -827,11 +838,20 @@ INSERT INTO `cylinder_lists` (`id`, `user_id`, `cylinder_type`, `cylinder_quanti
 DROP TABLE IF EXISTS `cylinder_types`;
 CREATE TABLE IF NOT EXISTS `cylinder_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `litre` float NOT NULL,
-  `created` date NOT NULL,
-  `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `liter` varchar(255) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cylinder_types`
+--
+
+INSERT INTO `cylinder_types` (`id`, `liter`, `created`, `updated`) VALUES
+(1, '5 liter', '2021-05-31 04:26:32', '2021-06-01 06:24:46'),
+(2, '10 liter', '2021-05-31 04:26:38', '2021-06-01 06:25:04'),
+(6, '15 liter', '2021-05-31 04:30:18', '2021-06-01 06:25:17');
 
 -- --------------------------------------------------------
 
@@ -904,28 +924,34 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) NOT NULL,
   `auth_key` varchar(32) NOT NULL,
   `phone_number` bigint(10) UNSIGNED ZEROFILL NOT NULL,
-  `age` int(3) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `state` varchar(50) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `identity_proof` varchar(255) NOT NULL,
-  `aadhar_card_number` varchar(12) NOT NULL,
+  `age` int(3) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `company_name` varchar(255) DEFAULT NULL,
+  `identity_proof` varchar(255) DEFAULT NULL,
+  `identity_proof_type` varchar(255) DEFAULT NULL,
+  `aadhar_card_number` varchar(12) DEFAULT NULL,
   `account_type` varchar(255) NOT NULL,
   `status` varchar(100) NOT NULL,
-  `created` date NOT NULL,
+  `created` timestamp NOT NULL,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `auth_key`, `phone_number`, `age`, `gender`, `address`, `state`, `city`, `identity_proof`, `aadhar_card_number`, `account_type`, `status`, `created`, `updated`) VALUES
-(1, 'saurabh', 'KUHIKAR', 'saurabhkuhikar6@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'lfAtHWoljLZfoJVCiy7dcYPAvyhM_Kko', 9158991475, 23, 'male', 'old mangal wari', 'Assam', 'Nagpur', 'ration card', '123456789145', 'Supplier', 'Enabled', '2021-05-26', '2021-05-26 03:55:02'),
-(2, 'nandini', 'kose', 'nandinikose@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'pg5UaIfOOyygvOaAv49ZuzMnBHZSSHN-', 1234567890, 23, 'female', 'abcvv', 'Goa', 'Nagpur', 'abcc', '102032415285', 'Admin', 'Enabled', '2021-05-26', '2021-05-26 05:40:29'),
-(3, 'admin', 'admin', 'admin123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'MsharOM5hT4X1ro0fM0TlmzhfDEG4uJe', 1234557890, 23, 'male', 'abc', 'Assam', 'Anantapur', 'adhar', '123123123123', 'Admin', 'Enabled', '2021-05-30', '2021-05-29 20:58:35');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `auth_key`, `phone_number`, `age`, `gender`, `address`, `state`, `city`, `company_name`, `identity_proof`, `identity_proof_type`, `aadhar_card_number`, `account_type`, `status`, `created`, `updated`) VALUES
+(3, 'admin', 'admin', 'admin123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'MsharOM5hT4X1ro0fM0TlmzhfDEG4uJe', 1234557890, 23, 'male', 'abc', 'Assam', 'Anantapur', NULL, 'adhar', NULL, '123123123123', 'Admin', 'Enabled', '2021-05-29 18:30:00', '2021-05-29 20:58:35'),
+(9, 'demo', 'demo', 'demo6@gmail.com', '25f9e794323b453885f5181f1b624d0b', '9WAMM2Qa282IAl5tbXBJnd02-dHFm9Mt', 0915899147, 25, 'male', 'juni managal wairi', 'Goa', 'East Godavari / Kakinada', '', 'Driving License', '1622452604.jpg', '112255447788', 'Customer', 'Enabled', '2021-05-29 18:30:00', '2021-05-30 01:37:39'),
+(8, 'Nandini', 'Kose', 'nandinikose66@gmail.com', '23f474aef895fa9f10b9e5bb5ab804d5', 'w-QXMcD7GfvdFPA3Vudl5VTqdJIHFmwL', 0915899147, 25, 'female', 'new city', 'Maharashtra', 'Nagpur', 'Nandini o2 manufacturing company PTV', 'Pan Card', '1622452721.jpg', '124514785211', 'Supplier', 'Enabled', '2021-05-29 18:30:00', '2021-05-30 01:35:57'),
+(10, 'customer one', 'abc', 'customer1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'rFuPF-sYIwr5tDwUrpdYyF5pLE_4w9Xw', 1234514789, NULL, 'male', 'acvbnmkyy', 'Chhattisgarh', 'East Godavari / Kakinada', '', 'Driving License', NULL, '788152485214', 'Customer', 'Enabled', '2021-05-30 18:30:00', '2021-05-31 06:14:00'),
+(11, 'Jaghdhish', 'kate', 'supplier1@gmail.com', '96e79218965eb72c92a549dd5a330112', 'b1xcyB4-BR2tRwgHX3fivDZuN8IzQFaw', 1236540414, 41, 'male', 'wrfnsidfnosiuefeq', 'Maharashtra', 'Mumbai City', 'J.K oxygen supplier company ptv', 'Ration Card with address', NULL, '215478965201', 'Supplier', 'Enabled', '2021-05-31 07:16:42', '2021-05-31 07:16:42'),
+(12, 'palash', 'KUHIKAR', 'palash@gmail.com', '8b4cf0258846b23e0a8272bee22c38dd', 'Dg2OiNiSMo-Up8I5zRaExqdD8NOUQKLO', 2154789652, 18, 'male', 'ABCCJDFHUA', 'Gujarat', 'Chandigarh', 'palash oxygen cylinder company ptv', 'Passport', NULL, '214587456321', 'Supplier', 'Enabled', '2021-05-31 07:25:54', '2021-05-31 07:25:54'),
+(15, 'SAURABH', 'KUHIKAR', 'saurabhkuhikar6@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'HJS-0WbL8_wKkLVClOIsnXWjEgqJY_MZ', 0915899147, 23, 'male', 'sdihbgiwrguiwgbrubyf', 'Maharashtra', 'Nagpur', '', 'Adhaar card(UID)', NULL, '123456790214', 'Customer', 'Enabled', '2021-06-05 01:24:42', '2021-06-05 01:24:42');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
