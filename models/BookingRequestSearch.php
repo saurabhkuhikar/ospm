@@ -7,9 +7,9 @@ use yii\data\ActiveDataProvider;
 use app\models\BookingRequest;
 
 /**
- * BookingRequesttSearch represents the model behind the search form of `app\models\BookingRequest`.
+ * BookingRequestSearch represents the model behind the search form of `app\models\BookingRequest`.
  */
-class BookingRequesttSearch extends BookingRequest
+class BookingRequestSearch extends BookingRequest
 {
     /**
      * {@inheritdoc}
@@ -66,6 +66,13 @@ class BookingRequesttSearch extends BookingRequest
             'updated' => $this->updated,
         ]);
 
+        $orderStatus = $_GET['status'];
+        if($orderStatus == "Pending" || $orderStatus == "Process" || $orderStatus == "Delivered"){
+            $orderStatus = $orderStatus;
+        }else{
+            $orderStatus = Null;
+        }  
+
         // ->andFilterWhere(['like', 'supplier_id', $this->supplier_id])
         $query->andFilterWhere(['like', 'first_name', $this->first_name])
             ->andFilterWhere(['like', 'last_name', $this->last_name])
@@ -74,7 +81,7 @@ class BookingRequesttSearch extends BookingRequest
             ->andFilterWhere(['like', 'cylinder_type', $this->cylinder_type])
             ->andFilterWhere(['like', 'cylinder_quantity', $this->cylinder_quantity])
             ->andFilterWhere(['like', 'total_amount', $this->total_amount])
-            ->andFilterWhere(['like', 'order_status', $this->order_status])
+            ->andFilterWhere(['like', 'order_status', $orderStatus])
             ->andFilterWhere(['like', 'payment_id', $this->payment_id])
             ->andFilterWhere(['like', 'payment_token', $this->payment_token])
             ->andFilterWhere(['like', 'payment_status', $this->payment_status]);

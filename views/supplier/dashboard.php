@@ -19,7 +19,7 @@ $this->title = 'My Yii Application';
                     $value++;}
                   }?>  
             <h2>Pending</h2>  
-            <?= Html::a($value, ['/booking-request/index','id'=>'Pending'])?>
+            <?= Html::a($value, ['/booking-request/index','status'=>'Pending'])?>
           </div>  
         </div>
       </div>       
@@ -34,7 +34,7 @@ $this->title = 'My Yii Application';
                       $value++;
                    }
               }?> 
-               <?= Html::a($value, ['/booking-request/index','id'=>'Process'])?>
+               <?= Html::a($value, ['/booking-request/index','status'=>'Process'])?>
             </div>
           </div>
       </div>       
@@ -49,7 +49,7 @@ $this->title = 'My Yii Application';
                     $value++;
                   }}
               ?> 
-               <?= Html::a($value, ['/booking-request/index','id'=>'Delivered'])?>               
+               <?= Html::a($value, ['/booking-request/index','status'=>'Delivered'])?>               
             </div>
           </div>
       </div>       

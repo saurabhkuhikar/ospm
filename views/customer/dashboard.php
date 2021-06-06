@@ -18,7 +18,7 @@ $this->title = 'My Yii Application';
                 $count++;
               }}
             ?>
-              <?= Html::a($count, ['/cylinder-booking/index','id'=>'Pending'])?>
+              <?= Html::a($count, ['/cylinder-booking/index','status'=>'Pending'])?>
           </div>  
         </div>
       </div>       
@@ -32,7 +32,7 @@ $this->title = 'My Yii Application';
                   if(in_array("Process",$models) && in_array(Yii::$app->user->identity->id,$models)){
                     $count++;
                 }}?> 
-               <?= Html::a($count, ['/cylinder-booking/index','id'=>'Process'])?>
+               <?= Html::a($count, ['/cylinder-booking/index','status'=>'Process'])?>
             </div>
           </div>
       </div>       
@@ -48,7 +48,7 @@ $this->title = 'My Yii Application';
                    }
                 }
               ?> 
-               <?= Html::a($count, ['/cylinder-booking/index','id'=>'Delivered'])?>               
+               <?= Html::a($count, ['/cylinder-booking/index','status'=>'Delivered'])?>               
             </div>
           </div>
       </div>       

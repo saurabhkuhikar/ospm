@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\BookingRequest;
-use app\models\BookingRequesttSearch;
+use app\models\BookingRequestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,39 +35,16 @@ class BookingRequestController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new BookingRequesttSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        // Helper::checkAccess("Supplier");
+        
         if(Yii::$app->user->identity->account_type == "Supplier"){
-            if($_GET['id'] == "Pending"){                
-                $searchModel = new BookingRequesttSearch(['order_status'=>'Pending','supplier_id'=>Yii::$app->user->identity->id]);
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    ]);
-                }
-                if($_GET['id'] == "Process"){                
-                $searchModel = new BookingRequesttSearch(['order_status'=>'Process','supplier_id'=>Yii::$app->user->identity->id]);
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    ]);
-                }
-                if($_GET['id'] == "Delivered"){                
-                $searchModel = new BookingRequesttSearch(['order_status'=>'Delivered','supplier_id'=>Yii::$app->user->identity->id]);
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    ]);
-                }
-        }
-        // return $this->render('index', [
-        //     'searchModel' => $searchModel,
-        //     'dataProvider' => $dataProvider,
-        // ]);
+            $searchModel = new BookingRequestSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider]);    
+        }else{
+            throw new \yii\web\NotFoundHttpException('You are not authorised to access this page.');
+        } 
     }
 
     /**
@@ -115,7 +92,10 @@ class BookingRequestController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        // echo "<pre>";
+        // print_r($model->getErrors());
+        // echo "</pre>";
+        // die();
         return $this->render('update', [
             'model' => $model,
         ]);
