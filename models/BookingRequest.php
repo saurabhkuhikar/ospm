@@ -46,7 +46,7 @@ class BookingRequest extends \yii\db\ActiveRecord
             [['first_name', 'last_name', 'cylinder_type', 'order_status', 'payment_id', 'payment_token', 'payment_status'], 'string', 'max' => 255],
             [['customer_id', 'supplier_id'], 'string', 'max' => 3],
             [['covid_test_result', 'cylinder_quantity'], 'string', 'max' => 20],
-            [['total_amount'], 'string', 'max' => 10],
+            [['total_amount'], 'number', 'max' => 10],
         ];
     }
 

@@ -35,7 +35,7 @@ $this->title = 'Cylinder Bookings';
                             //'covid_test_date',
                             'cylinder_type',
                             'cylinder_quantity',
-                            //'total_amount',
+                            'total_amount',
                             'order_date',
                             'order_status',
                             //'payment_id',

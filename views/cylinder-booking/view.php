@@ -12,7 +12,8 @@ $this->title = $model->id;
 // \yii\web\YiiAsset::register($this);
 ?>
 <div class="cylinder-booking-view">
-    <p>
+
+    <!-- <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -21,7 +22,7 @@ $this->title = $model->id;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p> -->
 
     <?= DetailView::widget([
         'model' => $model,
@@ -35,7 +36,7 @@ $this->title = $model->id;
             'covid_test_date',
             'cylinder_type',
             'cylinder_quantity',
-            // 'total_amount',
+            'total_amount',
             // 'order_date',
             // 'order_status',
             // 'payment_id',

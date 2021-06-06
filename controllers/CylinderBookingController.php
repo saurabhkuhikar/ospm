@@ -89,30 +89,38 @@ class CylinderBookingController extends Controller
     public function actionCreate()
     {
         if (!Yii::$app->user->isGuest){
-
-            $model = new CylinderBooking();
-            
-            if ($model->load(Yii::$app->request->post())) {
-                $model->customer_id = \Yii::$app->user->identity->id;
-                $model->supplier_id = $_GET['id'];
-
-                $query = (new \yii\db\Query())->select(['user_id','cylinder_quantity','cylinder_price'])
-                        ->from('cylinder_lists')->where(['user_id' => $_GET['id']]);
-                $command = $query->createCommand();
-                $models = $command->queryAll();
-                print_r($models);
+            if(isset($_GET['id'])){
+                $model = new CylinderBooking();            
+                if ($model->load(Yii::$app->request->post())) {
+                    $model->customer_id = \Yii::$app->user->identity->id;
+                    $model->supplier_id = $_GET['id'];
+                    
+                    // return $this->render('/customer/dashboard',['model' => $model]);            
+                    $query = (new \yii\db\Query())->select(['user_id','cylinder_type','cylinder_quantity','cylinder_price'])
+                            ->from('cylinder_lists')->where(['user_id' => $_GET['id']]);
+                    $command = $query->createCommand();
+                    $models = $command->queryAll();
+                    // print_r($models);
+                    foreach($models as $values){
+                        if($_GET['id'] === $values['user_id']){  
+                            if($model->cylinder_type === $values['cylinder_type']){
+                                // print_r($values['cylinder_price']);
+                                $totalPrice = $values['cylinder_price'] * $model->cylinder_quantity;
+                                // print_r($totalPrice);
+                                $model->total_amount = $values['cylinder_price'] * $model->cylinder_quantity;
+                            }
+                        }
+                    }
                 
-        
-                // return $this->render('/customer/dashboard',['model' => $model]);            
-                if($model->save()){
-                    return $this->redirect(['view','id' => $model->id]);
+                    if($model->save()){
+                        return $this->redirect(['view','id' => $model->id]);
+                    }
                 }
             }
-
             return $this->render('create', [
                 'model' => $model,
             ]);
-            }
+        }
         return $this->redirect(['account/login']);
     }
 

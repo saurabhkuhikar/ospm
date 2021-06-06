@@ -11,7 +11,6 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 
 ?>
-
 <div class="cylinder-booking-form">
     <?php $form = ActiveForm::begin(); ?>
         <div class="col-md-2"></div>
