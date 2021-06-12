@@ -64,7 +64,6 @@ class CylinderListSearch extends CylinderList
             'updated' => $this->updated,
         ]);
 
-        // $query->andFilterWhere(['like', 'user_id', $this->user_id])
         $query->andFilterWhere(['like', 'cylinder_type', $this->cylinder_type])
             ->andFilterWhere(['like', 'cylinder_quantity', $this->cylinder_quantity])
             ->andFilterWhere(['like', 'cylinder_price', $this->cylinder_price]);

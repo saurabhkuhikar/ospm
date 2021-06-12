@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
 use app\models\BookingRequest;
 use app\models\BookingRequestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\components\Helper;
 
 /**
  * BookingRequestController implements the CRUD actions for BookingRequest model.
@@ -20,6 +22,17 @@ class BookingRequestController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['Index','View','Create','Update','Delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,7 +49,7 @@ class BookingRequestController extends Controller
     public function actionIndex()
     {
         // Helper::checkAccess("Supplier");
-        
+        Helper :: checkLogin();     
         if(Yii::$app->user->identity->account_type == "Supplier"){
             $searchModel = new BookingRequestSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -67,15 +80,17 @@ class BookingRequestController extends Controller
      */
     public function actionCreate()
     {
+        Helper::checkLogin();      
         $model = new BookingRequest();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()){
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
+        }        
     }
 
     /**
@@ -87,15 +102,13 @@ class BookingRequestController extends Controller
      */
     public function actionUpdate($id)
     {
+        Helper :: checkLogin();
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()){
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        // echo "<pre>";
-        // print_r($model->getErrors());
-        // echo "</pre>";
-        // die();
+       
         return $this->render('update', [
             'model' => $model,
         ]);

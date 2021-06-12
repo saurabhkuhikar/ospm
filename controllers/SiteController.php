@@ -10,7 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\User;
-use app\controller\HomeController;
+use app\components\Helper;
 
 class SiteController extends Controller
 {
@@ -25,7 +25,7 @@ class SiteController extends Controller
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout','login','index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -34,7 +34,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['POST'],
                 ],
             ],
         ];
@@ -63,16 +63,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+         
         Yii::$app->session->setFlash('login_first', "Please login first and then place the order");
         $query = (new \yii\db\Query())->select(['company_name','id'])->from('users')->where(['account_type' => ['Supplier']]);
         $command = $query->createCommand();
-        $data = $command->queryAll();
-        $model = $data;
+        $supplier_table = $command->queryAll();
+
         $query = (new \yii\db\Query())->select(['user_id','cylinder_type','cylinder_quantity'])->from('cylinder_lists');
         $command = $query->createCommand();
-        $data = $command->queryAll();
+        $cylinder_list = $command->queryAll();
         
-      return $this->render('index',['model'=>$model,'data'=>$data]);
+            
+      return $this->render('index',['cylinder_list'=>$cylinder_list,'supplier_table'=>$supplier_table]);
     }
 
     /**

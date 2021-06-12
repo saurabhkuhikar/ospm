@@ -13,6 +13,9 @@ $config = [
         '@homeUrl' => 'http://localhost:8080'
     ],
     'components' => [
+        'Helper' =>[
+            'class' => 'app\components\Helper',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '-orF3y0T_PLNlWzRDZAtSefebcUgm_ly',

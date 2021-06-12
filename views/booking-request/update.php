@@ -6,9 +6,6 @@ use yii\helpers\Html;
 /* @var $model app\models\BookingRequest */
 
 $this->title = 'Update Booking Request: ' . $model->id;
-// $this->params['breadcrumbs'][] = ['label' => 'Booking Requests', 'url' => ['index']];
-// $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-// $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="booking-request-update">
 

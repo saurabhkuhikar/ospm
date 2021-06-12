@@ -13,6 +13,7 @@ use app\models\CustomerSignupForm;
 use app\models\SupplierSignupForm;
 use app\models\LoginForm;
 use app\models\Profile;
+use app\components\Helper;
 
 /**
  * OsmpController implements the CRUD actions for Users model.
@@ -30,7 +31,7 @@ class AccountController extends Controller
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout','dashboard','profile'],
+                        'actions' => ['login','logout','SupplierSignup','CustomerSignup','ForgotPassword'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

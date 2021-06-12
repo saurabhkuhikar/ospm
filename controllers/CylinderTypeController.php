@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
 use app\models\CylinderType;
 use app\models\CylinderTypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\components\Helper;
 
 /**
  * CylinderTypeController implements the CRUD actions for CylinderType model.
@@ -20,10 +22,21 @@ class CylinderTypeController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['login'],
+                'rules' => [
+                    [
+                        'actions' => ['Index','View','Create','Update','Delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'logout' => ['POST'],
                 ],
             ],
         ];

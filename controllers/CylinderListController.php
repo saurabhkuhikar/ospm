@@ -3,23 +3,36 @@
 namespace app\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
 use app\models\CylinderList;
 use app\models\CylinderListSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\components\Helper;
 
 /**
  * CylinderListController implements the CRUD actions for CylinderList model.
  */
 class CylinderListController extends Controller
 {
-    /**
+   /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['Index','View','Create','Update','Delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

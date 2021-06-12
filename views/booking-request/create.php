@@ -7,7 +7,6 @@ use yii\helpers\Html;
 
 $this->title = 'Create Booking Request';
 $this->params['breadcrumbs'][] = ['label' => 'Booking Requests', 'url' => ['index']];
-// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="booking-request-create">
 

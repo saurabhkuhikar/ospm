@@ -23,8 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= Yii::$app->session->getFlash('success') ?>
                     </div>
                 <?php endif; ?>
-                <?php $form = ActiveForm::begin(['id' => 'register-form']); ?>
-                    
+                <?php $form = ActiveForm::begin(['id' => 'register-form']); ?>                    
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">

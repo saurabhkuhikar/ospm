@@ -23,31 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'customer_id') ?>
 
-    <?= $form->field($model, 'supplier_id') ?>
-
-    <?php // echo $form->field($model, 'covid_test_result') ?>
-
-    <?php // echo $form->field($model, 'covid_test_date') ?>
-
-    <?php // echo $form->field($model, 'cylinder_type') ?>
-
-    <?php // echo $form->field($model, 'cylinder_quantity') ?>
-
-    <?php // echo $form->field($model, 'total_amount') ?>
-
-    <?php // echo $form->field($model, 'order_date') ?>
-
-    <?php // echo $form->field($model, 'order_status') ?>
-
-    <?php // echo $form->field($model, 'payment_id') ?>
-
-    <?php // echo $form->field($model, 'payment_token') ?>
-
-    <?php // echo $form->field($model, 'payment_status') ?>
-
-    <?php // echo $form->field($model, 'created') ?>
-
-    <?php // echo $form->field($model, 'updated') ?>
+    <?= $form->field($model, 'supplier_id') ?>    
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

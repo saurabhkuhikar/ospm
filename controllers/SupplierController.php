@@ -10,26 +10,47 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Profile;
 use yii\web\UploadedFile;
+use app\components\Helper;
 
 class SupplierController extends \yii\web\Controller
-{
-    
-    
+{    
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['logout','dashboard','profile'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
     
     /* dashboard view*/
     public function actionDashboard()
     {
-        if (!Yii::$app->user->isGuest){ 
-            if(Yii::$app->user->identity->account_type == "Supplier"){
-                $query = (new \yii\db\Query())->select(['order_status','supplier_id'])->from('cylinder_bookings');
-                $command = $query->createCommand();
-                $model = $command->queryAll();
-                return $this->render('/supplier/dashboard',['model' => $model]);
-            }
-       }
-       return $this->redirect(['account/login']);
+        Helper::checkLogin();
+        Helper::checkAccess("Supplier");
         
-           
+        $query = (new \yii\db\Query())->select(['order_status','supplier_id'])->from('cylinder_bookings');
+        $command = $query->createCommand();
+        $supplierDashboard = $command->queryAll();                
+        return $this->render('/supplier/dashboard',['supplierDashboard' => $supplierDashboard]);
+                   
     }  
     /* Profile of supplier */
     public function actionProfile()

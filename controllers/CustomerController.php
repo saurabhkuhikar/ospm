@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Profile;
 use yii\web\UploadedFile;
+use app\components\Helper;
 
 class CustomerController extends \yii\web\Controller
 {
@@ -42,19 +43,19 @@ class CustomerController extends \yii\web\Controller
     }
 
      /* dashboard view*/
-     public function actionDashboard()
-     {
-       if (!Yii::$app->user->isGuest){ 
-            if(Yii::$app->user->identity->account_type == "Customer"){
-                $query = (new \yii\db\Query())->select(['order_status','customer_id'])->from('cylinder_bookings');
-                $command = $query->createCommand();
-                $model = $command->queryAll();
-                return $this->render('/customer/dashboard',['model' => $model]);
-            }
-       }
-       return $this->redirect(['account/login']);
-           
-     }  
+    public function actionDashboard()
+    {
+        Helper :: checkLogin();
+       
+        $query = (new \yii\db\Query())->select(['order_status','customer_id'])->from('cylinder_bookings');
+        $command = $query->createCommand();
+        $cylinder_booking = $command->queryAll();
+        return $this->render('/customer/dashboard',['cylinder_booking' => $cylinder_booking]);
+          
+        
+    }  
+
+
     /* Profile of supplier */
     public function actionProfile()
     {
@@ -62,7 +63,7 @@ class CustomerController extends \yii\web\Controller
         $model->setScenario('updateProfile');
         $indentityPic = (isset($model->identity_proof_type) && !empty($model->identity_proof_type))? $model->identity_proof_type : Null;
 
-        if ($model->load(Yii::$app->request->post())) {
+        if($model->load(Yii::$app->request->post())){
 
             $indentityPictureObject = UploadedFile::getInstance($model,'identity_proof_type');
 

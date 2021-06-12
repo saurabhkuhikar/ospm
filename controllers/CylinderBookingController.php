@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
 use app\models\CylinderBooking;
 use app\models\CylinderBookingSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\components\Helper;
 
 /**
  * CylinderBookingController implements the CRUD actions for CylinderBooking model.
@@ -20,10 +22,21 @@ class CylinderBookingController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['Index','View','Create','Update','Delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'logout' => ['POST'],
                 ],
             ],
         ];
@@ -35,37 +48,13 @@ class CylinderBookingController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CylinderBookingSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        // // print_r($_GET['id']);
-        if($_GET['id'] == "Pending"){                
-           $searchModel = new CylinderBookingSearch(['order_status'=>'Pending','customer_id'=>Yii::$app->user->identity->id]);
-           $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-           return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            ]);
-        }
-        if($_GET['id'] == "Process"){                
-           $searchModel = new CylinderBookingSearch(['order_status'=>'Process','customer_id'=>Yii::$app->user->identity->id]);
-           $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-           return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            ]);
-        }
-        if($_GET['id'] == "Delivered"){                
-           $searchModel = new CylinderBookingSearch(['order_status'=>'Delivered','customer_id'=>Yii::$app->user->identity->id]);
-           $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-           return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            ]);
-        }
-        // return $this->render('index', [
-        //     'searchModel' => $searchModel,
-        //     'dataProvider' => $dataProvider,
-        // ]);
+            if(Yii::$app->user->identity->account_type == "Customer"){
+            $searchModel = new CylinderBookingSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);        
+            return $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider]);    
+        }else{
+            throw new \yii\web\NotFoundHttpException('You are not authorised to access this page.');
+        } 
     }
 
     /**
@@ -89,25 +78,21 @@ class CylinderBookingController extends Controller
     public function actionCreate()
     {
         if (!Yii::$app->user->isGuest){
-            if(isset($_GET['id'])){
+            if(isset($_GET['status'])){
                 $model = new CylinderBooking();            
                 if ($model->load(Yii::$app->request->post())) {
                     $model->customer_id = \Yii::$app->user->identity->id;
-                    $model->supplier_id = $_GET['id'];
+                    $model->supplier_id = $_GET['status'];
                     
-                    // return $this->render('/customer/dashboard',['model' => $model]);            
                     $query = (new \yii\db\Query())->select(['user_id','cylinder_type','cylinder_quantity','cylinder_price'])
-                            ->from('cylinder_lists')->where(['user_id' => $_GET['id']]);
+                            ->from('cylinder_lists')->where(['user_id' => $_GET['status']]);
                     $command = $query->createCommand();
-                    $models = $command->queryAll();
-                    // print_r($models);
-                    foreach($models as $values){
-                        if($_GET['id'] === $values['user_id']){  
-                            if($model->cylinder_type === $values['cylinder_type']){
-                                // print_r($values['cylinder_price']);
-                                $totalPrice = $values['cylinder_price'] * $model->cylinder_quantity;
-                                // print_r($totalPrice);
-                                $model->total_amount = $values['cylinder_price'] * $model->cylinder_quantity;
+                    $cylinder_lists = $command->queryAll();
+                    foreach($cylinder_lists as $cylinder_list){
+                        if($_GET['status'] === $cylinder_list['user_id']){  
+                            if($model->cylinder_type === $cylinder_list['cylinder_type']){
+                                $totalPrice = $cylinder_list['cylinder_price'] * $model->cylinder_quantity;
+                                $model->total_amount = $cylinder_list['cylinder_price'] * $model->cylinder_quantity;
                             }
                         }
                     }
@@ -116,10 +101,13 @@ class CylinderBookingController extends Controller
                         return $this->redirect(['view','id' => $model->id]);
                     }
                 }
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
             }
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            else{
+                throw new \yii\web\NotFoundHttpException('You are not authorised to access this page.');
+            } 
         }
         return $this->redirect(['account/login']);
     }

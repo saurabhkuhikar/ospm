@@ -60,7 +60,7 @@ class CylinderBookingSearch extends CylinderBooking
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'customer_id'=>$this->customer_id, 
+            'customer_id'=>\Yii::$app->user->identity->id,
             'supplier_id'=> $this->supplier_id, 
             'covid_test_date' => $this->covid_test_date,
             'order_date' => $this->order_date,
@@ -75,7 +75,6 @@ class CylinderBookingSearch extends CylinderBooking
             $orderStatus = Null;
         }
 
-        // ->andFilterWhere(['like', 'customer_id', $this->customer_id])
         $query->andFilterWhere(['like', 'first_name', $this->first_name])
             ->andFilterWhere(['like', 'last_name', $this->last_name])
             ->andFilterWhere(['like', 'supplier_id', $this->supplier_id])
