@@ -9,7 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-
+use app\components\Helper;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -66,7 +66,7 @@ AppAsset::register($this);
                         <li><a href="/account/customer-signup">Customer SignUp</a></li>
                         <li><a href="/account/supplier-signup">Supplier SignUp</a></li>
                         <li><a href="/account/login">Login</a></li>
-                    <?php } ?>                    
+                    <?php }?>                    
                 </ul>
             </div>
         </div>

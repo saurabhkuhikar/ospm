@@ -63,7 +63,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-         
+        Helper::checkLogin();
         Yii::$app->session->setFlash('login_first', "Please login first and then place the order");
         $query = (new \yii\db\Query())->select(['company_name','id'])->from('users')->where(['account_type' => ['Supplier']]);
         $command = $query->createCommand();

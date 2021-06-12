@@ -77,20 +77,20 @@ class CylinderListController extends Controller
      */
     public function actionCreate()
     {
-        if (!Yii::$app->user->isGuest){
-            $model = new CylinderList();
+        Helper :: checkLogin();
+        $model = new CylinderList();
 
-            if ($model->load(Yii::$app->request->post())) {
-                $model->user_id = \Yii::$app->user->identity->id;
-                if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
-                }
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Helper::getID();
+            if($model->save()){
+            return $this->redirect(['view', 'id' => $model->id]);
             }
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-            }
-        return $this->redirect(['account/login']);
+        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    
+        // return $this->redirect(['account/login']);
     }
 
     /**
@@ -105,7 +105,7 @@ class CylinderListController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_id = \Yii::$app->user->identity->id;
+            $model->user_id = Helper::getID();
            if($model->save()){
                return $this->redirect(['view', 'id' => $model->id]);
            }

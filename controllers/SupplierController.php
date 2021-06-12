@@ -45,16 +45,32 @@ class SupplierController extends \yii\web\Controller
     {
         Helper::checkLogin();
         // Helper::checkAccess("Supplier");                
+        $Pending = 0;
+        $Process = 0;
+        $Delivered = 0;
+        
         $query = (new \yii\db\Query())->select(['order_status','supplier_id'])->from('cylinder_bookings');
         $command = $query->createCommand();
-        $supplierDashboard = $command->queryAll();                
-        return $this->render('/supplier/dashboard',['supplierDashboard' => $supplierDashboard]);
+        $supplier_dashboard = $command->queryAll();  
+        foreach($supplier_dashboard as $supplier_dashboards){
+            if(in_array("Pending",$supplier_dashboards) && in_array(Helper::getID(),$supplier_dashboards)){
+                $Pending++;
+            }  
+            if(in_array("Process",$supplier_dashboards) && in_array(Helper::getID(),$supplier_dashboards)){
+                $Process++;
+            } 
+            if(in_array("Delivered",$supplier_dashboards) && in_array(Helper::getID(),$supplier_dashboards)){
+                $Delivered++;
+            }
+        }
+        
+        return $this->render('/supplier/dashboard',['Pending'=>$Pending , 'Process'=>$Process,'Delivered'=>$Delivered]);
                    
     }  
     /* Profile of supplier */
     public function actionProfile()
     {
-        $model = $this->findProfile(Yii::$app->user->identity->id); 
+        $model = $this->findProfile(Helper::getID()); 
         $model->setScenario('updateProfile');
         
         $indentityPic = (isset($model->identity_proof_type) && !empty($model->identity_proof_type))? $model->identity_proof_type : Null;

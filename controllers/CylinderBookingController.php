@@ -77,11 +77,11 @@ class CylinderBookingController extends Controller
      */
     public function actionCreate()
     {
-        if (!Yii::$app->user->isGuest){
+        Helper::checkLogin();
             if(isset($_GET['status'])){
                 $model = new CylinderBooking();            
                 if ($model->load(Yii::$app->request->post())) {
-                    $model->customer_id = \Yii::$app->user->identity->id;
+                    $model->customer_id = Helper::getID();
                     $model->supplier_id = $_GET['status'];
                     
                     $query = (new \yii\db\Query())->select(['user_id','cylinder_type','cylinder_quantity','cylinder_price'])
@@ -108,7 +108,7 @@ class CylinderBookingController extends Controller
             else{
                 throw new \yii\web\NotFoundHttpException('You are not authorised to access this page.');
             } 
-        }
+        
         return $this->redirect(['account/login']);
     }
 
@@ -124,7 +124,7 @@ class CylinderBookingController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->customer_id = \Yii::$app->user->identity->id;           
+            $model->customer_id = Helper::getID();           
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }

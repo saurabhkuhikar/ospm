@@ -77,18 +77,17 @@ class CylinderTypeController extends Controller
      */
     public function actionCreate()
     {
-        if (!Yii::$app->user->isGuest){ 
-            $model = new CylinderType();
+        Helper::checkLogin();  
+        $model = new CylinderType();
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
-        return $this->redirect(['account/login']);
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);        
+        // return $this->redirect(['account/login']);
     }
 
     /**

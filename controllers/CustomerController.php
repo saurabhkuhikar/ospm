@@ -44,22 +44,35 @@ class CustomerController extends \yii\web\Controller
 
      /* dashboard view*/
     public function actionDashboard()
-    {
+    {   
         Helper :: checkLogin();
+        $Pending = 0;
+        $Process = 0;
+        $Delivered = 0;
         // Helper::checkAccess("Customer"); 
         $query = (new \yii\db\Query())->select(['order_status','customer_id'])->from('cylinder_bookings');
         $command = $query->createCommand();
         $cylinder_booking = $command->queryAll();
-        return $this->render('/customer/dashboard',['cylinder_booking' => $cylinder_booking]);
-          
-        
+        foreach($cylinder_booking as $cylinder_bookings){
+            if(in_array("Pending",$cylinder_bookings) && in_array(Helper::getID(),$cylinder_bookings)){
+                $Pending++;
+            }  
+            if(in_array("Process",$cylinder_bookings) && in_array(Helper::getID(),$cylinder_bookings)){
+                $Process++;
+            } 
+            if(in_array("Delivered",$cylinder_bookings) && in_array(Helper::getID(),$cylinder_bookings)){
+                $Delivered++;
+            }
+        }
+        return $this->render('/customer/dashboard',['Pending'=>$Pending , 'Process'=>$Process,'Delivered'=>$Delivered]);
+                 
     }  
 
 
     /* Profile of supplier */
     public function actionProfile()
     {
-        $model = $this->findProfile(Yii::$app->user->identity->id); 
+        $model = $this->findProfile(Helper::getID()); 
         $model->setScenario('updateProfile');
         $indentityPic = (isset($model->identity_proof_type) && !empty($model->identity_proof_type))? $model->identity_proof_type : Null;
 
