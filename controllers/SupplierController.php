@@ -44,8 +44,7 @@ class SupplierController extends \yii\web\Controller
     public function actionDashboard()
     {
         Helper::checkLogin();
-        Helper::checkAccess("Supplier");
-        
+        // Helper::checkAccess("Supplier");                
         $query = (new \yii\db\Query())->select(['order_status','supplier_id'])->from('cylinder_bookings');
         $command = $query->createCommand();
         $supplierDashboard = $command->queryAll();                

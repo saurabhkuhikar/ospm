@@ -52,7 +52,7 @@ class Profile extends \yii\db\ActiveRecord
             [['auth_key'], 'string', 'max' => 32],
             [['first_name','last_name'], 'match', 'pattern' => '/^[a-zA-Z_ ]*$/', 'message' => 'Only alphabetic characters allowed'],
             ['phone_number', 'match', 'pattern' =>'/^[0-9]{10}$/','message' => 'Phone Number Must be Exactly 10 Digit.'],
-            ['aadhar_card_number', 'match', 'pattern' =>'/^[0-9]{12}$/','message' => 'Adharcard Number Must be Exactly 12 Digit.'],
+            ['aadhar_card_number', 'match', 'pattern' =>'/^[0-9]{12}$/','message' => 'Adhar card Number Must be Exactly 12 Digit.'],
         ];
     }
    

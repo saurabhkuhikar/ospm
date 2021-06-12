@@ -90,7 +90,7 @@ class BookingRequestController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
-        }        
+                
     }
 
     /**

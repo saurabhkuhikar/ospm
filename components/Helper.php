@@ -21,24 +21,23 @@ class Helper extends Component {
   public static function dd($arg){
     echo "<pre>";
     print_r($arg);
-    echo "</pre>";
-    die();
+    echo "</pre>";   
   }
   public static function checkAccess($type){
 
     if(Yii::$app->user->identity->account_type == $type && $type == "Customer"){
-      Yii::$app->controller->redirect('dashboard'); 
+      return Yii::$app->controller->redirect(['customer/dashboard']); 
     }
   
     if(Yii::$app->user->identity->account_type == $type && $type == "Supplier"){
-      return Yii::$app->getResponse()->redirect('dashboard');
+      return Yii::$app->controller->redirect(['supplier/dashboard']);
       
     }
     
   }
 
   public static function checkLogin(){
-    if (Yii::$app->user->isGuest) {     
+    if (Yii::$app->user->isGuest){     
       return $this->redirect(['account/login']); 
     }      
   }

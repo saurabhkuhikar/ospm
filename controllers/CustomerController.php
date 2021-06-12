@@ -46,7 +46,7 @@ class CustomerController extends \yii\web\Controller
     public function actionDashboard()
     {
         Helper :: checkLogin();
-       
+        // Helper::checkAccess("Customer"); 
         $query = (new \yii\db\Query())->select(['order_status','customer_id'])->from('cylinder_bookings');
         $command = $query->createCommand();
         $cylinder_booking = $command->queryAll();
