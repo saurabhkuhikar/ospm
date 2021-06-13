@@ -14,6 +14,7 @@ $this->title = 'Cylinder Booking';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'status' => $status
     ]) ?>
 
 </div>

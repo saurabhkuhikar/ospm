@@ -141,3 +141,6 @@ a.desc:after {
 .cylinder-booking-form{
     margin-top: 100px;
 }
+.quantity-error{
+    color: #a94442;
+}

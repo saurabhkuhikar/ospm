@@ -66,6 +66,7 @@ use kartik\select2\Select2;
                     <div class="row">
                         <div class="col-md-6">
                             <?= $form->field($model, 'total_amount')->textInput(['readOnly'=>true,'maxlength' => true]) ?>
+                            <?= $form->field($model, 'token')->hiddenInput(['readOnly'=>true,'maxlength' => true,'value' => $status])->label(false) ?>
                         </div>        
                         <div class="col-md-6">
                             <?= $form->field($model, 'order_date')->widget(DatePicker::className(),

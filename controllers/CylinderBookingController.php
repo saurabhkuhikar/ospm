@@ -75,31 +75,22 @@ class CylinderBookingController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($status)
     {        
-        $decodedId = base64_decode($_GET['status']);
-        if(isset($decodedId)){  
-            $model = new CylinderBooking();            
-            if ($model->load(Yii::$app->request->post())) {
-                $model->customer_id = Helper::getCurrentUserId();
-                $model->supplier_id = $decodedId;
-                
-                $cylinderLists = CylinderList::find()->where(['user_id' => $decodedId,'cylinder_type' => $model->cylinder_type])->one();
-                $model->total_amount = $cylinderLists->cylinder_price * $model->cylinder_quantity;
+        $model = new CylinderBooking();            
+        if ($model->load(Yii::$app->request->post())) {
+            $model->customer_id = Helper::getCurrentUserId();
+            $model->supplier_id = $decodedId;
             
-                    if($model->save()){
-                        return $this->redirect(['view','id' => $model->id]);
-                    }
-                }
-                return $this->render('create', [
-                    'model' => $model,
-                ]);
+            $cylinderLists = CylinderList::find()->where(['user_id' => $decodedId,'cylinder_type' => $model->cylinder_type])->one();
+            $model->total_amount = $cylinderLists->cylinder_price * $model->cylinder_quantity;
+
+            if($model->save()){
+                return $this->redirect(['view','id' => $model->id]);
             }
-            else{
-                throw new \yii\web\NotFoundHttpException('You are not authorised to access this page.');
-            } 
+        }
         
-        return $this->redirect(['account/login']);
+        return $this->render('create', ['model' => $model,'status' => $status]);         
     }
 
     /**
@@ -150,5 +141,17 @@ class CylinderBookingController extends Controller
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionBillAmount(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            
+            //Helper::dd($data);
+
+            $totalAmount = 10*10;
+            return json_encode(['status'=>200,'totalAmount'=>$totalAmount]);
+        }
     }
 }

@@ -27,6 +27,7 @@ use Yii;
  */
 class CylinderBooking extends \yii\db\ActiveRecord
 {
+    public $token;
     /**
      * {@inheritdoc}
      */
