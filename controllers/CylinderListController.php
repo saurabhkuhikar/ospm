@@ -24,10 +24,10 @@ class CylinderListController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout','index','view','create','update'],
                 'rules' => [
                     [
-                        'actions' => ['Index','View','Create','Update','Delete'],
+                        'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -77,11 +77,11 @@ class CylinderListController extends Controller
      */
     public function actionCreate()
     {
-        Helper :: checkLogin();
+        
         $model = new CylinderList();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_id = Helper::getID();
+            $model->user_id = Helper::getCurrentUserId();
             if($model->save()){
             return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -105,7 +105,7 @@ class CylinderListController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->user_id = Helper::getID();
+            $model->user_id = Helper::getCurrentUserId();
            if($model->save()){
                return $this->redirect(['view', 'id' => $model->id]);
            }

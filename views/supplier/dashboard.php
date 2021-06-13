@@ -11,7 +11,7 @@ $this->title = 'My Yii Application';
       <div class="panel panel-primary">
         <div class="panel-body">                 
           <h2>Pending</h2>  
-          <?= Html::a($Pending, ['/booking-request/index','status'=>'Pending'])?>
+          <?= Html::a($statuswiseCounting['pending'], ['/booking-request/index','status'=>'Pending'])?>
         </div>  
       </div>
     </div>       
@@ -19,7 +19,7 @@ $this->title = 'My Yii Application';
         <div class="panel panel-primary">
           <div class="panel-body">               
             <h2>Process</h2>
-              <?= Html::a($Process, ['/booking-request/index','status'=>'Process'])?>
+              <?= Html::a($statuswiseCounting['process'], ['/booking-request/index','status'=>'Process'])?>
           </div>
         </div>
     </div>       
@@ -27,7 +27,7 @@ $this->title = 'My Yii Application';
         <div class="panel panel-primary">
           <div class="panel-body"> 
             <h2>Delivered</h2>            
-              <?= Html::a($Delivered, ['/booking-request/index','status'=>'Delivered'])?>               
+              <?= Html::a($statuswiseCounting['delivered'], ['/booking-request/index','status'=>'Delivered'])?>               
           </div>
         </div>
     </div>       

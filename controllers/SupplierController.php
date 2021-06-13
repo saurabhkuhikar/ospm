@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\Profile;
 use yii\web\UploadedFile;
 use app\components\Helper;
+use app\models\BookingRequest;
 
 class SupplierController extends \yii\web\Controller
 {    
@@ -22,7 +23,7 @@ class SupplierController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout','dashboard','profile'],
                 'rules' => [
                     [
                         'actions' => ['logout','dashboard','profile'],
@@ -42,35 +43,22 @@ class SupplierController extends \yii\web\Controller
     
     /* dashboard view*/
     public function actionDashboard()
-    {
-        Helper::checkLogin();
-        // Helper::checkAccess("Supplier");                
-        $Pending = 0;
-        $Process = 0;
-        $Delivered = 0;
-        
-        $query = (new \yii\db\Query())->select(['order_status','supplier_id'])->from('cylinder_bookings');
-        $command = $query->createCommand();
-        $supplier_dashboard = $command->queryAll();  
-        foreach($supplier_dashboard as $supplier_dashboards){
-            if(in_array("Pending",$supplier_dashboards) && in_array(Helper::getID(),$supplier_dashboards)){
-                $Pending++;
-            }  
-            if(in_array("Process",$supplier_dashboards) && in_array(Helper::getID(),$supplier_dashboards)){
-                $Process++;
-            } 
-            if(in_array("Delivered",$supplier_dashboards) && in_array(Helper::getID(),$supplier_dashboards)){
-                $Delivered++;
-            }
+    {        
+        Helper::checkAccess("Supplier");
+        $statuswiseCounting = ['pending' => 0,'process' => 0,'delivered' => 0];       
+        $bookingRequests = BookingRequest::find()->where(['supplier_id' => Helper::getCurrentUserId()])->all();
+
+        foreach($bookingRequests as $bookingRequest){
+            $statuswiseCounting[strtolower($bookingRequest->order_status)] = $statuswiseCounting[strtolower($bookingRequest->order_status)] + 1;
         }
-        
-        return $this->render('/supplier/dashboard',['Pending'=>$Pending , 'Process'=>$Process,'Delivered'=>$Delivered]);
-                   
+        return $this->render('/supplier/dashboard',['statuswiseCounting'=>$statuswiseCounting]);                   
     }  
+
+
     /* Profile of supplier */
     public function actionProfile()
     {
-        $model = $this->findProfile(Helper::getID()); 
+        $model = $this->findProfile(Helper::getCurrentUserId()); 
         $model->setScenario('updateProfile');
         
         $indentityPic = (isset($model->identity_proof_type) && !empty($model->identity_proof_type))? $model->identity_proof_type : Null;

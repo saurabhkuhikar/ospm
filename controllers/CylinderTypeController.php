@@ -24,10 +24,10 @@ class CylinderTypeController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['login'],
+                'only' => ['login','index','view','create','update',],
                 'rules' => [
                     [
-                        'actions' => ['Index','View','Create','Update','Delete'],
+                        'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -77,7 +77,7 @@ class CylinderTypeController extends Controller
      */
     public function actionCreate()
     {
-        Helper::checkLogin();  
+        
         $model = new CylinderType();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -99,6 +99,7 @@ class CylinderTypeController extends Controller
      */
     public function actionUpdate($id)
     {
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

@@ -40,19 +40,16 @@ AppAsset::register($this);
                 <ul id="w1" class="navbar-nav navbar-right nav">                  
                   
                     <?php if (!Yii::$app->user->isGuest){ 
-                        if(Yii::$app->user->identity->account_type == "Customer"){?>
-                        <li><a href="/site/index">Home</a></li>    
-                        <li><a href="/customer/dashboard">Dashboard</a></li>
-                        <li><a href="/customer/profile">My Profile</a></li>  
-                        <?php }if(Yii::$app->user->identity->account_type == "Supplier")
-                        {
-                            ?>
+                        $accountType = Yii::$app->user->identity->account_type;
+                        if($accountType == "Customer"){?>
+                            <li><a href ="/site/index">Home</a></li>    
+                            <li><a href ="/customer/dashboard">Dashboard</a></li>
+                            <li><a href ="/customer/profile">My Profile</a></li>  
+                        <?php }if($accountType == "Supplier"){ ?>
                             <li><a href="/cylinder-list/index">Cylinder List</a></li>  
                             <li><a href="/supplier/dashboard">Dashboard</a></li>
                             <li><a href="/supplier/profile">My Profile</a></li>  
-                        <?php                                            
-                        }
-                        ?>                                           
+                        <?php } ?>                                           
                         <li> 
                             <form action="<?= Yii::getAlias('@homeUrl') .'/site/logout';?>" method="post">
                                 <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">

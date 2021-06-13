@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\User;
+use app\models\CylinderList;
 use app\components\Helper;
 
 class SiteController extends Controller
@@ -63,18 +64,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        Helper::checkLogin();
+       
         Yii::$app->session->setFlash('login_first', "Please login first and then place the order");
-        $query = (new \yii\db\Query())->select(['company_name','id'])->from('users')->where(['account_type' => ['Supplier']]);
-        $command = $query->createCommand();
-        $supplier_table = $command->queryAll();
-
-        $query = (new \yii\db\Query())->select(['user_id','cylinder_type','cylinder_quantity'])->from('cylinder_lists');
-        $command = $query->createCommand();
-        $cylinder_list = $command->queryAll();
-        
+        $supplierTable = User::find()->where(['account_type' => ['Supplier']])->all();
+        $cylinderLists = CylinderList::find()->asArray()->all();          
             
-      return $this->render('index',['cylinder_list'=>$cylinder_list,'supplier_table'=>$supplier_table]);
+      return $this->render('index',['cylinderLists'=>$cylinderLists,'supplierTable'=>$supplierTable]);
     }
 
     /**

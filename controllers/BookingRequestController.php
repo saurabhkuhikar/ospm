@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\components\Helper;
+use app\models\CylinderList;
 
 /**
  * BookingRequestController implements the CRUD actions for BookingRequest model.
@@ -24,10 +25,10 @@ class BookingRequestController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout','index','view','create','update','delete'],
                 'rules' => [
                     [
-                        'actions' => ['Index','View','Create','Update','Delete'],
+                        'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -48,16 +49,12 @@ class BookingRequestController extends Controller
      */
     public function actionIndex()
     {
-        // Helper::checkAccess("Supplier");
-        Helper :: checkLogin();     
-        if(Yii::$app->user->identity->account_type == "Supplier"){
-            $searchModel = new BookingRequestSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        Helper::checkAccess("Supplier");        
+        $searchModel = new BookingRequestSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            return $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider]);    
-        }else{
-            throw new \yii\web\NotFoundHttpException('You are not authorised to access this page.');
-        } 
+        return $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider]);    
+
     }
 
     /**
@@ -67,7 +64,8 @@ class BookingRequestController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
-    {
+    {    
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -80,13 +78,15 @@ class BookingRequestController extends Controller
      */
     public function actionCreate()
     {
-        Helper::checkLogin();      
-        $model = new BookingRequest();
+      
+        $model = new BookingRequest();       
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()){
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {               
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+
+            }        
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -101,12 +101,19 @@ class BookingRequestController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
-    {
-        Helper :: checkLogin();
+    {      
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()){
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())){
+
+            if($model->order_status == "Delivered"){
+                $cylinderLists = CylinderList::find()->where(['user_id'=> $model->supplier_id , 'cylinder_type'=>$model->cylinder_type])->one();               
+                $cylinderLists->cylinder_quantity = $cylinderLists->cylinder_quantity - $model->cylinder_quantity;                
+                $cylinderLists->save(false);                
+            }            
+            if($model->save()){       
+                return $this->redirect(['view', 'id' => $model->id]);       
+            }
         }
        
         return $this->render('update', [

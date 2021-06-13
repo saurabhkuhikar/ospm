@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\components\Helper;
+use app\models\CylinderList;
 
 /**
  * CylinderBookingController implements the CRUD actions for CylinderBooking model.
@@ -24,10 +25,10 @@ class CylinderBookingController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout','index','view','create','update'],
                 'rules' => [
                     [
-                        'actions' => ['Index','View','Create','Update','Delete'],
+                        'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -48,13 +49,12 @@ class CylinderBookingController extends Controller
      */
     public function actionIndex()
     {
-            if(Yii::$app->user->identity->account_type == "Customer"){
-            $searchModel = new CylinderBookingSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);        
-            return $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider]);    
-        }else{
-            throw new \yii\web\NotFoundHttpException('You are not authorised to access this page.');
-        } 
+        Helper::checkAccess("Customer"); 
+         
+        $searchModel = new CylinderBookingSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);        
+        return $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider]);    
+       
     }
 
     /**
@@ -76,27 +76,17 @@ class CylinderBookingController extends Controller
      * @return mixed
      */
     public function actionCreate()
-    {
-        Helper::checkLogin();
-            if(isset($_GET['status'])){
-                $model = new CylinderBooking();            
-                if ($model->load(Yii::$app->request->post())) {
-                    $model->customer_id = Helper::getID();
-                    $model->supplier_id = $_GET['status'];
-                    
-                    $query = (new \yii\db\Query())->select(['user_id','cylinder_type','cylinder_quantity','cylinder_price'])
-                            ->from('cylinder_lists')->where(['user_id' => $_GET['status']]);
-                    $command = $query->createCommand();
-                    $cylinder_lists = $command->queryAll();
-                    foreach($cylinder_lists as $cylinder_list){
-                        if($_GET['status'] === $cylinder_list['user_id']){  
-                            if($model->cylinder_type === $cylinder_list['cylinder_type']){
-                                $totalPrice = $cylinder_list['cylinder_price'] * $model->cylinder_quantity;
-                                $model->total_amount = $cylinder_list['cylinder_price'] * $model->cylinder_quantity;
-                            }
-                        }
-                    }
+    {        
+        $decodedId = base64_decode($_GET['status']);
+        if(isset($decodedId)){  
+            $model = new CylinderBooking();            
+            if ($model->load(Yii::$app->request->post())) {
+                $model->customer_id = Helper::getCurrentUserId();
+                $model->supplier_id = $decodedId;
                 
+                $cylinderLists = CylinderList::find()->where(['user_id' => $decodedId,'cylinder_type' => $model->cylinder_type])->one();
+                $model->total_amount = $cylinderLists->cylinder_price * $model->cylinder_quantity;
+            
                     if($model->save()){
                         return $this->redirect(['view','id' => $model->id]);
                     }
@@ -124,12 +114,11 @@ class CylinderBookingController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->customer_id = Helper::getID();           
+            $model->customer_id = Helper::getCurrentUserId();           
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -145,7 +134,6 @@ class CylinderBookingController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -161,7 +149,6 @@ class CylinderBookingController extends Controller
         if (($model = CylinderBooking::findOne($id)) !== null) {
             return $model;
         }
-
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

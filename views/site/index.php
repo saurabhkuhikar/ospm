@@ -7,11 +7,11 @@ $this->title = 'My Yii Application';
 <div class="container">
     <div class="row">
     <?php 
-       foreach($supplier_table as $supplier_tables)
+       foreach($supplierTable as $supplierTable)
        {?>
             <div class="col-md-4">
                 <div class="panel panel-primary">
-                    <div class="panel-heading"><span><?= $supplier_tables['company_name'] ?></span></div>
+                    <div class="panel-heading"><span><?= $supplierTable['company_name'] ?></span></div>
                     <div class="panel-body">
                         <table class="table table-bordered center-txt">
                             <thead>
@@ -21,26 +21,25 @@ $this->title = 'My Yii Application';
                                 </tr>   
                             </thead>                
                             <tbody>
-                                <?php foreach($cylinder_list as $cylinder_lists)
+                                <?php foreach($cylinderLists as $cylinderList)
                                 {
-                                    if($supplier_tables['id'] == $cylinder_lists['user_id']){
-                                    ?>
-                                    <tr>
-                                        <td><?= $cylinder_lists['cylinder_type'];?> </td>
-                                        <td><?= $cylinder_lists['cylinder_quantity'];?> </td>                                
-                                    </tr>
-                                <?php
-                                    }}
-                            ?>                                                
+                                    if($supplierTable['id'] == $cylinderList['user_id']){
+                                        ?>
+                                        <tr>
+                                            <td><?= $cylinderList['cylinder_type'];?> </td>
+                                            <td><?= $cylinderList['cylinder_quantity'];?> </td>                                
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                                ?>                                                
                             </tbody>
-                        </table>
-                        
-                            <div class="row">
-                                <div class="center-txt">
-                                <?= Html::a('Book', ['/cylinder-booking/create','status'=>$supplier_tables['id']], ['class'=>'btn btn-success'])?>
-                                </div>                        
-                            </div>
-                       
+                        </table>                        
+                        <div class="row">
+                            <div class="center-txt">
+                            <?= Html::a('Book', ['/cylinder-booking/create','status'=>base64_encode($supplierTable['id'])], ['class'=>'btn btn-success'])?>
+                            </div>                        
+                        </div>                       
                     </div>
                 </div>
             </div>
