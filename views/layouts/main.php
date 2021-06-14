@@ -18,6 +18,8 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
@@ -60,15 +62,19 @@ AppAsset::register($this);
                         <li><a href="/site/index">Home</a></li>  
                         <li><a href="/site/contact">Contact</a></li>                  
                         <li><a href="/site/about">About</a></li>
-                        <li><a href="/account/customer-signup">Customer SignUp</a></li>
-                        <li><a href="/account/supplier-signup">Supplier SignUp</a></li>
-                        <li><a href="/account/login">Login</a></li>
+                        
+                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> SignUp<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/account/customer-signup">Customer SignUp</a></li>
+                                <li><a href="/account/supplier-signup">Supplier SignUp</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/account/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
                     <?php }?>                    
                 </ul>
             </div>
         </div>
     </nav>
-
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

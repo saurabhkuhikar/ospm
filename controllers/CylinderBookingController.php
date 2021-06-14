@@ -25,10 +25,10 @@ class CylinderBookingController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','index','view','create','update'],
+                'only' => ['logout','index','view','create','update','bill-amount'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update','delete','bill-amount'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -75,22 +75,18 @@ class CylinderBookingController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($status)
-    {        
+    public function actionCreate($token)   
+    {                
         $model = new CylinderBooking();            
         if ($model->load(Yii::$app->request->post())) {
             $model->customer_id = Helper::getCurrentUserId();
-            $model->supplier_id = $decodedId;
-            
-            $cylinderLists = CylinderList::find()->where(['user_id' => $decodedId,'cylinder_type' => $model->cylinder_type])->one();
-            $model->total_amount = $cylinderLists->cylinder_price * $model->cylinder_quantity;
-
+            $model->supplier_id = base64_decode($token);
             if($model->save()){
                 return $this->redirect(['view','id' => $model->id]);
             }
         }
         
-        return $this->render('create', ['model' => $model,'status' => $status]);         
+        return $this->render('create', ['model' => $model,'token' => $token]);         
     }
 
     /**
@@ -143,14 +139,13 @@ class CylinderBookingController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-
     public function actionBillAmount(){
+      
         if (Yii::$app->request->isAjax) {
-            $data = Yii::$app->request->post();
+            $data = Yii::$app->request->post();  
+            $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'cylinder_type' => $data['cylinderType']])->one();
+            $totalAmount = $cylinderLists->cylinder_price * $data['cylinderQuantity'];
             
-            //Helper::dd($data);
-
-            $totalAmount = 10*10;
             return json_encode(['status'=>200,'totalAmount'=>$totalAmount]);
         }
     }

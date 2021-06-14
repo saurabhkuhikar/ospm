@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\CylinderList */
 
 // $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Cylinder Lists', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = ['label' => 'Cylinder Lists', 'url' => ['index']];
 // $this->params['breadcrumbs'][] = $this->title;
 // \yii\web\YiiAsset::register($this);
 // ?>

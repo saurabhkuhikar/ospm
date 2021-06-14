@@ -37,7 +37,7 @@ $this->title = 'My Yii Application';
                         </table>                        
                         <div class="row">
                             <div class="center-txt">
-                            <?= Html::a('Book', ['/cylinder-booking/create','status'=>base64_encode($supplierTable['id'])], ['class'=>'btn btn-success'])?>
+                            <?= Html::a('Book', ['/cylinder-booking/create','token'=>base64_encode($supplierTable['id'])], ['class'=>'btn btn-success'])?>
                             </div>                        
                         </div>                       
                     </div>
