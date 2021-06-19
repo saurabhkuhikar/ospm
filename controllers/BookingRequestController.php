@@ -84,7 +84,6 @@ class BookingRequestController extends Controller
         if ($model->load(Yii::$app->request->post())) {               
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
-
             }        
         }
         return $this->render('create', [
@@ -102,24 +101,25 @@ class BookingRequestController extends Controller
      */
     public function actionUpdate($id)
     {      
-        $model = $this->findModel($id);
+        $model = $this->findModel($id);        
 
         if ($model->load(Yii::$app->request->post())){
-
             if($model->order_status == "Delivered"){
                 $cylinderLists = CylinderList::find()->where(['user_id'=> $model->supplier_id , 'cylinder_type'=>$model->cylinder_type])->one();               
                 $cylinderLists->cylinder_quantity = $cylinderLists->cylinder_quantity - $model->cylinder_quantity;                
-                $cylinderLists->save();             
-                            
+                $cylinderLists->save();
             }            
             if($model->save()){       
                 return $this->redirect(['view', 'id' => $model->id]);       
             }
         }
-       
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        if($model->order_status != "Delivered"){
+            return $this->render('update', [
+                'model' => $model,
+            ]);                    
+        }else{
+            throw new NotFoundHttpException('Your customer order is Successfully delivered.');
+        }
     }
 
     /**

@@ -8,15 +8,8 @@ use yii\web\NotFoundHttpException;
 $this->title = 'Update Booking Request: ' . $model->id;
 ?>
 <div class="booking-request-update">
-
-    <?php 
-        if($model->order_status != "Delivered"){
-            echo $this->render('_form',[
-            'model' => $model,
-            ]);            
-        }else{
-            throw new NotFoundHttpException('Your customer order is Successfully delivered.');
-        }
-        
+    <?= $this->render('_form',[
+        'model' => $model,
+        ]); 
     ?>
 </div>
