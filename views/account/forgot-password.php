@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
   <div class="col-md-2"></div>
   <div class="col-md-12">
     <div class="col-sm-6 col-md-4 col-md-offset-4">
-      <div class="panel panel-warning">
+      <div class="panel panel-info">
         <div class="panel-heading">
           <strong>Forgot Password</strong>
         </div></br>

@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 use app\models\LoginForm;
+use yii\web\Session;
 
 class Helper extends Component { 
 
@@ -32,6 +33,19 @@ class Helper extends Component {
   public static function getCurrentUserId(){    
     return Yii::$app->user->identity->id;      
   }
+  public static function createSession($name,$value){
+    $session = Yii::$app->session;    
+    $session->open();   
+    $session[$name] = $value;
+  } 
   
+  public static function getSession($name){
+    if(isset($_SESSION[$name])){
+      $session = Yii::$app->session; 
+      $session = $session->get($name);
+      return $session;
+    }
+    throw new \yii\web\NotFoundHttpException('Somthing is going to be wrong.');
+  }
 } 
 ?>

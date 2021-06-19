@@ -76,11 +76,15 @@ class CylinderBookingController extends Controller
      * @return mixed
      */
     public function actionCreate($token)   
-    {                
+    {      
+                
         $model = new CylinderBooking();            
         if ($model->load(Yii::$app->request->post())) {
             $model->customer_id = Helper::getCurrentUserId();
             $model->supplier_id = base64_decode($token);
+            if($model->total_amount != Helper::getSession('totalAmount') && $model->total_amount != Null){
+                $model->total_amount = Helper::getSession('totalAmount');
+            }
             if($model->save()){
                 return $this->redirect(['view','id' => $model->id]);
             }
@@ -101,7 +105,8 @@ class CylinderBookingController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->customer_id = Helper::getCurrentUserId();           
+            $model->customer_id = Helper::getCurrentUserId(); 
+
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -144,8 +149,8 @@ class CylinderBookingController extends Controller
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
             $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'cylinder_type' => $data['cylinderType']])->one();
-            $totalAmount = $cylinderLists->cylinder_price * $data['cylinderQuantity'];
-            
+            $totalAmount = $cylinderLists->cylinder_price * $data['cylinderQuantity'];           
+            Helper::createSession('totalAmount',$totalAmount);
             return json_encode(['status'=>200,'totalAmount'=>$totalAmount]);
         }
     }
