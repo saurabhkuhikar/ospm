@@ -15,6 +15,13 @@ class Helper extends Component {
     echo "</pre>";  
     die(); 
   }
+  public static function checkError($arg){
+    echo "<pre>";
+    print_r($arg->getErrors());
+    echo "</pre>";
+    die();
+  }
+  
 
   public static function checkAccess($type){           
     if(Yii::$app->user->identity->account_type != $type){        

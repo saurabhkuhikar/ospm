@@ -1,12 +1,11 @@
 $(document).ready(function(){
-	$("#cylinderbooking-cylinder_quantity").keyup(function(){
+	$("#cylinderbooking-cylinder_quantity").bind('keyup mouseup',function(){
 		var cylinderQuantity = $(this).val();
-		var cylinderType = $("#cylinderbooking-cylinder_type").val();
+		var cylinderType = $("#cylinderbooking-cylinder_type").val();		
 		var token = $("#cylinderbooking-token").val();
-
-	 	if(cylinderQuantity < 6){
+	 	if(cylinderQuantity < 6 ){
 	 		$.ajax({
-	            url: '/cylinder-booking/bill-amount',
+	            url: '/cylinder-booking/bill-amount',		
 	            type: 'post',
 	            dataType: 'json',
 	            data: {'cylinderQuantity': cylinderQuantity, 'cylinderType': cylinderType, 'token': token}
@@ -18,5 +17,5 @@ $(document).ready(function(){
 	    }else{
 	    	$(this).val(cylinderQuantity.substring(0, 1));
 	    }
-	});
+	});	
 });

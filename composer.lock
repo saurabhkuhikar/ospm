@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f43f4e8f383f46bf0021de990b5aba86",
+    "content-hash": "38c2ef2d51f2b9fa29e198efcedf3860",
     "packages": [
         {
             "name": "2amigos/yii2-date-picker-widget",
@@ -453,6 +453,60 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/master"
             },
             "time": "2020-06-29T00:56:53+00:00"
+        },
+        {
+            "name": "faryshta/yii2-disable-submit-buttons",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Faryshta/yii2-disable-submit-buttons.git",
+                "reference": "53c6d64167ea16765f155c983d78956d34a3e1a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Faryshta/yii2-disable-submit-buttons/zipball/53c6d64167ea16765f155c983d78956d34a3e1a8",
+                "reference": "53c6d64167ea16765f155c983d78956d34a3e1a8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "yiisoft/yii2-debug": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "faryshta\\disableSubmitButtons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Angel (Faryshta) Guevara",
+                    "email": "angeldelcaos@gmail.com",
+                    "homepage": "https://github.com/Faryshta",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 asset to automatically disable submit buttons on Yii2 ActiveForm.",
+            "homepage": "https://github.com/Faryshta/yii2-jquery-tagsinput",
+            "keywords": [
+                "activeform",
+                "disable",
+                "jquery",
+                "yii",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/Faryshta/yii2-disable-submit-buttons/issues",
+                "source": "https://github.com/Faryshta/yii2-disable-submit-buttons/tree/2.0.0"
+            },
+            "time": "2018-08-25T13:27:31+00:00"
         },
         {
             "name": "kartik-v/dependent-dropdown",

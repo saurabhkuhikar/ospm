@@ -20,10 +20,10 @@ use kartik\select2\Select2;
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $form->field($model, 'first_name')->textInput(['autofocus'=>true,'placeholder'=>'First Name','maxlength' => true]) ?>
+                            <?= $form->field($model, 'first_name')->textInput(['autofocus'=>true,'placeholder'=>'First Name','autocomplete'=>'off','maxlength' => true]) ?>
                         </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'last_name')->textInput(['autofocus'=>true,'placeholder'=>'Last Name','maxlength' => true]) ?>
+                            <?= $form->field($model, 'last_name')->textInput(['autofocus'=>true,'placeholder'=>'Last Name','autocomplete'=>'off','maxlength' => true]) ?>
                         </div>
                     </div>
                     <div class="row">
@@ -41,6 +41,7 @@ use kartik\select2\Select2;
                                 [
                                     // inline too, not bad
                                     'inline' => false,
+                                    'options' => ['placeholder' => 'Select Covid Test date '],
                                     // modify template for custom rendering
                                     // 'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
                                     'clientOptions' => [
@@ -60,7 +61,7 @@ use kartik\select2\Select2;
                             ]);?>
                         </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'cylinder_quantity')->textInput(['maxlength' => true,'type' => 'number','min'=>1,'max'=>5]) ?>
+                            <?= $form->field($model, 'cylinder_quantity')->textInput(['maxlength' => true,'placeholder'=>'Enter the Cylinder Quantity','type' => 'number','min'=>1,'max'=>5]) ?>
                         </div>
                     </div>
                     <div class="row">
@@ -73,6 +74,7 @@ use kartik\select2\Select2;
                                 [
                                     // inline too, not bad
                                     'inline' => false,
+                                    'options' => ['placeholder' => 'Select Order Date '],
                                     // modify template for custom rendering
                                     // 'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
                                     'clientOptions' => [

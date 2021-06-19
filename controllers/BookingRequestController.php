@@ -109,7 +109,8 @@ class BookingRequestController extends Controller
             if($model->order_status == "Delivered"){
                 $cylinderLists = CylinderList::find()->where(['user_id'=> $model->supplier_id , 'cylinder_type'=>$model->cylinder_type])->one();               
                 $cylinderLists->cylinder_quantity = $cylinderLists->cylinder_quantity - $model->cylinder_quantity;                
-                $cylinderLists->save(false);                
+                $cylinderLists->save();             
+                            
             }            
             if($model->save()){       
                 return $this->redirect(['view', 'id' => $model->id]);       

@@ -24,7 +24,7 @@ class CylinderTypeController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['login','index','view','create','update',],
+                'only' => ['login','index','view','create','update'],
                 'rules' => [
                     [
                         'actions' => ['index','view','create','update','delete'],
@@ -69,7 +69,6 @@ class CylinderTypeController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-
     /**
      * Creates a new CylinderType model.
      * If creation is successful, the browser will be redirected to the 'view' page.

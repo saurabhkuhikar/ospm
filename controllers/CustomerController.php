@@ -46,8 +46,8 @@ class CustomerController extends \yii\web\Controller
      /* dashboard view*/     
     public function actionDashboard()
     {          
-        Helper::checkAccess("Customer"); 
-       
+        
+        Helper::checkAccess("Customer");       
         $statuswiseCounting = ['pending' => 0,'process' => 0,'delivered' => 0];       
         $cylinderBookings = CylinderBooking::find()->where(['customer_id' => Helper::getCurrentUserId()])->all();
         

@@ -111,11 +111,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>                                   
                             </div> 
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <?= $form->field($model, 'identity_proof_type')->fileInput()?>
+                        <div class="col-md-3">
+                            <div class="form-group" >
+                                <?= $form->field($model, 'identity_proof_type')->fileInput()?>                                 
                             </div>
-                        </div>  
+                        </div> 
+                        <div class="col-md-offset-1 col-md-2">
+                            <div class="form-group">
+                                <?php if(!empty($model->identity_proof_type)){ ?>                                
+                                    <img src='<?= '/upload/indentity_proof_images/'.$model->identity_proof_type; ?>' alt="Profile_img" height = 45px width = 70px>
+                                <?php } ?> 
+                            </div>
+                        </div> 
                     </div>
                     <div class="row">
                         <div class="col-md-6">
