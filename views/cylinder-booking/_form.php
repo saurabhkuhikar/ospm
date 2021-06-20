@@ -88,7 +88,8 @@ use kartik\select2\Select2;
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>
+                                <?php //Html::submitButton('Submit', ['class' => 'btn btn-success','id' => "checkout-button"]) ?>
+                                <button type="button" class='btn btn-success' id="checkout-button">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -98,3 +99,32 @@ use kartik\select2\Select2;
         <div class="col-md-2"></div>
     <?php ActiveForm::end(); ?>
 </div>
+
+
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    // Create an instance of the Stripe object with your publishable API key
+    var stripe = Stripe("pk_test_51J4ToQSBTVzFci2yjMBcjvGwnXo1KKzlYtOU38tmrS5hRbm6CwehyE9D3y25PowTekGwU6UtTGR9bhHYYHXixJhA00NN197Wqq");
+    var checkoutButton = document.getElementById("checkout-button");
+    
+    checkoutButton.addEventListener("click", function () {
+        fetch("/test/create-payment-request", {
+            method: "POST"
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (session) {
+            return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+            if (result.error) {
+                console.log(result.error.message);
+            }
+        })
+        .catch(function (error) {
+            console.error("Error:", error);
+        });
+    });
+</script>
