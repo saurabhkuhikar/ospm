@@ -78,10 +78,17 @@ class CylinderListController extends Controller
     public function actionCreate()
     {
         
+        
         $model = new CylinderList();
-
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Helper::getCurrentUserId();
+            $cylinderLists = CylinderList::find()->where(['cylinder_type'=>$model->cylinder_type,'user_id'=>Helper::getCurrentUserId()])->one();
+            if($model->cylinder_type == $cylinderLists['cylinder_type']){
+                $cylinderLists->cylinder_quantity = $cylinderLists['cylinder_quantity'] + $model->cylinder_quantity;
+                $cylinderLists->cylinder_price = $model->cylinder_price;
+                $cylinderLists->save();
+                return $this->redirect(['view', 'id' => $cylinderLists->id]);
+            }            
             if($model->save()){
             return $this->redirect(['view', 'id' => $model->id]);
             }
