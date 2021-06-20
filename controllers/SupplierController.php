@@ -45,13 +45,10 @@ class SupplierController extends \yii\web\Controller
     public function actionDashboard()
     {        
         Helper::checkAccess("Supplier");
-        $statuswiseCounting = ['pending' => 0,'process' => 0,'delivered' => 0];       
-        $bookingRequests = BookingRequest::find()->where(['supplier_id' => Helper::getCurrentUserId()])->all();
-
-        foreach($bookingRequests as $bookingRequest){
-            $statuswiseCounting[strtolower($bookingRequest->order_status)] = $statuswiseCounting[strtolower($bookingRequest->order_status)] + 1;
-        }
-        return $this->render('/supplier/dashboard',['statuswiseCounting'=>$statuswiseCounting]);                   
+        $bookingRequests = BookingRequest::find()->select(['SUM( IF(order_status = "Pending", 1, 0) ) AS pending', 
+        'SUM( IF(order_status = "Process", 1, 0) ) AS process','SUM( IF(order_status = "Delivered", 1, 0) ) AS delivered'])->where(['supplier_id' => Helper::getCurrentUserId()])->Asarray()->one();
+        
+        return $this->render('/supplier/dashboard',['bookingRequests'=>$bookingRequests]);                   
     }  
 
 
@@ -60,10 +57,16 @@ class SupplierController extends \yii\web\Controller
     {
         $model = $this->findProfile(Helper::getCurrentUserId()); 
         $model->setScenario('updateProfile');
-        
+        $email = $model->email; 
+        $mobileNumber = $model->phone_number; 
         $indentityPic = (isset($model->identity_proof_type) && !empty($model->identity_proof_type))? $model->identity_proof_type : Null;
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())){
+
+            if($email != $model->email || $mobileNumber != $model->phone_number){
+                $model->email = $email; 
+                $model->phone_number = $mobileNumber;
+            }
 
             $indentityPictureObject = UploadedFile::getInstance($model,'identity_proof_type');
 

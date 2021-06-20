@@ -90,7 +90,6 @@ class CylinderListController extends Controller
             'model' => $model,
         ]);
     
-        // return $this->redirect(['account/login']);
     }
 
     /**

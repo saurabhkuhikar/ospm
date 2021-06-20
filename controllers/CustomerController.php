@@ -46,15 +46,11 @@ class CustomerController extends \yii\web\Controller
      /* dashboard view*/     
     public function actionDashboard()
     {          
-        
         Helper::checkAccess("Customer");       
-        $statuswiseCounting = ['pending' => 0,'process' => 0,'delivered' => 0];       
-        $cylinderBookings = CylinderBooking::find()->where(['customer_id' => Helper::getCurrentUserId()])->all();
+        $cylinderBookings = CylinderBooking::find()->select(['SUM( IF(order_status = "Pending", 1, 0) ) AS pending', 
+        'SUM( IF(order_status = "Process", 1, 0) ) AS process','SUM( IF(order_status = "Delivered", 1, 0) ) AS delivered'])->where(['customer_id' => Helper::getCurrentUserId()])->Asarray()->one();
         
-        foreach($cylinderBookings as $cylinderBooking){            
-            $statuswiseCounting[strtolower($cylinderBooking->order_status)] = $statuswiseCounting[strtolower($cylinderBooking->order_status)] + 1;
-        }   
-       return $this->render('/customer/dashboard',['statuswiseCounting'=>$statuswiseCounting]);                 
+       return $this->render('/customer/dashboard',['cylinderBookings'=>$cylinderBookings]);                 
     }  
 
 
@@ -63,9 +59,16 @@ class CustomerController extends \yii\web\Controller
     {
         $model = $this->findProfile(Helper::getCurrentUserId()); 
         $model->setScenario('updateProfile');
+        $email = $model->email; 
+        $mobileNumber = $model->phone_number; 
         $indentityPic = (isset($model->identity_proof_type) && !empty($model->identity_proof_type))? $model->identity_proof_type : Null;
 
         if($model->load(Yii::$app->request->post())){
+
+            if($email != $model->email || $mobileNumber != $model->phone_number){
+                $model->email = $email; 
+                $model->phone_number = $mobileNumber;
+            }
 
             $indentityPictureObject = UploadedFile::getInstance($model,'identity_proof_type');
 

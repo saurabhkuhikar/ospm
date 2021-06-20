@@ -11,7 +11,7 @@
       <div class="panel panel-primary">
         <div class="panel-body">                 
         <h2>Pending</h2>  
-          <?= Html::a($statuswiseCounting['pending'],['/cylinder-booking/index','status'=>'Pending'])?>
+          <?= Html::a($cylinderBookings['pending'],['/cylinder-booking/index','status'=>'Pending'])?>
         </div>  
       </div>
     </div>       
@@ -19,7 +19,7 @@
       <div class="panel panel-primary">
         <div class="panel-body">               
           <h2>Process</h2>
-          <?= Html::a($statuswiseCounting['process'],['/cylinder-booking/index','status'=>'Process'])?>
+          <?= Html::a($cylinderBookings['process'],['/cylinder-booking/index','status'=>'Process'])?>
         </div>
       </div>
     </div>       
@@ -27,7 +27,7 @@
       <div class="panel panel-primary">
         <div class="panel-body"> 
           <h2>Delivered</h2> 
-          <?= Html::a($statuswiseCounting['delivered'],['/cylinder-booking/index','status'=>'Delivered'])?>               
+          <?= Html::a($cylinderBookings['delivered'],['/cylinder-booking/index','status'=>'Delivered'])?>               
         </div>
       </div>
     </div>       
