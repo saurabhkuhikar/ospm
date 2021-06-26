@@ -80,7 +80,7 @@ class CylinderBookingController extends Controller
      */
     public function actionCreate($token)   
     {      
-                
+               
         $model = new CylinderBooking();            
         if ($model->load(Yii::$app->request->post())) {
             $model->customer_id = Helper::getCurrentUserId();

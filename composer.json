@@ -21,8 +21,7 @@
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-widget-depdrop": "@dev",
         "2amigos/yii2-date-picker-widget" : "~1.0",
-        "faryshta/yii2-disable-submit-buttons": "~2.0.0",
-        "stripe/stripe-php": "^7.85"
+        "faryshta/yii2-disable-submit-buttons": "~2.0.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
