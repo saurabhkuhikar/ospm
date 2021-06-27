@@ -64,11 +64,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-       
-        Yii::$app->session->setFlash('login_first', "Please login first and then place the order");
+        $this->layout = "home";
         $supplierTable = User::find()->select(['company_name','id'])->where(['account_type' => ['Supplier']])->asArray()->all();
         $cylinderLists = CylinderList::find()->asArray()->all();         
-            
       return $this->render('index',['cylinderLists'=>$cylinderLists,'supplierTable'=>$supplierTable]);
     }
 

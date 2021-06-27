@@ -20,18 +20,13 @@ class LoginAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        //'css/site.css',
-        'theme/plugins/fontawesome-free/css/all.min.css',
-        'theme/plugins/icheck-bootstrap/icheck-bootstrap.min.css',
-        'theme/dist/css/adminlte.min.css'
+        'css/site.css',
     ];
     public $js = [
-        //'theme/plugins/jquery/jquery.min.js',
-        'theme/plugins/bootstrap/js/bootstrap.bundle.min.js',
-        'theme/dist/js/adminlte.min.js'
+    
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        //'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapAsset',
     ];
 }
