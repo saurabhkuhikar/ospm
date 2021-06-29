@@ -7,11 +7,11 @@ body {
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
-    padding: 0 0 60px;
+    padding: 90px 14px 60px;
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding:0px 36px 130px;
 }
 
 .footer {
@@ -137,9 +137,6 @@ a.desc:after {
 }
 .txt{
     display:inline;
-}
-.cylinder-booking-form{
-    margin-top: 100px;
 }
 .quantity-error{
     color: #a94442;

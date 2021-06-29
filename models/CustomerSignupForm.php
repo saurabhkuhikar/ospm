@@ -36,11 +36,11 @@ class CustomerSignupForm extends Model
             [['first_name','last_name','email', 'password','phone_number'], 'required'],
             ['email','email'],
             [['account_type'],'safe'],
-            [['phone_number'],'number'],
+            [['phone_number'],'string'],
             [['password',], 'string', 'min' => 6],
             [['first_name','last_name'], 'match', 'pattern' => '/^[a-zA-Z_ ]*$/', 'message' => 'Only alphabetic characters allowed'],
             ['email', 'unique', 'targetClass' => 'app\models\User', 'message' => 'This email is already registered with us.'],
-            ['phone_number', 'match', 'pattern' =>'/^[0-9]{10}$/','message' => 'Phone Number Must be Exactly 10 Digit.'],
+            // ['phone_number', 'match', 'pattern'=>'/^[0-9][0-9][0-9]{12}$/','message' => 'Phone Number Must be Exactly 10 Digit.'],
         ];
     }
     /**

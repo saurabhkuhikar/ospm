@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                 <?= $form->field($model, 'phone_number')->textInput(['autofocus'=>true,'placeholder'=>'Phone Number']) ?>
+                                 <?= $form->field($model, 'phone_number')->textInput(['autofocus'=>true,'placeholder'=>'Phone Number']) ?>    
                             </div>
                         </div>
                     </div>

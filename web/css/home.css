@@ -3,8 +3,7 @@
     font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
     font-size: 13px;
     font-weight: 400;
-    line-height: 1.471
-
+    line-height: 1.471;
     position: relative;
     width: 100%;
     margin-bottom: 10px;
@@ -14,7 +13,7 @@
     border: 1px solid #E6E9ED;
     -webkit-column-break-inside: avoid;
     -moz-column-break-inside: avoid;
-    column-break-inside: avoid;
+    /* column-break-inside: avoid; */
     opacity: 1;
     transition: all .2s ease;
 }
@@ -140,10 +139,11 @@ h2 {
     margin-bottom: 0;
     text-align: left;
     font-size: 16px;
+    color: #5A738E; 
 }
 
-.x_panel a {
-    color: #5A738E;
+.x_panel .emphasis {
+    color: #fff;
 }
 
 .detail a, .expand, .jqstooltip, .paging_full_numbers a:hover, .site_title:focus, .site_title:hover, a, a:focus, a:hover {
