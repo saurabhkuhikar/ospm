@@ -23,9 +23,7 @@
         </div>
       </div>
     </div>
-
     <div class="clearfix"></div>
-
     <div class="row">
       <div class="col-md-12">
         <div class="x_panel">
@@ -49,7 +47,7 @@
               <div class="clearfix"></div>
 
               <?php  foreach($supplierTable as $supplierTable)
-              {?> 
+              {?>               
               <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
                 <div class="well profile_view">
                   <div class="col-sm-12">
@@ -79,7 +77,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 emphasis">
 
-                      <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
+                      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalForm"> <i class="fa fa-user">
                         </i> <i class="fa fa-comments-o"></i> </button>
                         <?= Html::a('Book', ['/cylinder-booking/create','token'=>base64_encode($supplierTable['id'])], ['class'=>'btn btn-primary btn-xs'])?>
                     </div>
@@ -93,4 +91,42 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="modalForm" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->     
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Available cylinder lists </h4>
+      </div>     
+      <table class="table table-bordered center-txt">
+        <thead>
+            <tr>
+                <th class="center-txt">LTR</th>
+                <th class="center-txt">QTY</th>
+            </tr>   
+        </thead>                
+        <tbody>
+            <?php foreach($cylinderLists as $cylinderList)
+            {
+              if($supplierTable['id'] == $cylinderList['user_id']){
+                ?>
+                <tr>
+                    <td><?= $cylinderList['cylinder_type'];?> </td>
+                    <td><?= $cylinderList['cylinder_quantity'];?> </td>                                
+                </tr>
+                <?php
+              }
+            }
+            ?>                                                
+        </tbody>
+       
+      </table>              
+    </div>
+  </div> 
 </div>

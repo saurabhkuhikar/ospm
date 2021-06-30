@@ -44,6 +44,7 @@ class SupplierController extends \yii\web\Controller
     /* dashboard view*/
     public function actionDashboard()
     {        
+        $this->layout = 'header';
         Helper::checkAccess("Supplier");
         $bookingRequests = BookingRequest::find()->select(['SUM( IF(order_status = "Pending", 1, 0) ) AS pending', 
         'SUM( IF(order_status = "Process", 1, 0) ) AS process','SUM( IF(order_status = "Delivered", 1, 0) ) AS delivered'])->where(['supplier_id' => Helper::getCurrentUserId()])->Asarray()->one();
@@ -55,6 +56,7 @@ class SupplierController extends \yii\web\Controller
     /* Profile of supplier */
     public function actionProfile()
     {
+        $this->layout = 'header';
         $model = $this->findProfile(Helper::getCurrentUserId()); 
         $model->setScenario('updateProfile');
         $email = $model->email; 

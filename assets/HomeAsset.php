@@ -21,8 +21,7 @@ class HomeAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'theme/vendors/font-awesome/css/font-awesome.min.css',
-        // 'theme/vendors/nprogress/nprogress.css',
-        // 'theme/build/css/custom.min.css',
+        // 'theme/vendors/nprogress/nprogress.css',       
         'css/site.css',
         'css/home.css'
     ];
