@@ -22,9 +22,20 @@
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
   </head>
-  <body class="hold-transition login-page">
+  <body>
     <?php $this->beginBody() ?>
-      <?= $content ?>
+      <div class="wrap">
+        <?= $this->render('../include/header_menu'); ?>
+        <div class="container">
+          <div class="hold-transition login-page">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= $content ?>
+          </div>
+        </div>
+      </div>
+    <?= $this->render('../include/footer'); ?>
     <?php $this->endBody() ?>
   </body>
 </html>

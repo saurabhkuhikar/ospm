@@ -66,8 +66,7 @@ class SiteController extends Controller
     {
         $this->layout = "home";
         $supplierTable = User::find()->select(['company_name','id','first_name','state','city','phone_number'])->where(['account_type' => ['Supplier']])->asArray()->all();
-        // $cylinderLists = CylinderList::find()->asArray()->all();         
-      return $this->render('index',['supplierTable'=>$supplierTable]);
+        return $this->render('index',['supplierTable'=>$supplierTable]);
     }
 
     /**

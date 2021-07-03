@@ -53,9 +53,12 @@ class AccountController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'login';
+        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if(Yii::$app->user->identity->account_type == "Customer"){
@@ -64,7 +67,6 @@ class AccountController extends Controller
             return $this->redirect(['supplier/dashboard']);
         }
 
-        $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);

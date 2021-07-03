@@ -20,18 +20,16 @@ class HomeAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'theme/vendors/font-awesome/css/font-awesome.min.css',
-        // 'theme/vendors/nprogress/nprogress.css',       
+        'theme/vendors/font-awesome/css/font-awesome.min.css',       
         'css/site.css',
         'css/home.css'
     ];
     public $js = [
-        // 'theme/vendors/fastclick/lib/fastclick.js',
-        // 'theme/vendors/nprogress/nprogress.js',
         'js/common.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        //'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
     ];
 }
