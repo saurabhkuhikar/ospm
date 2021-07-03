@@ -18,19 +18,14 @@
 	LoginAsset::register($this);
 ?>  
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6 text-center mb-5">
-            <h2 class="heading-section">Login to OSPM</h2>
-        </div>
-    </div>
+<div class="container">    
     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-10">
             <div class="wrap d-md-flex">
                 <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
                     <div class="text w-100">
-                        <h2>Welcome to login</h2>
+                        <h2>Welcome to OSPM</h2>
                         <p>Don't have an account?</p>
                         <a href="#" class="btn btn-white btn-outline-white">Sign Up</a>
                     </div>
