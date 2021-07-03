@@ -66,8 +66,8 @@ class SiteController extends Controller
     {
         $this->layout = "home";
         $supplierTable = User::find()->select(['company_name','id','first_name','state','city','phone_number'])->where(['account_type' => ['Supplier']])->asArray()->all();
-        $cylinderLists = CylinderList::find()->asArray()->all();         
-      return $this->render('index',['cylinderLists'=>$cylinderLists,'supplierTable'=>$supplierTable]);
+        // $cylinderLists = CylinderList::find()->asArray()->all();         
+      return $this->render('index',['supplierTable'=>$supplierTable]);
     }
 
     /**
@@ -108,5 +108,14 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionGetTable(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();  
+            $cylinderLists = CylinderList::find()->where(['user_id'=> $data])->asArray()->one();
+            
+            return json_encode(['status'=>200,'cylinderLists'=>$cylinderLists]);
+        }
     }
 }

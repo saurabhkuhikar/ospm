@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 emphasis">
 
-                      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalForm"> <i class="fa fa-user">
+                      <button type="button" id = "list" value = "<?= $supplierTable['id'] ?>" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalForm"> <i class="fa fa-user">
                         </i> <i class="fa fa-comments-o"></i> </button>
                         <?= Html::a('Book', ['/cylinder-booking/create','token'=>base64_encode($supplierTable['id'])], ['class'=>'btn btn-primary btn-xs'])?>
                     </div>
@@ -112,20 +112,7 @@
             </tr>   
         </thead>                
         <tbody>
-            <?php foreach($cylinderLists as $cylinderList)
-            {
-              if($supplierTable['id'] == $cylinderList['user_id']){
-                ?>
-                <tr>
-                    <td><?= $cylinderList['cylinder_type'];?> </td>
-                    <td><?= $cylinderList['cylinder_quantity'];?> </td>                                
-                </tr>
-                <?php
-              }
-            }
-            ?>                                                
-        </tbody>
-       
+        </tbody>       
       </table>              
     </div>
   </div> 

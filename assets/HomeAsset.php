@@ -28,7 +28,7 @@ class HomeAsset extends AssetBundle
     public $js = [
         // 'theme/vendors/fastclick/lib/fastclick.js',
         // 'theme/vendors/nprogress/nprogress.js',
-        // 'theme/build/js/custom.min.js',
+        'js/common.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
