@@ -15,7 +15,8 @@ class DashboardAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'theme/vendors/font-awesome/css/font-awesome.min.css',        
+        'theme/vendors/font-awesome/css/font-awesome.min.css',   
+        'css/site.css',
         'css/custom.css',
     ];
     public $js = [

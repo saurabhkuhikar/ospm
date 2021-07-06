@@ -52,8 +52,8 @@ class CylinderBookingController extends Controller
      */
     public function actionIndex()
     {
-        Helper::checkAccess("Customer"); 
-         
+        $this->layout = 'dashboard';  
+        Helper::checkAccess("Customer");         
         $searchModel = new CylinderBookingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);        
         return $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider]);    
@@ -80,7 +80,7 @@ class CylinderBookingController extends Controller
      */
     public function actionCreate($token)   
     {      
-               
+        $this->layout = 'dashboard';       
         $model = new CylinderBooking();            
         if ($model->load(Yii::$app->request->post())) {
             $model->customer_id = Helper::getCurrentUserId();
@@ -106,6 +106,7 @@ class CylinderBookingController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = 'dashboard';  
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -129,6 +130,7 @@ class CylinderBookingController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->layout = 'dashboard';  
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }

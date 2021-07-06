@@ -6,30 +6,18 @@
   $this->title = 'My Yii Application';
 ?>       
 <div class="container">
-  <div class="row">  
-    <div class="col-md-4">
-      <div class="panel panel-primary">
-        <div class="panel-body">                 
-        <h2>Pending</h2>  
-          <?= Html::a($cylinderBookings['pending'],['/cylinder-booking/index','status'=>'Pending'])?>
-        </div>  
-      </div>
-    </div>       
-    <div class="col-md-4">
-      <div class="panel panel-primary">
-        <div class="panel-body">               
-          <h2>Process</h2>
-          <?= Html::a($cylinderBookings['process'],['/cylinder-booking/index','status'=>'Process'])?>
-        </div>
-      </div>
-    </div>       
-    <div class="col-md-4">
-      <div class="panel panel-primary">
-        <div class="panel-body"> 
-          <h2>Delivered</h2> 
-          <?= Html::a($cylinderBookings['delivered'],['/cylinder-booking/index','status'=>'Delivered'])?>               
-        </div>
-      </div>
-    </div>       
+<div class="row tile_count">
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="fa fa-user"></i> Pending</span>
+      <div class="count"><?=$cylinderBookings['pending'] ?></div>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="fa fa-clock-o"></i> Pending </span>
+      <div class="count"><?=$cylinderBookings['process'] ?></div>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="glyphicon glyphicon-ok"></i> Delivered</span>
+      <div class="count green"><?=$cylinderBookings['delivered'] ?></div>
+    </div>   
   </div>
 </div>    

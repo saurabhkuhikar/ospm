@@ -14,7 +14,7 @@ use kartik\select2\Select2;
 <?php $form = ActiveForm::begin(); ?>
     <div class="col-md-2"></div>
     <div class="col-md-6">
-        <div class="panel panel-info">
+        <div class="panel">
             <div class="panel-heading"><?= Html::encode($this->title) ?></div>
             <div class="panel-body">
                 <div class="row">

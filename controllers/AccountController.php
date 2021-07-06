@@ -107,9 +107,9 @@ class AccountController extends Controller
      *
      * @return Response
      */
-        /* Customer Signup form */
+    /* Customer Signup form */
 
-        public function actionCustomerSignup()
+    public function actionCustomerSignup()
     {
         $model = new CustomerSignupForm();       
 
@@ -120,6 +120,47 @@ class AccountController extends Controller
         
         return $this->render('customer-signup', ['model' => $model]);
     }
+
+    /**
+     * Customer Signup action.
+     *
+     * @return Response
+     */
+    /* Customer Signup form */
+
+    public function actionCustomerForm()
+    {
+        $this->layout = 'login';
+        $model = new CustomerSignupForm();       
+
+        if($model->load(Yii::$app->request->post()) && $model->signup()){
+            return $this->redirect(['customer/dashboard']);
+                  
+        }
+        
+        return $this->render('customer-form', ['model' => $model]);
+    }
+
+    /**
+     * Customer Signup action.
+     *
+     * @return Response
+     */
+        /* Customer Signup form */
+
+        public function actionSupplierForm()
+    {
+        $this->layout = 'login';
+        $model = new SupplierSignupForm();     
+
+        if($model->load(Yii::$app->request->post()) && $model->signup()){
+            return $this->redirect(['supplier/dashboard']);
+                  
+        }
+        
+        return $this->render('supplier-form', ['model' => $model]);
+    }
+
 
     /*Forgot passwoard */
 

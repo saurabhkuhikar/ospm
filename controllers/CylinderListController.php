@@ -48,6 +48,7 @@ class CylinderListController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'dashboard';
         $searchModel = new CylinderListSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -65,6 +66,7 @@ class CylinderListController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = 'dashboard';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -76,9 +78,8 @@ class CylinderListController extends Controller
      * @return mixed
      */
     public function actionCreate()
-    {
-        
-        
+    {        
+        $this->layout = 'dashboard';
         $model = new CylinderList();
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Helper::getCurrentUserId();
@@ -108,6 +109,7 @@ class CylinderListController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = 'dashboard';
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -131,6 +133,7 @@ class CylinderListController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->layout = 'dashboard';
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -49,6 +49,7 @@ class BookingRequestController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'dashboard';  
         Helper::checkAccess("Supplier");        
         $searchModel = new BookingRequestSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -65,7 +66,7 @@ class BookingRequestController extends Controller
      */
     public function actionView($id)
     {    
-        
+        $this->layout = 'dashboard';  
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -78,7 +79,7 @@ class BookingRequestController extends Controller
      */
     public function actionCreate()
     {
-      
+        $this->layout = 'dashboard';  
         $model = new BookingRequest();       
 
         if ($model->load(Yii::$app->request->post())) {               
@@ -100,7 +101,8 @@ class BookingRequestController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
-    {      
+    {   
+        $this->layout = 'dashboard';  
         $model = $this->findModel($id);        
 
         if ($model->load(Yii::$app->request->post())){
@@ -131,6 +133,7 @@ class BookingRequestController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->layout = 'dashboard';  
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

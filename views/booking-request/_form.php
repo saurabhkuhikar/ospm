@@ -14,9 +14,10 @@ use yii\helpers\ArrayHelper;
 <div class="booking-request-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    <div class="col-md-2"></div>
+    <div class="container">
+        <div class="col-md-2"></div>
         <div class="col-md-8">
-            <div class="panel panel-primary">
+            <div class="panel">
                 <div class="panel-heading">Update Booking</div>
                 <div class="panel-body">
                     <div class="row">
@@ -32,7 +33,7 @@ use yii\helpers\ArrayHelper;
                             <?php $data = array('Pending'=>'Pending','Process'=>'Process','Delivered'=>'Delivered')?>
                             <?= $form->field($model, 'order_status')->widget(Select2::classname(), [
                                 'data' => $data,       
-                                                             
+                                                                
                                 'options' => ['placeholder' => 'Select order status'],
                                 'pluginOptions' => ['allowClear' => true],  
                                     ]); 
@@ -68,3 +69,4 @@ use yii\helpers\ArrayHelper;
             </div>
         </div>
     </div>
+</div>

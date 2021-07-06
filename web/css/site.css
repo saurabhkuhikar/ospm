@@ -113,9 +113,15 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
-.panel-heading {
-    padding: 5px 15px;   
 
+.panel-heading {   
+    padding: 5px 15px;
+    color: white;
+    background-color: #2A3F54;     
+}
+.panel-body{
+    border: 1px solid;
+    border-color: #2A3F54;  
 }
 
 .panel-footer {
@@ -140,4 +146,9 @@ a.desc:after {
 }
 .quantity-error{
     color: #a94442;
+}
+.hd{
+    text-align: center;
+    padding-bottom: 30px;
+    font-size: 20px;
 }

@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <div class="panel panel-primary">
+        <div class="panel">
             <div class="panel-heading"><?= Html::encode($this->title) ?></div>
             <div class="panel-body">
                 <?php if (Yii::$app->session->hasFlash('success')): ?>
@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <?= Html::submitButton('Update', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                            <?= Html::submitButton('Update', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
                         </div>
                     </div>
                 <?php ActiveForm::end(); ?>               

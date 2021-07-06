@@ -63,7 +63,7 @@ AppAsset::register($this);
                         
                         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> SignUp<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/account/customer-signup">Customer SignUp</a></li>
+                                <li><a  class="openPopup" href="#" >Customer SignUp</a></li>
                                 <li><a href="/account/supplier-signup">Supplier SignUp</a></li>
                             </ul>
                         </li>

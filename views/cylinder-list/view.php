@@ -14,7 +14,7 @@ $this->title = 'Updated Cylinder list';
 <div class="cylinder-list-view">
 <div class="col-md-2"></div>
     <div class="col-md-8">
-            <div class="panel panel-primary">
+            <div class="panel">
                 <div class="panel-heading"><?= Html::encode($this->title) ?></div>
                 <div class="panel-body"> 
 

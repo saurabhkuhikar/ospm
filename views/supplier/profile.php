@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <div class="panel panel-primary">
+        <div class="panel">
             <div class="panel-heading"><?= Html::encode($this->title) ?></div>
             <div class="panel-body">
                 <?php if (Yii::$app->session->hasFlash('success')): ?>
