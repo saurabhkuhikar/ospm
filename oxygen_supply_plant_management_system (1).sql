@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 19, 2021 at 09:23 AM
+-- Generation Time: Jul 10, 2021 at 10:57 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -783,7 +783,7 @@ CREATE TABLE IF NOT EXISTS `cylinder_bookings` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cylinder_bookings`
@@ -798,12 +798,18 @@ INSERT INTO `cylinder_bookings` (`id`, `first_name`, `last_name`, `customer_id`,
 (6, 'drgdrt', 'drtedrh', 15, 8, 'Negative', '2021-06-29', '10 liter', '2', 20000, '2021-06-17', 'Delivered', NULL, NULL, NULL, '2021-06-07 17:26:09', '2021-06-07 17:26:09'),
 (7, 'tanushree ', 'kuhikar', 16, 8, 'Negative', '2021-06-09', '10 liter', '2', 20000, '2021-06-15', 'Delivered', NULL, NULL, NULL, '2021-06-12 08:23:11', '2021-06-12 08:23:11'),
 (8, 'abc', 'acbcgds', 15, 11, 'Negative', '2021-06-06', '10 liter', '3', 30000, '2021-05-29', 'Delivered', NULL, NULL, NULL, '2021-06-12 11:17:32', '2021-06-12 11:17:32'),
-(9, 'abcn', 'acbcgds', 15, 12, 'Positive', '2021-06-05', '15 liter', '2', 26000, '2021-06-26', 'Process', NULL, NULL, NULL, '2021-06-13 04:27:31', '2021-06-13 04:27:31'),
-(10, 'ejkftjsbdvrte', 'wseragr', 15, 8, 'Negative', '2021-05-10', '15 liter', '3', 39000, '2021-06-03', 'Delivered', NULL, NULL, NULL, '2021-06-13 07:34:12', '2021-06-13 07:34:12'),
+(9, 'abcn', 'acbcgds', 15, 12, 'Positive', '2021-06-05', '15 liter', '2', 26000, '2021-06-26', 'Delivered', NULL, NULL, NULL, '2021-06-13 04:27:31', '2021-06-13 04:27:31'),
+(10, 'ejkftjsbdvrte', 'wseragr', 15, 8, 'Negative', '2021-05-10', '15 liter', '3', 39000, '2021-06-03', 'Pending', NULL, NULL, NULL, '2021-06-13 07:34:12', '2021-06-13 07:34:12'),
+(18, 'hetyedtye', 'ertdsrgtert', 15, 11, 'Negative', '2021-04-30', '5 liter', '2', 16000, '2021-07-02', 'Pending', NULL, NULL, NULL, '2021-06-20 10:42:45', '2021-06-20 10:42:45'),
 (11, 'abcn', 'frwfs', 15, 12, 'Positive', '2021-05-10', '10 liter', '2', 23000, '2021-06-05', 'Pending', NULL, NULL, NULL, '2021-06-14 08:27:37', '2021-06-14 08:27:37'),
 (12, 'drfgdg', 'dsgrsd', 15, 11, 'Positive', '2021-06-14', '15 liter', '1', 14000, '2021-06-30', 'Pending', NULL, NULL, NULL, '2021-06-14 08:35:09', '2021-06-14 08:35:09'),
 (13, 'wefwesr', 'wefef', 15, 11, 'Positive', '2021-05-31', '5 liter', '1', 100, '2021-06-10', 'Pending', NULL, NULL, NULL, '2021-06-18 04:56:02', '2021-06-18 04:56:02'),
-(14, 'ssssss', 'zzzzzz', 10, 18, 'Negative', '2021-02-17', '5 liter', '1', 5000, '2021-06-08', 'Delivered', NULL, NULL, NULL, '2021-06-19 09:21:08', '2021-06-19 09:21:08');
+(14, 'ssssss', 'zzzzzz', 10, 18, 'Negative', '2021-02-17', '5 liter', '1', 5000, '2021-06-08', 'Delivered', NULL, NULL, NULL, '2021-06-19 09:21:08', '2021-06-19 09:21:08'),
+(15, 'AWFWSRF', 'ERSAE', 10, 8, 'Negative', '2021-05-10', '5 liter', '1', 7000, '2021-06-03', 'Delivered', NULL, NULL, NULL, '2021-06-19 12:34:20', '2021-06-19 12:34:20'),
+(16, 'erteste', 'thrtshetye', 10, 11, 'Negative', '2021-05-10', '15 liter', '4', 56000, '2021-05-24', 'Pending', NULL, NULL, NULL, '2021-06-19 12:46:26', '2021-06-19 12:46:26'),
+(17, 'srfthwaes', 'waetfszreaed', 9, 8, 'Positive', '2021-06-01', '15 liter', '5', 65000, '2021-06-25', 'Process', NULL, NULL, NULL, '2021-06-19 14:04:03', '2021-06-19 14:04:03'),
+(19, 'srgegrw', 'werwefwf', 10, 8, 'Negative', '2021-07-05', '5 liter', '2', 16000, '2021-05-26', 'Pending', NULL, NULL, NULL, '2021-07-08 17:47:37', '2021-07-08 17:47:37'),
+(20, 'FEasjhbfusvfb', 'jshvdbysgvfy', 10, 11, 'Positive', '0005-04-12', '15 liter', '2', 28000, '2021-06-03', 'Pending', NULL, NULL, NULL, '2021-07-08 17:50:41', '2021-07-08 17:50:41');
 
 -- --------------------------------------------------------
 
@@ -821,7 +827,7 @@ CREATE TABLE IF NOT EXISTS `cylinder_lists` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cylinder_lists`
@@ -831,12 +837,12 @@ INSERT INTO `cylinder_lists` (`id`, `user_id`, `cylinder_type`, `cylinder_quanti
 (1, 11, '5 liter', '6', 8000, '2021-06-01 09:04:50', '2021-06-01 09:04:50'),
 (2, 11, '10 liter', '2', 10000, '2021-06-01 09:05:37', '2021-06-13 07:10:27'),
 (3, 11, '15 liter', '4', 14000, '2021-06-01 09:06:00', '2021-06-13 07:08:18'),
-(4, 8, '5 liter', '11', 7000, '2021-06-01 09:09:08', '2021-06-14 09:04:40'),
-(5, 8, '10 liter', '7', 10000, '2021-06-01 09:09:38', '2021-06-15 18:16:17'),
-(6, 8, '15 liter', '17', 13000, '2021-06-01 09:09:51', '2021-06-13 07:40:01'),
+(4, 8, '5 liter', '12', 8000, '2021-06-01 09:09:08', '2021-07-08 16:08:01'),
+(5, 8, '10 liter', '11', 11000, '2021-06-01 09:09:38', '2021-06-20 13:03:55'),
+(6, 8, '15 liter', '20', 14000, '2021-06-01 09:09:51', '2021-06-20 13:11:59'),
 (7, 12, '5 liter', '8', 8000, '2021-06-01 09:11:47', '2021-06-13 07:12:45'),
 (8, 12, '10 liter', '10', 11500, '2021-06-01 09:12:13', '2021-06-01 09:12:13'),
-(9, 12, '15 liter', '6', 13000, '2021-06-01 09:12:32', '2021-06-14 08:30:44'),
+(9, 12, '15 liter', '7', 13000, '2021-06-01 09:12:32', '2021-07-09 06:14:44'),
 (10, 18, '5 liter', '9', 5000, '2021-06-19 09:17:29', '2021-06-19 09:22:14'),
 (11, 18, '10 liter', '10', 10000, '2021-06-19 09:19:04', '2021-06-19 09:19:04'),
 (12, 18, '15 liter', '15', 15000, '2021-06-19 09:19:29', '2021-06-19 09:19:29');
@@ -942,6 +948,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `state` varchar(50) DEFAULT NULL,
   `city` varchar(50) DEFAULT NULL,
   `company_name` varchar(255) DEFAULT NULL,
+  `profile_picture` varchar(255) DEFAULT NULL,
   `identity_proof` varchar(255) DEFAULT NULL,
   `identity_proof_type` varchar(255) DEFAULT NULL,
   `aadhar_card_number` varchar(12) DEFAULT NULL,
@@ -950,23 +957,25 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` timestamp NOT NULL,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `auth_key`, `phone_number`, `age`, `gender`, `address`, `state`, `city`, `company_name`, `identity_proof`, `identity_proof_type`, `aadhar_card_number`, `account_type`, `status`, `created`, `updated`) VALUES
-(3, 'admin', 'admin', 'admin123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'MsharOM5hT4X1ro0fM0TlmzhfDEG4uJe', 1234557890, 23, 'male', 'abc', 'Assam', 'Anantapur', NULL, 'adhar', NULL, '123123123123', 'Admin', 'Enabled', '2021-05-29 18:30:00', '2021-05-29 20:58:35'),
-(9, 'demo', 'demo', 'demo6@gmail.com', '25f9e794323b453885f5181f1b624d0b', '9WAMM2Qa282IAl5tbXBJnd02-dHFm9Mt', 0915899147, 25, 'male', 'juni managal wairi', 'Goa', 'East Godavari / Kakinada', '', 'Driving License', '1622452604.jpg', '112255447788', 'Customer', 'Enabled', '2021-05-29 18:30:00', '2021-05-30 01:37:39'),
-(8, 'Nandini', 'Kose', 'nandinikose66@gmail.com', '23f474aef895fa9f10b9e5bb5ab804d5', 'w-QXMcD7GfvdFPA3Vudl5VTqdJIHFmwL', 0915899147, 25, 'female', 'new city', 'Maharashtra', 'Nagpur', 'Nandini o2 manufacturing company PTV', 'Pan Card', '1623782133.jpg', '124514785211', 'Supplier', 'Enabled', '2021-05-29 18:30:00', '2021-05-30 01:35:57'),
-(10, 'customer one', 'abc', 'customer1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'rFuPF-sYIwr5tDwUrpdYyF5pLE_4w9Xw', 1234514789, NULL, 'male', 'acvbnmkyy', 'Chhattisgarh', 'East Godavari / Kakinada', '', 'Driving License', NULL, '788152485214', 'Customer', 'Enabled', '2021-05-30 18:30:00', '2021-05-31 06:14:00'),
-(11, 'Jaghdhish', 'kate', 'supplier1@gmail.com', '96e79218965eb72c92a549dd5a330112', 'b1xcyB4-BR2tRwgHX3fivDZuN8IzQFaw', 1236540414, 41, 'male', 'wrfnsidfnosiuefeq', 'Maharashtra', 'Mumbai City', 'J.K oxygen supplier company ptv', 'Ration Card with address', NULL, '215478965201', 'Supplier', 'Enabled', '2021-05-31 07:16:42', '2021-05-31 07:16:42'),
-(12, 'palash', 'KUHIKAR', 'palash@gmail.com', '8b4cf0258846b23e0a8272bee22c38dd', 'Dg2OiNiSMo-Up8I5zRaExqdD8NOUQKLO', 2154789652, 18, 'male', 'ABCCJDFHUA', 'Gujarat', 'Chandigarh', 'palash oxygen cylinder company ptv', 'Passport', NULL, '214587456321', 'Supplier', 'Enabled', '2021-05-31 07:25:54', '2021-05-31 07:25:54'),
-(15, 'SAURABH', 'KUHIKAR', 'saurabhkuhikar6@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'HJS-0WbL8_wKkLVClOIsnXWjEgqJY_MZ', 0915899147, 23, 'male', 'sdihbgiwrguiwgbrubyf', 'Maharashtra', 'Nagpur', '', 'Adhaar card(UID)', '1623782240.jpg', '123456790214', 'Customer', 'Enabled', '2021-06-05 01:24:42', '2021-06-05 01:24:42'),
-(16, 'tanushree ', 'kuhikar', 'tanu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Baw_nTBQjDl6sc-PwD5P42dudt7-f5dx', 2452551257, 14, 'female', 'xyz', 'Maharashtra', 'Nagpur', NULL, 'Adhaar card(UID)', NULL, '112302547852', 'Customer', 'Enabled', '2021-06-12 02:50:40', '2021-06-12 02:50:40'),
-(17, 'SAURABH', 'KUHIKAR', 'saurabhkuhikar87@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'rtYNewos3HhSfsm12VynBGvsWfO-ulSs', 0915899147, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Customer', 'Enabled', '2021-06-14 03:14:48', '2021-06-14 03:14:48'),
-(18, 'harsh', 'KUHIKAR', 'harsh1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'dcKKHEtNj9zUd_IK01AATs0J-pjznhmI', 1234567890, NULL, 'male', 'kshbfsuhbefuehbq', 'Bihar', 'Kadapa', 'harsh oxygen cylinder PVT', NULL, NULL, '123456789123', 'Supplier', 'Enabled', '2021-06-19 03:46:37', '2021-06-19 03:46:37');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `auth_key`, `phone_number`, `age`, `gender`, `address`, `state`, `city`, `company_name`, `profile_picture`, `identity_proof`, `identity_proof_type`, `aadhar_card_number`, `account_type`, `status`, `created`, `updated`) VALUES
+(3, 'admin', 'admin', 'admin123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'MsharOM5hT4X1ro0fM0TlmzhfDEG4uJe', 1234557890, 23, 'male', 'abc', 'Assam', 'Anantapur', NULL, '', 'adhar', NULL, '123123123123', 'Admin', 'Enabled', '2021-05-29 18:30:00', '2021-05-29 20:58:35'),
+(9, 'demo', 'demo', 'demo6@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '9WAMM2Qa282IAl5tbXBJnd02-dHFm9Mt', 0915899147, 25, 'male', 'juni managal wairi', 'Goa', 'East Godavari / Kakinada', '', '', 'Driving License', '1622452604.jpg', '112255447788', 'Customer', 'Enabled', '2021-05-29 18:30:00', '2021-05-30 01:37:39'),
+(8, 'Nandini', 'Kose', 'nandinikose66@gmail.com', '23f474aef895fa9f10b9e5bb5ab804d5', 'w-QXMcD7GfvdFPA3Vudl5VTqdJIHFmwL', 0915899147, 25, 'female', 'new city', 'Maharashtra', 'Nagpur', 'Nandini o2 manufacturing company PTV', '1625905172.jpg', 'Pan Card', '1623782133.jpg', '124514785211', 'Supplier', 'Enabled', '2021-05-29 18:30:00', '2021-05-30 01:35:57'),
+(10, 'customer_one', 'abc', 'customer1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'rFuPF-sYIwr5tDwUrpdYyF5pLE_4w9Xw', 1234514789, NULL, 'male', 'acvbnmkyy', 'Chhattisgarh', 'East Godavari / Kakinada', '', '', 'Driving License', NULL, '788152485214', 'Customer', 'Enabled', '2021-05-30 18:30:00', '2021-05-31 06:14:00'),
+(11, 'Jaghdhish', 'kate', 'supplier1@gmail.com', '96e79218965eb72c92a549dd5a330112', 'b1xcyB4-BR2tRwgHX3fivDZuN8IzQFaw', 9158991475, 41, 'male', 'wrfnsidfnosiuefeq', 'Maharashtra', 'Mumbai City', 'J.K oxygen supplier company ptv', '', 'Ration Card with address', NULL, '215478965201', 'Supplier', 'Enabled', '2021-05-31 07:16:42', '2021-05-31 07:16:42'),
+(12, 'palash', 'KUHIKAR', 'palash@gmail.com', '8b4cf0258846b23e0a8272bee22c38dd', 'Dg2OiNiSMo-Up8I5zRaExqdD8NOUQKLO', 2154789652, 18, 'male', 'ABCCJDFHUA', 'Gujarat', 'Chandigarh', 'palash oxygen cylinder company ptv', '1625824045.jpg', 'Passport', NULL, '214587456321', 'Supplier', 'Enabled', '2021-05-31 07:25:54', '2021-05-31 07:25:54'),
+(15, 'SAURABH', 'KUHIKAR', 'saurabhkuhikar6@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'HJS-0WbL8_wKkLVClOIsnXWjEgqJY_MZ', 0915899147, 23, 'male', 'Nagpur', 'Maharashtra', 'Nagpur', '', '1625913972.jpg', 'Adhaar card(UID)', '1623782240.jpg', '123456790214', 'Customer', 'Enabled', '2021-06-05 01:24:42', '2021-06-05 01:24:42'),
+(16, 'tanushree ', 'kuhikar', 'tanu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Baw_nTBQjDl6sc-PwD5P42dudt7-f5dx', 2452551257, 14, 'female', 'xyz', 'Maharashtra', 'Nagpur', NULL, '', 'Adhaar card(UID)', NULL, '112302547852', 'Customer', 'Enabled', '2021-06-12 02:50:40', '2021-06-12 02:50:40'),
+(17, 'SAURABH', 'KUHIKAR', 'saurabhkuhikar87@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'rtYNewos3HhSfsm12VynBGvsWfO-ulSs', 0915899147, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'Customer', 'Enabled', '2021-06-14 03:14:48', '2021-06-14 03:14:48'),
+(18, 'harsh', 'KUHIKAR', 'harsh1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'dcKKHEtNj9zUd_IK01AATs0J-pjznhmI', 1234567890, NULL, 'male', 'kshbfsuhbefuehbq', 'Bihar', 'Kadapa', 'harsh oxygen cylinder PVT', '', NULL, NULL, '123456789123', 'Supplier', 'Enabled', '2021-06-19 03:46:37', '2021-06-19 03:46:37'),
+(19, 'animesh', 'gupta', 'animesh1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'DAo5nL1VcQePueXCTaG0NREW3hCrOLoe', 1234567890, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'Customer', 'Enabled', '2021-06-28 00:43:11', '2021-06-28 00:43:11'),
+(20, 'animesh', 'gupta', 'animesh@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ZYaTx9nlrYO51cY6INz34ZIAyYI6_QFJ', 1593571236, NULL, NULL, NULL, NULL, NULL, NULL, '1625822889.jpg', NULL, NULL, NULL, 'Customer', 'Enabled', '2021-07-09 03:56:09', '2021-07-09 03:56:09');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
