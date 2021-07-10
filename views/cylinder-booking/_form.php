@@ -14,7 +14,7 @@ use kartik\select2\Select2;
 <div class="cylinder-booking-form">
     <?php $form = ActiveForm::begin(); ?>
         <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="panel">
                 <div class="panel-heading"><?= Html::encode($this->title) ?></div>
                 <div class="panel-body">
@@ -31,7 +31,7 @@ use kartik\select2\Select2;
                         <?php $data = array('Positive'=>'Positive','Negative'=>'Negative')?>
                                 <?= $form->field($model, 'covid_test_result')->widget(Select2::classname(), [
                                         'data' => $data,                                        
-                                        'options' => ['placeholder' => 'Select Identity Proof'],
+                                        'options' => ['placeholder' => 'Select Identity Proof','autocomplete'=>'off',],
                                         'pluginOptions' => ['allowClear' => true],  
                                     ]); 
                                     ?> 
@@ -41,7 +41,8 @@ use kartik\select2\Select2;
                                 [
                                     // inline too, not bad
                                     'inline' => false,
-                                    'options' => ['placeholder' => 'Select Covid Test date '],
+                                    'options' => ['placeholder' => 'Select Covid Test date ','autocomplete'=>'off',],
+                                    
                                     // modify template for custom rendering
                                     // 'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
                                     'clientOptions' => [
@@ -87,9 +88,8 @@ use kartik\select2\Select2;
                     </div>                            
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <?php //Html::submitButton('Submit', ['class' => 'btn btn-success','id' => "checkout-button"]) ?>
-                                <button type="button" class='btn btn-success' id="checkout-button">Submit</button>
+                            <div class="form-group">                            
+                                <?= Html::submitButton('Submit', ['class' => 'btn btn-success','id' => "checkout-button"]) ?>
                             </div>
                         </div>
                     </div>

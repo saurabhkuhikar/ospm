@@ -13,7 +13,7 @@ use kartik\select2\Select2;
 <div class="cylinder-list-form">
 <?php $form = ActiveForm::begin(); ?>
     <div class="col-md-2"></div>
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading"><?= Html::encode($this->title) ?></div>
             <div class="panel-body">

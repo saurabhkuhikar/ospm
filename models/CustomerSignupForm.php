@@ -40,7 +40,8 @@ class CustomerSignupForm extends Model
             [['password',], 'string', 'min' => 6],
             [['first_name','last_name'], 'match', 'pattern' => '/^[a-zA-Z_ ]*$/', 'message' => 'Only alphabetic characters allowed'],
             ['email', 'unique', 'targetClass' => 'app\models\User', 'message' => 'This email is already registered with us.'],
-            ['phone_number', 'match', 'pattern'=>'/^[0-9][0-9][0-9]{10}$/','message' => 'Phone Number Must be Exactly 10 Digit.'],
+            ['phone_number', 'unique', 'targetClass' => 'app\models\User', 'message' => 'This mobile already registered with us.'],
+            ['phone_number', 'match', 'pattern'=>'/^[0-9]{10}$/','message' => 'Phone Number Must be Exactly 10 Digit.'],
         ];
     }
     /**

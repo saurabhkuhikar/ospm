@@ -2,15 +2,24 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>OSPM!</span></a>
+            <?php $accountType = Yii::$app->user->identity->account_type;
+            if($accountType == "Customer"){?>         
+                <a href="/site/index" class="site_title"><i class="fa fa-paw"></i> <span>OSPM!</span></a>
+            <?php }else{?>
+                <a href="/supplier/dashboard" class="site_title"><i class="fa fa-paw"></i> <span>OSPM!</span></a>
+            <?php } ?>
         </div>
 
         <div class="clearfix"></div>
-
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="/upload/profile_pictures/empty_image.png" alt="..." class="img-circle profile_img">
+               <a href="/account/change-profile-picture">
+                    <?php if(!empty(Yii::$app->user->identity->profile_picture)){?><img src="/upload/profile_pictures/<?= Yii::$app->user->identity->profile_picture; ?>" alt="..." class="img-circle profile_img">
+                    <?php }else{ ?>
+                        <img src="/upload/profile_pictures/empty_image.png" alt="..." class="img-circle profile_img">               
+                    <?php }?>
+                </a> 
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
@@ -24,7 +33,7 @@
             <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">   
-                    <?php $accountType = Yii::$app->user->identity->account_type;
+                   <?php
                     if($accountType == "Customer"){?>                    
                     <li>
                         <a href ="/site/index"><i class="fa fa-home"></i> Home</a>
@@ -50,14 +59,13 @@
                                 <li><a href="/booking-request/index?status=Delivered">Delivered</a></li>
                             </ul>
                         </li> 
-                        <li><a href="/cylinder-list/index"><i class="glyphicon glyphicon-pencil"></i>Add Cylinders </a>
+                        <li><a href="/cylinder-list/index"><i class="fa fa-edit"></i>Manage Cylinders </a>
                         </li>               
                     <?php } ?>
                 </ul>                   
             </div> 
         </div>
         <!-- /sidebar menu -->
-
         <!-- /menu footer buttons -->
         <div class="sidebar-footer hidden-small">
             <a data-toggle="tooltip" data-placement="top" title="Settings">

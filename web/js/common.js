@@ -49,10 +49,3 @@ function getCylinderListId(){
 		}
 	});	
 }
-$(document).ready(function(){
-    $('.openPopup').on('click',function(){
-        $('.modal-body').load('customer-signup.php',function(){
-            $('#myModal').modal({show:true});
-        });
-    });
-});

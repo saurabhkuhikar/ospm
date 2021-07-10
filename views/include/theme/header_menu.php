@@ -8,7 +8,12 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="/upload/profile_pictures/empty_image.png" alt=""><?= Yii::$app->user->identity->first_name; ?>
+                                    <?php if(!empty(Yii::$app->user->identity->profile_picture)){?>                                    
+                                    <img src="/upload/profile_pictures/<?= Yii::$app->user->identity->profile_picture; ?>" alt=""><?= Yii::$app->user->identity->first_name; ?>
+                                     <?php }else{ ?>
+                                       <img src="/upload/profile_pictures/empty_image.png" alt=""><?= Yii::$app->user->identity->first_name; ?>  
+                                    <?php }?>
+
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">

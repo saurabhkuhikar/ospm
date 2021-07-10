@@ -24,8 +24,8 @@ $this->title = "View Booking Details";
         ]) ?>
     </p> -->
     <div class="col-md-2"></div>
-    <div class="col-md-8">
-            <div class="panel panel-primary">
+    <div class="col-md-12">
+            <div class="panel">
                 <div class="panel-heading"><?= Html::encode($this->title) ?></div>
                 <div class="panel-body">
                     <?= DetailView::widget([

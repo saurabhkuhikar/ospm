@@ -14,21 +14,10 @@ $this->title = "View Booking Request Details";
 <div class="booking-request-view">
 
 <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-12">
             <div class="panel">
                 <div class="panel-heading"><?= Html::encode($this->title) ?></div>
-                <div class="panel-body">
-
-                    <p>
-                        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                            'class' => 'btn btn-danger',
-                            'data' => [
-                                'confirm' => 'Are you sure you want to delete this item?',
-                                'method' => 'post',
-                            ],
-                        ]) ?>
-                    </p>
+                <div class="panel-body">                  
 
                     <?= DetailView::widget([
                         'model' => $model,

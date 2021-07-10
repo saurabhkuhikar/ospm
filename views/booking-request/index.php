@@ -14,7 +14,7 @@ $this->title = 'Booking Requests';
     <div class="col-md-2"></div>
     <div class="col-md-12">  
         <div class="panel">
-            <div class="panel-heading">Update Booking</div>
+            <div class="panel-heading"><?=$_GET['status']?></div>
             <div class="panel-body">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,

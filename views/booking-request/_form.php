@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
     <div class="container">
         <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="panel">
                 <div class="panel-heading">Update Booking</div>
                 <div class="panel-body">

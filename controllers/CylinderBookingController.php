@@ -68,6 +68,7 @@ class CylinderBookingController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = 'dashboard'; 
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -85,7 +86,7 @@ class CylinderBookingController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->customer_id = Helper::getCurrentUserId();
             $model->supplier_id = base64_decode($token);
-            $totalAmountSession = Helper::getSession('totalAmount');            
+            $totalAmountSession = Helper::getSession('totalAmount');           
             if($model->total_amount != $totalAmountSession  && $model->total_amount != Null){
                 $model->total_amount = $totalAmountSession;
             }
@@ -150,7 +151,8 @@ class CylinderBookingController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionBillAmount(){
+    public function actionBillAmount()
+    {
       
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  

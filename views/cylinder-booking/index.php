@@ -14,7 +14,7 @@ $this->title = 'Cylinder Bookings';
 <div class="col-md-2"></div>
     <div class="col-md-12"> 
         <div class="panel">
-            <div class="panel-heading"><?= Html::encode($this->title) ?></div>
+            <div class="panel-heading"><?= $_GET['status'] ?></div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">

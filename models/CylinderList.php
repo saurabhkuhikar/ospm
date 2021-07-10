@@ -31,7 +31,7 @@ class CylinderList extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cylinder_price'], 'required'],
+            [['cylinder_price','cylinder_type','cylinder_quantity'], 'required'],
             [['created', 'updated'], 'safe'],
             [['cylinder_type', ], 'string', 'max' => 255],
             [['user_id'],'number'],

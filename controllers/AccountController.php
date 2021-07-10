@@ -14,6 +14,7 @@ use app\models\SupplierSignupForm;
 use app\models\LoginForm;
 use app\models\Profile;
 use app\components\Helper;
+use yii\web\UploadedFile;
 
 /**
  * OsmpController implements the CRUD actions for Users model.
@@ -94,6 +95,7 @@ class AccountController extends Controller
 
         public function actionSupplierSignup()
     {
+        $this->layout = 'login';
         $model = new SupplierSignupForm();
 
         if($model->load(Yii::$app->request->post()) && $model->signup()){
@@ -111,6 +113,7 @@ class AccountController extends Controller
 
     public function actionCustomerSignup()
     {
+        $this->layout = 'login';
         $model = new CustomerSignupForm();       
 
         if($model->load(Yii::$app->request->post()) && $model->signup()){
@@ -119,47 +122,7 @@ class AccountController extends Controller
         }
         
         return $this->render('customer-signup', ['model' => $model]);
-    }
-
-    /**
-     * Customer Signup action.
-     *
-     * @return Response
-     */
-    /* Customer Signup form */
-
-    public function actionCustomerForm()
-    {
-        $this->layout = 'login';
-        $model = new CustomerSignupForm();       
-
-        if($model->load(Yii::$app->request->post()) && $model->signup()){
-            return $this->redirect(['customer/dashboard']);
-                  
-        }
-        
-        return $this->render('customer-form', ['model' => $model]);
-    }
-
-    /**
-     * Customer Signup action.
-     *
-     * @return Response
-     */
-        /* Customer Signup form */
-
-        public function actionSupplierForm()
-    {
-        $this->layout = 'login';
-        $model = new SupplierSignupForm();     
-
-        if($model->load(Yii::$app->request->post()) && $model->signup()){
-            return $this->redirect(['supplier/dashboard']);
-                  
-        }
-        
-        return $this->render('supplier-form', ['model' => $model]);
-    }
+    }   
 
 
     /*Forgot passwoard */
@@ -167,5 +130,50 @@ class AccountController extends Controller
     public function actionForgotPassword(){
 
         return $this->render('/account/forgot-password');
+    } 
+    
+    
+    /*profile picture*/
+
+    public function actionChangeProfilePicture()
+    {
+        $this->layout = 'dashboard';
+
+        $model = $this->findProfile(Helper::getCurrentUserId()); 
+
+        $profilePic = (isset($model->profile_picture) && !empty($model->profile_picture))? $model->profile_picture : Null;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $profilePictureObject = UploadedFile::getInstance($model,'profile_picture');
+            if(!empty($profilePictureObject)){
+                $model->profile_picture = $profilePictureObject;
+                $fileName = time().'.'.$model->profile_picture->extension;
+                $model->profile_picture->saveAs('upload/profile_pictures/'.$fileName);
+                $profilePic = $fileName;
+            }
+            $model->profile_picture = $profilePic;            
+            if($model->save()){                
+                Yii::$app->session->setFlash('success', "Your profile picture updated successfully.");
+                
+                return $this->redirect(['/account/change-profile-picture']);
+            }
+        }
+
+        
+        return $this->render('/account/change-profile-picture',['model' => $model]);
     }    
+    
+    /**
+     * Find Profile Model.
+     * @param id
+     * @return string
+    */
+    protected function findProfile($id)
+    {
+        if (($model = Profile::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 }

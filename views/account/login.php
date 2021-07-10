@@ -12,8 +12,8 @@
           <div class="text w-100">
             <h2>Welcome to OSPM</h2>
             <p>Don't have an account?</p>
-            <a href="/account/customer-form" class="btn btn-white btn-outline-white"> Customer Sign Up</a>
-            <a href="/account/supplier-form" class="btn btn-white btn-outline-white">Supplier Sign Up</a>
+            <a href="/account/customer-signup" class="btn btn-white btn-outline-white"> Customer Sign Up</a>
+            <a href="/account/supplier-signup" class="btn btn-white btn-outline-white">Supplier Sign Up</a>
           </div>
         </div>
         <div class="login-wrap p-4 p-lg-5">

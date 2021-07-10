@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading"><?= Html::encode($this->title) ?></div>
             <div class="panel-body">
