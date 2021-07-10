@@ -2,6 +2,7 @@
 
 namespace app\assets;
 
+use yii\web\View;
 use yii\web\AssetBundle;
 
 /**
@@ -12,6 +13,11 @@ use yii\web\AssetBundle;
  */
 class DashboardAsset extends AssetBundle
 {
+    public function init() {
+        $this->jsOptions['position'] = View::POS_END;
+        parent::init();
+    }
+
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [

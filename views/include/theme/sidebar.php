@@ -35,23 +35,17 @@
                 <ul class="nav side-menu">   
                    <?php
                     if($accountType == "Customer"){?>                    
-                    <li>
-                        <a href ="/site/index"><i class="fa fa-home"></i> Home</a>
-                    </li>
-                    <li>
-                        <a href ="/customer/dashboard"><i class="fa fa-laptop"></i> Dashboard</a>
-                    </li>
-                    <li><a><i class="fa fa-edit"></i> Order List <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="/cylinder-booking/index?status=Pending">Pending</a></li>
-                            <li><a href="/cylinder-booking/index?status=Process">Process</a></li>
-                            <li><a href="/cylinder-booking/index?status=Delivered">Delivered</a></li>
-                        </ul>
-                    <?php }
-                    if($accountType == "Supplier"){?>
-                        <li>
-                            <a href ="/supplier/dashboard"><i class="fa fa-home"></i> Home</a>
+                        <li><a href ="/site/index"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href ="/customer/dashboard"><i class="fa fa-laptop"></i> Dashboard</a></li>
+                        <li><a><i class="fa fa-edit"></i> Order List <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="/cylinder-booking/index?status=Pending">Pending</a></li>
+                                <li><a href="/cylinder-booking/index?status=Process">Process</a></li>
+                                <li><a href="/cylinder-booking/index?status=Delivered">Delivered</a></li>
+                            </ul>
                         </li>
+                    <?php }else if($accountType == "Supplier"){ ?>
+                        <li><a href ="/supplier/dashboard"><i class="fa fa-home"></i> Home</a></li>
                         <li><a><i class="fa fa-edit"></i> Order List <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
                                 <li><a href="/booking-request/index?status=Pending">Pending</a></li>
@@ -59,8 +53,7 @@
                                 <li><a href="/booking-request/index?status=Delivered">Delivered</a></li>
                             </ul>
                         </li> 
-                        <li><a href="/cylinder-list/index"><i class="fa fa-edit"></i>Manage Cylinders </a>
-                        </li>               
+                        <li><a href="/cylinder-list/index"><i class="fa fa-edit"></i>Manage Cylinders </a></li>               
                     <?php } ?>
                 </ul>                   
             </div> 

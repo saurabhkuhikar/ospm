@@ -65,8 +65,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = "home";
-        $supplierTable = User::find()->select(['company_name','id','first_name','state','city','phone_number'])->where(['account_type' => ['Supplier']])->asArray()->all();
-        return $this->render('index',['supplierTable'=>$supplierTable]);
+        $supplierList = User::find()->select(['company_name','id','first_name','state','city','phone_number'])->where(['account_type' => ['Supplier']])->asArray()->all();
+        return $this->render('index',['supplierList'=>$supplierList]);
     }
 
     /**
@@ -109,12 +109,17 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionGetTable(){
+    public function actionGetCylinderListDetail(){
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
-            $cylinderLists = CylinderList::find()->where(['user_id'=> $data])->asArray()->one();
+            $cylinders = [];
+            $cylinderLists = CylinderList::find()->select(['cylinder_type','cylinder_quantity','cylinder_price'])->where(['user_id'=> base64_decode($data['supplierInfo'])])->asArray()->all();
             
-            return json_encode(['status'=>200,'cylinderLists'=>$cylinderLists]);
+            if(count($cylinderLists) > 0){
+                $cylinders = $cylinderLists;
+            }
+            
+            return json_encode(['status'=>200,'cylinders'=>$cylinders]);
         }
     }
 }
