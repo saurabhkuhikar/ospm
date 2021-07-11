@@ -29,10 +29,10 @@ class AccountController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout','change-profile-picture'],
                 'rules' => [
                     [
-                        'actions' => ['login','logout','SupplierSignup','CustomerSignup','ForgotPassword'],
+                        'actions' => ['login','logout','change-profile-picture','get-city-list','SupplierSignup','CustomerSignup','ForgotPassword'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -175,5 +175,15 @@ class AccountController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGetCityList(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();  
+            $state = implode("",$data);
+            
+        }
+        
+        return json_encode(['status'=>200,'state'=>$state]);
     }
 }

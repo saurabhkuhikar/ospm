@@ -24,7 +24,7 @@ class CylinderTypeController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['login','index','view','create','update'],
+                'only' => ['login','index','view','create','update','delete'],
                 'rules' => [
                     [
                         'actions' => ['index','view','create','update','delete'],

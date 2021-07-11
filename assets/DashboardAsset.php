@@ -27,7 +27,6 @@ class DashboardAsset extends AssetBundle
     ];
     public $js = [
         'theme/build/js/custom.min.js',
-        'js/common.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

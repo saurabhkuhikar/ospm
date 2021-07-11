@@ -27,19 +27,7 @@ use yii\helpers\ArrayHelper;
                         <div class="col-md-6">
                             <?= $form->field($model, 'last_name')->textInput(['autofocus'=>true,'readOnly'=>true,'placeholder'=>'Last Name','maxlength' => true]) ?>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <?php $data = array('Pending'=>'Pending','Process'=>'Process','Delivered'=>'Delivered')?>
-                            <?= $form->field($model, 'order_status')->widget(Select2::classname(), [
-                                'data' => $data,       
-                                                                
-                                'options' => ['placeholder' => 'Select order status'],
-                                'pluginOptions' => ['allowClear' => true],  
-                                    ]); 
-                            ?>
-                        </div>  
-                    </div>
+                    </div>                   
                     <div class="row">
                         <div class="col-md-6">
                             <?= $form->field($model, 'cylinder_type')->textInput(['maxlength' => true,'readOnly'=>true])?>
@@ -58,12 +46,23 @@ use yii\helpers\ArrayHelper;
                     </div>    
                     <div class="row">
                         <div class="col-md-12">
+                            <?php $data = array('Pending'=>'Pending','Process'=>'Process','Delivered'=>'Delivered')?>
+                            <?= $form->field($model, 'order_status')->widget(Select2::classname(), [
+                                'data' => $data,       
+                                                                
+                                'options' => ['placeholder' => 'Select order status'],
+                                'pluginOptions' => ['allowClear' => true],  
+                                    ]); 
+                            ?>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <?= Html::submitButton('Update', ['class' => 'btn btn-success']) ?>
                             </div>
                         </div>
                     </div>
-
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>

@@ -26,7 +26,7 @@ class SiteController extends Controller
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout','login','index'],
+                        'actions' => ['logout','contact','about','login','index','get-cylinder-list-detail'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

@@ -36,7 +36,7 @@ class SupplierSignupForm extends Model
             // email and password are both required
             [['first_name','last_name','email','company_name','password','phone_number','gender','address','state','city','aadhar_card_number'], 'required'],
             ['email','email'],
-            [['account_type'],'safe'],
+            [['account_type','profile_picture'],'safe'],
             [['age','phone_number'],'number'],
             [['password',], 'string', 'min' => 6],
             [['first_name','last_name'], 'match', 'pattern' => '/^[a-zA-Z_ ]*$/', 'message' => 'Only alphabetic characters allowed'],
@@ -81,6 +81,7 @@ class SupplierSignupForm extends Model
             $model->state = $this->state;
             $model->age = $this->age;
             $model->city = $this->city;
+            $model->profile_picture = "avatar.png";
             $model->identity_proof = $this->identity_proof;
             $model->aadhar_card_number = $this->aadhar_card_number;  
             $model->account_type = "Supplier"; 

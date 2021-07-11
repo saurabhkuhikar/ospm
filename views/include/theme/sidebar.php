@@ -3,23 +3,18 @@
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
             <?php $accountType = Yii::$app->user->identity->account_type;
-            if($accountType == "Customer"){?>         
+            if($accountType == "Customer"):?>         
                 <a href="/site/index" class="site_title"><i class="fa fa-paw"></i> <span>OSPM!</span></a>
-            <?php }else{?>
+            <?php else:?>
                 <a href="/supplier/dashboard" class="site_title"><i class="fa fa-paw"></i> <span>OSPM!</span></a>
-            <?php } ?>
+            <?php endif; ?>
         </div>
 
         <div class="clearfix"></div>
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-               <a href="/account/change-profile-picture">
-                    <?php if(!empty(Yii::$app->user->identity->profile_picture)){?><img src="/upload/profile_pictures/<?= Yii::$app->user->identity->profile_picture; ?>" alt="..." class="img-circle profile_img">
-                    <?php }else{ ?>
-                        <img src="/upload/profile_pictures/empty_image.png" alt="..." class="img-circle profile_img">               
-                    <?php }?>
-                </a> 
+               <a href="/account/change-profile-picture"><img src="/upload/profile_pictures/<?= Yii::$app->user->identity->profile_picture; ?>" alt="..." class="img-circle profile_img"></a> 
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>

@@ -99,7 +99,12 @@ use kartik\select2\Select2;
         <div class="col-md-2"></div>
     <?php ActiveForm::end(); ?>
 </div>
-
+<?php
+  $this->registerJsFile(
+    Yii::getAlias('@homeUrl') . '/js/get_total_amount.js',
+    ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
+  );
+?>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
 <script src="https://js.stripe.com/v3/"></script>

@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use app\models\States;
 use app\models\Cities;
 use kartik\select2\Select2;
+use app\components\Helper;
 
 
 /* @var $this yii\web\View */
@@ -97,7 +98,7 @@ use kartik\select2\Select2;
                     <div class="col-md-6">
                         <div class="form-group">
                             <?= $form->field($model, 'city')->widget(Select2::classname(), [
-                                'data' => ArrayHelper::map(Cities::find()->all(),'city_name','city_name'),                                        
+                                'data' => ArrayHelper::map(Cities::find()->select(['state_name','city_name'])->where(['state_name'=>'Goa'])->all(),'city_name','city_name'),        //->where(['state_name'=>$_SERVER['state']])                                
                                 'options' => ['placeholder' => 'Select Cities'],
                                 'pluginOptions' => ['allowClear' => true],  
                                 ]);
@@ -123,3 +124,9 @@ use kartik\select2\Select2;
     </div>
 </div>
 <div class="col-md-2"></div>
+<?php
+  $this->registerJsFile(
+    Yii::getAlias('@homeUrl') . '/js/dropdown_change.js',
+    ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
+  );
+?>

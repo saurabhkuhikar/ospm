@@ -35,7 +35,7 @@ class CustomerSignupForm extends Model
             // email and password are both required
             [['first_name','last_name','email', 'password','phone_number'], 'required'],
             ['email','email'],
-            [['account_type'],'safe'],
+            [['account_type','profile_picture'],'safe'],
             [['phone_number'],'number'],
             [['password',], 'string', 'min' => 6],
             [['first_name','last_name'], 'match', 'pattern' => '/^[a-zA-Z_ ]*$/', 'message' => 'Only alphabetic characters allowed'],
@@ -75,7 +75,8 @@ class CustomerSignupForm extends Model
             $model->password = md5($this->password);          
             $model->phone_number = $this->phone_number;            
             $model->account_type = "Customer";          
-            $model->status = 'Enabled';                      
+            $model->status = 'Enabled'; 
+            $model->profile_picture = "avatar.png";                  
             $model->created = date('Y-m-d h:i:s');
             $model->updated = date('Y-m-d h:i:s');
             if($model->save() &&  Yii::$app->user->login($model,  3600*24*30))
@@ -113,8 +114,7 @@ class CustomerSignupForm extends Model
             'last_name' => 'Last Name',
             'email' => 'Email',
             'password' => 'Password',           
-            'phone_number' => 'Phone Number',  
-            
+            'phone_number' => 'Phone Number',              
             'account_type' => 'Account Type',
             'status' => 'Status',
             'created' => 'Created',

@@ -8,22 +8,16 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <?php if(!empty(Yii::$app->user->identity->profile_picture)){?>                                    
-                                    <img src="/upload/profile_pictures/<?= Yii::$app->user->identity->profile_picture; ?>" alt=""><?= Yii::$app->user->identity->first_name; ?>
-                                     <?php }else{ ?>
-                                       <img src="/upload/profile_pictures/empty_image.png" alt=""><?= Yii::$app->user->identity->first_name; ?>  
-                                    <?php }?>
-
+                                    <img src="/upload/profile_pictures/<?= Yii::$app->user->identity->profile_picture; ?>" alt=""><?= Yii::$app->user->identity->first_name; ?>                                     
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <?php  $accountType = Yii::$app->user->identity->account_type;?>
-                                    <?php if($accountType == "Supplier"){ ?>                            
+                                    <?php if($accountType == "Supplier"):?>                            
                                         <li><a href="/supplier/profile">My Profile</a></li>  
-                                    <?php }else{ ?> 
-                                        <li><a href ="/customer/profile">My Profile</a></li> 
-                                    <?php }?>
-                                    
+                                    <?php else: ?><li><a href ="/customer/profile">My Profile</a></li> 
+                                    <?php endif;?>
+                                        
                                     <li><a href="javascript:;">Help</a></li>
                                     <li>
                                         <form action="<?= Yii::getAlias('@homeUrl') .'/site/logout';?>" method="post">
