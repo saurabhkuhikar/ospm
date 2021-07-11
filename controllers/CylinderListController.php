@@ -10,7 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\components\Helper;
-
+use app\models\Profile;
 /**
  * CylinderListController implements the CRUD actions for CylinderList model.
  */
@@ -24,10 +24,10 @@ class CylinderListController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','index','view','create','update','delete'],
+                'only' => ['logout','index','view','create','update','delete','relation'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update','delete','relation'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -153,5 +153,11 @@ class CylinderListController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionRelation(){
+        $model = Profile::find()->where(['id' => yii::$app->user->identity->id])->one();
+        Helper::dd($model->getcylinderlist()->all());
+        
     }
 }

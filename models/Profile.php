@@ -1,6 +1,8 @@
 <?php
 namespace app\models;
 use Yii;
+use app\models\CylinderList;
+
 /**
  * This is the model class for table "user".
  *
@@ -84,5 +86,13 @@ class Profile extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',           
         ];
+    }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getcylinderlist()
+    {
+        return $this->hasMany(CylinderList::className(), ['user_id' => 'id']);
     }    
 }

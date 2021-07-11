@@ -112,7 +112,12 @@ class SiteController extends Controller
     public function actionGetCylinderListDetail(){
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
-            $cylinders = [];
+            $cylinders = [
+                ['cylinder_type' => '5 Litre', 'cylinder_quantity' => 0, 'cylinder_price' => 0],
+                ['cylinder_type' => '10 Litre', 'cylinder_quantity' => 0, 'cylinder_price' => 0],
+                ['cylinder_type' => '15 Litre', 'cylinder_quantity' => 0, 'cylinder_price' => 0]
+            ];
+
             $cylinderLists = CylinderList::find()->select(['cylinder_type','cylinder_quantity','cylinder_price'])->where(['user_id'=> base64_decode($data['supplierInfo'])])->asArray()->all();
             
             if(count($cylinderLists) > 0){
