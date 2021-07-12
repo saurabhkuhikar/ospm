@@ -46,7 +46,7 @@
                         </ul>
                       </div>
                       <div class="right col-xs-5 text-center">
-                        <img src="/upload/profile_pictures/empty_image.png" alt="" class="img-circle img-responsive">
+                        <img src="/upload/profile_pictures/<?=$supplier['profile_picture']?>" alt="" class="img-circle img-responsive">
                       </div>
                     </div>
                     <div class="col-xs-12 bottom text-center">

@@ -65,7 +65,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = "home";
-        $supplierList = User::find()->select(['company_name','id','first_name','state','city','phone_number'])->where(['account_type' => ['Supplier']])->asArray()->all();
+        $supplierList = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['account_type' => ['Supplier']])->asArray()->all();
         return $this->render('index',['supplierList'=>$supplierList]);
     }
 

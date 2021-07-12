@@ -91,8 +91,12 @@ use app\components\Helper;
                             <?= $form->field($model, 'state')->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(States::find()->all(),'state_name','state_name'),
                                 'options' => ['placeholder' => 'Select States'],
-                                'pluginOptions' => ['allowClear' => true],]);
-                            ?> 
+                                'pluginOptions' => ['allowClear' => true,'id'=>'state_id'],
+                                'pluginEvents' => [
+                                    "change" => "function(e) {  var data_id = $(this).val();  
+                                       }",
+                                ],
+                            ]); ?> 
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -100,7 +104,7 @@ use app\components\Helper;
                             <?= $form->field($model, 'city')->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(Cities::find()->select(['state_name','city_name'])->where(['state_name'=>'Goa'])->all(),'city_name','city_name'),        //->where(['state_name'=>$_SERVER['state']])                                
                                 'options' => ['placeholder' => 'Select Cities'],
-                                'pluginOptions' => ['allowClear' => true],  
+                                'pluginOptions' => ['allowClear' => true,'id'=>'city_id'],  
                                 ]);
                             ?>   
                         </div>

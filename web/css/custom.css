@@ -261,7 +261,8 @@ html , body{
     float: left
 }
 .img-circle.profile_img {
-    width: 70%;
+    width: 74px;
+    height: 70px;
     background: #fff;
     margin-left: 15%;
     z-index: 1000;

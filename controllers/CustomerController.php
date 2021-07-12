@@ -50,7 +50,9 @@ class CustomerController extends \yii\web\Controller
         Helper::checkAccess("Customer");       
         $cylinderBookings = CylinderBooking::find()->select(['SUM( IF(order_status = "Pending", 1, 0) ) AS pending', 
         'SUM( IF(order_status = "Process", 1, 0) ) AS process','SUM( IF(order_status = "Delivered", 1, 0) ) AS delivered'])->where(['customer_id' => Helper::getCurrentUserId()])->Asarray()->one();
-        
+        if(in_array("",$cylinderBookings)){
+            $cylinderBookings = ["pending"=>0,"process"=>0,"delivered"=>0];
+        }
        return $this->render('/customer/dashboard',['cylinderBookings'=>$cylinderBookings]);                 
     }  
 

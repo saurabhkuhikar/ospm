@@ -14,7 +14,7 @@ $(document).ready(function(){
         }).done(function (response) {
             if (response.status == 200 ) {
                 $("#suppliersignupform-city").val(response.citylist);
-                $("#suppliersignupform-city").html(data); 
+                $("#city_id").html(data); 
             }
         });	
     }); 

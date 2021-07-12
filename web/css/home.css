@@ -153,4 +153,6 @@ h2 {
 .profile_details .profile_view .img-circle {
     border: 1px solid #E6E9ED;
     padding: 2px;
+    height: 118px;
+    width: 118px;
 }
