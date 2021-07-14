@@ -13,7 +13,7 @@ use kartik\select2\Select2;
 /* @var $model app\models\Users */
 /* @var $form yii\widgets\ActiveForm */
 $this->title = 'My Profile';
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <div class="col-md-2"></div>
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-md-6">
                             <div class="form-group">
                                 <?= $form->field($model, 'state')->widget(Select2::classname(), [
-                                    'data' => ArrayHelper::map(States::find()->all(),'state_name','state_name'),
+                                    'data' => ArrayHelper::map(States::find()->all(),'state_name','state_name',),
                                     'options' => ['placeholder' => 'Select States'],
                                     'pluginOptions' => ['allowClear' => true],]);
                                 ?> 
@@ -143,3 +143,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-md-2"></div>
 </div>
+<?php
+  $this->registerJsFile(
+    Yii::getAlias('@homeUrl') . '/js/dropdown_change.js',
+    ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
+  );
+?>

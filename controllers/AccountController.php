@@ -13,6 +13,8 @@ use app\models\CustomerSignupForm;
 use app\models\SupplierSignupForm;
 use app\models\LoginForm;
 use app\models\Profile;
+use app\models\Cities;
+use app\models\States;
 use app\components\Helper;
 use yii\web\UploadedFile;
 
@@ -179,11 +181,14 @@ class AccountController extends Controller
 
     public function actionGetCityList(){
         if (Yii::$app->request->isAjax) {
-            $data = Yii::$app->request->post();  
-            $state = implode("",$data);
-            
+            $data = Yii::$app->request->post();
+            if(isset($_POST['getStateId'])){
+                $stateId = States::find()->select('id')->where(['state_name'=>$_POST['getStateId']])->asArray()->one();
+                $cityLists = Cities::find()->select('city_name')->where(['state_id'=>$stateId])->asArray()->all();
+            }
         }
         
-        return json_encode(['status'=>200,'state'=>$state]);
+        return json_encode(['status'=>200,'cityLists'=>$cityLists]);
     }
+
 }

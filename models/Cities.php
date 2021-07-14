@@ -28,9 +28,9 @@ class Cities extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city_name', 'state_name', 'country_name'], 'required'],
+            [['city_name', 'state_name',], 'required'],
             [['city_name'], 'string', 'max' => 50],
-            [['state_name', 'country_name'], 'string', 'max' => 255],
+            [['state_id'], 'number',],
         ];
     }
 
@@ -42,8 +42,7 @@ class Cities extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'city_name' => 'City Name',
-            'state_name' => 'State Name',
-            'country_name' => 'Country Name',
+            'state_id' => 'State ID',
         ];
     }
 }

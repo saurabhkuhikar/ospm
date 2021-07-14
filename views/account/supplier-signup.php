@@ -9,8 +9,7 @@ use app\models\Cities;
 use kartik\select2\Select2;
 use app\components\Helper;
 
-
-/* @var $this yii\web\View */
+/* @var $this yii\web\View */   
 /* @var $model app\models\Users */
 /* @var $form yii\widgets\ActiveForm */
 // $this->title = 'Supplier Signup Form';
@@ -91,20 +90,16 @@ use app\components\Helper;
                             <?= $form->field($model, 'state')->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(States::find()->all(),'state_name','state_name'),
                                 'options' => ['placeholder' => 'Select States'],
-                                'pluginOptions' => ['allowClear' => true,'id'=>'state_id'],
-                                'pluginEvents' => [
-                                    "change" => "function(e) {  var data_id = $(this).val();  
-                                       }",
-                                ],
+                                'pluginOptions' => ['allowClear' => true,],                                
                             ]); ?> 
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <?= $form->field($model, 'city')->widget(Select2::classname(), [
-                                'data' => ArrayHelper::map(Cities::find()->select(['state_name','city_name'])->where(['state_name'=>'Goa'])->all(),'city_name','city_name'),        //->where(['state_name'=>$_SERVER['state']])                                
+                                'data' => ArrayHelper::map(Cities::find()->all(),'city_name','city_name'),
                                 'options' => ['placeholder' => 'Select Cities'],
-                                'pluginOptions' => ['allowClear' => true,'id'=>'city_id'],  
+                                'pluginOptions' => ['allowClear' => true,],  
                                 ]);
                             ?>   
                         </div>

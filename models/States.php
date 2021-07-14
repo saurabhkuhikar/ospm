@@ -27,8 +27,8 @@ class States extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['country_name', 'state_name'], 'required'],
-            [['country_name'], 'string', 'max' => 255],
+            [['country_id', 'state_name'], 'required'],
+            [['country_id'], 'number',],
             [['state_name'], 'string', 'max' => 50],
         ];
     }
@@ -40,7 +40,7 @@ class States extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'country_name' => 'Country Name',
+            'country_id' => 'Country id',
             'state_name' => 'State Name',
         ];
     }

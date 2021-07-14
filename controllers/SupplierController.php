@@ -12,6 +12,8 @@ use app\models\Profile;
 use yii\web\UploadedFile;
 use app\components\Helper;
 use app\models\BookingRequest;
+use app\models\Cities;
+use app\models\States;
 
 class SupplierController extends \yii\web\Controller
 {    
@@ -26,7 +28,7 @@ class SupplierController extends \yii\web\Controller
                 'only' => ['logout','dashboard','profile'],
                 'rules' => [
                     [
-                        'actions' => ['logout','dashboard','profile'],
+                        'actions' => ['logout','dashboard','get-city-list','profile'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -108,5 +110,18 @@ class SupplierController extends \yii\web\Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     } 
+
+
+    public function actionGetCityList(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            if(isset($_POST['getStateId'])){
+                $stateId = States::find()->select('id')->where(['state_name'=>$_POST['getStateId']])->asArray()->one();
+                $cityLists = Cities::find()->select('city_name')->where(['state_id'=>$stateId])->asArray()->all();
+            }
+        }
+        
+        return json_encode(['status'=>200,'cityLists'=>$cityLists]);
+    }
 
 }

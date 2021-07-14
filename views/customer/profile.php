@@ -135,3 +135,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-md-2"></div>
 </div>
+<?php
+  $this->registerJsFile(
+    Yii::getAlias('@homeUrl') . '/js/dropdown_change.js',
+    ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
+  );
+?>

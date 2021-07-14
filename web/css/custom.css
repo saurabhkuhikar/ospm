@@ -272,9 +272,9 @@ html , body{
     padding: 4px
 }
 .profile_info {
-    padding: 10px;
-    width: 65%;
-    float: left
+    padding: 18px;
+    width: 55%;
+    float: right;
 }
 .profile_info span {
     font-size: 13px;
