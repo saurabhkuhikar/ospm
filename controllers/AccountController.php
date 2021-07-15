@@ -179,16 +179,28 @@ class AccountController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /* Get city list*/
     public function actionGetCityList(){
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
             if(isset($_POST['getStateId'])){
-                $stateId = States::find()->select('id')->where(['state_name'=>$_POST['getStateId']])->asArray()->one();
-                $cityLists = Cities::find()->select('city_name')->where(['state_id'=>$stateId])->asArray()->all();
+                $cityId = States::find()->select('id')->where(['state_name'=>$data])->asArray()->one();
+                $cityLists = Cities::find()->select('city_name')->where(['state_id'=>$cityId])->asArray()->all();
             }
-        }
-        
+        }        
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
+    }
+
+     /* Get State list*/
+    public function actionGetStateList(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            if(isset($_POST['getCityId'])){
+                $stateId = Cities::find()->select('state_id')->where(['city_name'=>$data])->asArray()->one();
+                $stateLists = States::find()->select('state_name')->where(['id'=>$stateId])->asArray()->all();
+            }
+        }        
+        return json_encode(['status'=>200,'stateLists'=>$stateLists]);
     }
 
 }

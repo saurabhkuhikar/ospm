@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-
+use app\models\Cities;
 use Yii;
 
 /**
@@ -43,5 +43,11 @@ class States extends \yii\db\ActiveRecord
             'country_id' => 'Country id',
             'state_name' => 'State Name',
         ];
+    }
+
+    public function getcitylist(){
+
+        return $this->hasMany(Cities::className(), ['city_name' => 'id'])
+        ->orWhere(['state_id' => 'id']);
     }
 }

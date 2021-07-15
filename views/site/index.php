@@ -62,7 +62,7 @@
                       </div>
                       <div class="col-xs-12 col-sm-6 emphasis">
                         <button type="button" id="supplierInfo" value= "<?= base64_encode($supplier['id']) ?>" supplier-data= "<?= base64_encode($supplier['id']) ?>" data-company="<?= $supplier['company_name'] ?>" class="btn btn-success btn-xs">
-                          <i class="fa fa-user"></i><i class="fa fa-comments-o"></i> 
+                          View <i class="fa fa-list"></i> 
                         </button>
                         <?= Html::a('Book', ['/cylinder-booking/create','token'=>base64_encode($supplier['id'])], ['class'=>'btn btn-primary btn-xs'])?>
                       </div>
