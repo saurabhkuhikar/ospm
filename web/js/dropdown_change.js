@@ -2,25 +2,25 @@ $(document).ready(function(){
     $("#suppliersignupform-state").on('change',function(){
         supplierSignupFormCityList();
     }); 
-    $("#suppliersignupform-city").on('change',function(){
-        supplierSignupFormStateList();
-    }); 
+    // $("#suppliersignupform-city").on('change',function(){
+    //     supplierSignupFormStateList();
+    // }); 
     
     $("#supplier-profile-state-list").on('change',function(){
         getSupplierProfileCityList();
     });
 
-    $("#supplier-profile-city-list").on('change',function(){
-        getSupplierProfileStateList();
-    });
+    // $("#supplier-profile-city-list").on('change',function(){
+    //     getSupplierProfileStateList();
+    // });
 
     $("#customer-profile-state-list").on('change',function(){
         getCustomerProfileCityList();
     }); 
 
-    $("#customer-profile-city-list").on('change',function(){
-        getCustomerProfileStateList();
-    }); 
+    // $("#customer-profile-city-list").on('change',function(){
+    //     getCustomerProfileStateList();
+    // }); 
 
 });
 
