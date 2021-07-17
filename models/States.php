@@ -1,8 +1,8 @@
 <?php
 
 namespace app\models;
-use app\models\Cities;
 use Yii;
+use app\models\Cities;
 
 /**
  * This is the model class for table "states".
@@ -27,7 +27,7 @@ class States extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['country_id', 'state_name'], 'required'],
+            [['state_name'], 'required'],
             [['country_id'], 'number',],
             [['state_name'], 'string', 'max' => 50],
         ];
@@ -45,9 +45,13 @@ class States extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getcitylist(){
-
-        return $this->hasMany(Cities::className(), ['city_name' => 'id'])
-        ->orWhere(['state_id' => 'id']);
+     /**
+     * Gets query for [[Cities]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStates()
+    {
+        return $this->hasMany(Cities::className(), ['state_id' => 'id']);
     }
 }

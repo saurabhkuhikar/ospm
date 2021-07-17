@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="form-group">
                                 <?= $form->field($model, 'state')->widget(Select2::classname(), [
                                     'data' => ArrayHelper::map(States::find()->all(),'state_name','state_name'),
-                                    'options' => ['placeholder' => 'Select States'],
+                                    'options' => ['id'=>'customer-profile-state-list','placeholder' => 'Select States'],
                                     'pluginOptions' => ['allowClear' => true],]);
                                 ?> 
                             </div>
@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="form-group">
                                 <?= $form->field($model, 'city')->widget(Select2::classname(), [
                                     'data' => ArrayHelper::map(Cities::find()->all(),'city_name','city_name'),                                        
-                                    'options' => ['placeholder' => 'Select Cities'],
+                                    'options' => ['id'=>'customer-profile-city-list','placeholder' => 'Select Cities'],
                                     'pluginOptions' => ['allowClear' => true],]);
                                 ?>   
                             </div>

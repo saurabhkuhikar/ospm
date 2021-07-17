@@ -6,18 +6,20 @@ $(document).ready(function(){
         supplierSignupFormStateList();
     }); 
     
-    $("#profile-state").on('change',function(){
-        supplierProfileCityList();
+    $("#supplier-profile-state-list").on('change',function(){
+        getSupplierProfileCityList();
     });
 
-    // $("#profile-city").on('change',function(){
-    //     supplierProfileState();
-    // });
+    $("#supplier-profile-city-list").on('change',function(){
+        getSupplierProfileStateList();
+    });
 
+    $("#customer-profile-state-list").on('change',function(){
+        getCustomerProfileCityList();
+    }); 
 
-    
-    $("#profile-state").on('change',function(){
-        customerProfileCityList();
+    $("#customer-profile-city-list").on('change',function(){
+        getCustomerProfileStateList();
     }); 
 
 });
@@ -25,17 +27,17 @@ $(document).ready(function(){
 
 /* supplier signupForm city list */
 function supplierSignupFormCityList(){
-    var getStateId =  $("#suppliersignupform-state").val();
+    var getStateName =  $("#suppliersignupform-state").val();
     $.ajax({
         url: '/account/get-city-list',		
         type: 'post',
         dataType: 'json',
-        data: {'getStateId': getStateId},            
+        data: {'getStateName': getStateName},            
     }).done(function (response) {
-        if (response.status == 200 ) {
+        if (response.status == 200 && response.cityLists!== "") {
             var cityList = '';
             $(response.cityLists).each(function(index,value){
-                cityList += '<option value ='+value.city_name+'>'+value.city_name+'</option>'
+                cityList += '<option value ="'+value.city_name+'">'+value.city_name+'</option>'
             });
             $("#suppliersignupform-city").html(cityList); 
         }
@@ -44,17 +46,17 @@ function supplierSignupFormCityList(){
 
 /* supplier signupForm state list */
 function supplierSignupFormStateList(){
-    var getCityId =  $("#suppliersignupform-city").val();
+    var getCityName =  $("#suppliersignupform-city").val();
     $.ajax({
         url: '/account/get-state-list',		
         type: 'post',
         dataType: 'json',
-        data: {'getCityId': getCityId},            
+        data: {'getCityName': getCityName},            
     }).done(function (response) {
-        if (response.status == 200 ) {
+        if (response.status == 200 && response.stateLists !== "") {
             var stateList = '';
             $(response.stateLists).each(function(index,value){
-                stateList += '<option value ='+value.state_name+'>'+value.state_name+'</option>'
+                stateList += '<option value ="'+value.state_name+'">'+value.state_name+'</option>'
             });
             $("#suppliersignupform-state").html(stateList); 
         }
@@ -62,60 +64,80 @@ function supplierSignupFormStateList(){
 }
 
 /* supplier profile cityList */
-function supplierProfileCityList(){
-    var getStateId =  $("#profile-state").val();
+function getSupplierProfileCityList(){
+    var getStateName =  $("#supplier-profile-state-list").val();
     $.ajax({
         url: '/supplier/get-city-list',		
         type: 'post',
         dataType: 'json',
-        data: {'getStateId': getStateId},            
+        data: {'getStateName': getStateName},            
     }).done(function (response) {
-        if (response.status == 200 ) {
+        if (response.status == 200 && response.cityLists !== "") {
             var cityList = '';
             $(response.cityLists).each(function(index,value){
                 cityList += '<option value ='+value.city_name+'>'+value.city_name+'</option>'
             });
-            $("#profile-city").html(cityList); 
+            $("#supplier-profile-city-list").html(cityList); 
         }
     });	
 }
 
 
 /* supplier profile state List */
-// function supplierProfileState(){
-//     var getCityId =  $("#profile-city").val();
-//     $.ajax({
-//         url: '/supplier/get-state-list',		
-//         type: 'post',
-//         dataType: 'json',
-//         data: {'getCityId': getCityId},            
-//     }).done(function (response) {
-//         if (response.status == 200 ) {
-//             var stateList = '';
-//             $(response.stateLists).each(function(index,value){
-//                 stateList += '<option value ='+value.state_name+'>'+value.state_name+'</option>'
-//             });
-//             $("#profile-state").html(stateList); 
-//         }
-//     });	
-// }
+function getSupplierProfileStateList(){
+    var getCityName =  $("#supplier-profile-city-list").val();
+    $.ajax({
+        url: '/supplier/get-state-list',		
+        type: 'post',
+        dataType: 'json',
+        data: {'getCityName': getCityName},            
+    }).done(function (response) {
+        if (response.status == 200 && response.stateLists !=="") {
+            var stateList = '';
+            $(response.stateLists).each(function(index,value){
+                stateList += "<option value = "+value.state_name+">"+value.state_name+"</option>"
+            });
+
+            $("#supplier-profile-state-list").html(stateList).val(); 
+        }
+    });	
+}
 
 
 /* Customer profile */
-function customerProfileCityList(){
-    var getStateId =  $("#profile-state").val();
+function getCustomerProfileCityList(){
+    var getStateName =  $("#customer-profile-state-list").val();
     $.ajax({
         url: '/customer/get-city-list',		
         type: 'post',
         dataType: 'json',
-        data: {'getStateId': getStateId},            
+        data: {'getStateName': getStateName},            
     }).done(function (response) {
-        if (response.status == 200 ) {
+        if (response.status == 200 && response.cityLists!== "" ) {
             var cityList = '';
             $(response.cityLists).each(function(index,value){
                 cityList += '<option value ='+value.city_name+'>'+value.city_name+'</option>'
             });
-            $("#profile-city").html(cityList); 
+            $("#customer-profile-city-list").html(cityList); 
+        }
+    });	
+}
+
+/* Customer profile state List */
+function getCustomerProfileStateList(){
+    var getCityName =  $("#customer-profile-city-list").val();
+    $.ajax({
+        url: '/customer/get-state-list',		
+        type: 'post',
+        dataType: 'json',
+        data: {'getCityName': getCityName},            
+    }).done(function (response) {
+        if (response.status == 200 && response.stateLists !== "" ) {
+            var stateList = "";
+            $(response.stateLists).each(function(index,value){
+                stateList += '<option value ='+value.state_name+'>'+value.state_name+'</option>'
+            });           
+            $("#customer-profile-state-list").html(stateList); 
         }
     });	
 }

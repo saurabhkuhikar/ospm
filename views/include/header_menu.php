@@ -1,13 +1,16 @@
 <nav id="w0" class="navbar-inverse navbar-fixed-top navbar">
   <div class="container">
-    <div class="navbar-header">
+    <div class="navbar-header">    
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#w0-collapse" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">My Application</a></div><div id="w0-collapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+      <img src="/upload/logo/logo.png" alt="logo" srcset="" width="190px" height= "50px">
+      <a class="navbar-brand" href="/"></a>
+    </div>
+    <div id="w0-collapse" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
       <ul id="w1" class="navbar-nav navbar-right nav">                  
         <?php if (!Yii::$app->user->isGuest){ 
           $accountType = Yii::$app->user->identity->account_type;

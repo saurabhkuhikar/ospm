@@ -13,32 +13,8 @@
     border: 1px solid #E6E9ED;
     -webkit-column-break-inside: avoid;
     -moz-column-break-inside: avoid;
-    /* column-break-inside: avoid; */
     opacity: 1;
     transition: all .2s ease;
-}
-.x_title {
-    border-bottom: 2px solid #E6E9ED;
-    padding: 1px 5px 6px;
-    margin-bottom: 10px
-}
-.x_title .filter {
-    width: 40%;
-    float: right
-}
-.x_title h2 {
-    margin: 5px 0 6px;
-    float: left;
-    display: block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap
-}
-.x_title h2 small {
-    margin-left: 10px
-}
-.x_title span {
-    color: #BDBDBD
 }
 .x_content {
     padding: 0 5px 6px;
@@ -46,65 +22,43 @@
     width: 100%;
     float: left;
     clear: both;
-    margin-top: 5px
+    margin-top: 5px;
 }
-.x_content h4 {
-    font-size: 16px;
-    font-weight: 500
-}
-
-.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-55, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
-    position: relative;
-    min-height: 1px;
-    float: left;
-    padding-right: 10px;
-    padding-left: 10px;
-}
-
-* :after, :before {
-    box-sizing: border-box;
-}
-
-.pagination.pagination-split li {
-    display: inline-block;
-    margin-right: 3px;
-    color: #73879C;
-    font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.471;
-}
-
-.pagination.pagination-split li a {
+.well {
+    min-height: 20px;
+    /* padding: 19px; */
+    margin-bottom: 20px;
+    /* background-color: #f5f5f5; */
+    border: 1px solid #e3e3e3;
     border-radius: 4px;
-    color: #768399;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
+    /* -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%); */
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
 }
-
-.profile_details:nth-child(3n) {
-    clear: both;
-}
-
 .profile_details .profile_view {
     display: inline-block;
-    padding: 10px 0 0;
+    padding: 15px 0 0;
     background: #fff;
 }
-
+.profile_details .profile_view .bottom {
+    background: #F2F5F7;
+    padding: 9px 0;
+    border-top: 1px solid #E6E9ED;
+}
+.page-title {
+    width: 100%;
+    padding: 10px 0;
+}
+/* */
 .profile_details .profile_view .brief {
     margin: 0;
     font-weight: 300;
 }
-
-.alignleft, .left {
-    float: left;
+.profile_details .profile_view .img-circle {
+    border: 1px solid #E6E9ED;
+    padding: 2px;
+    height: 115px;
+    width: 115px;
 }
-
-.profile_details .profile_view .left {
-    margin-top: 20px;
-}
-
 .profile_details .profile_view h2 {
     margin: 5px 0;
 }
@@ -113,46 +67,28 @@ h2 {
     font-size: 18px;
     font-weight: 400;
 }
-
-.well {
-    min-height: 20px;
-    /*padding: 19px;*/
-    margin-bottom: 20px;
-    /*background-color: #f5f5f5;*/
-    border: 1px solid #e3e3e3;
-    border-radius: 4px;
-    /*-webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);*/
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 5%);
+.profile_details .profile_view .left {
+    margin-top: 20px;
 }
 
-.profile_details .profile_view .left p {
-    margin-bottom: 3px;
+.alignleft, .left {
+    float: left;
 }
-
-.profile_details .profile_view .bottom {
-    background: #F2F5F7;
-    padding: 9px 0;
-    border-top: 1px solid #E6E9ED;
-}
-
 .profile_details .profile_view .ratings {
     margin-bottom: 0;
     text-align: left;
     font-size: 16px;
-    color: #5A738E; 
+    color: #5A738E;
 }
 
-.x_panel .emphasis {
-    color: #fff;
+.x_content h4 {
+    font-size: 16px;
+    font-weight: 500;
 }
-
-.detail a, .expand, .jqstooltip, .paging_full_numbers a:hover, .site_title:focus, .site_title:hover, a, a:focus, a:hover {
-    text-decoration: none;
-}
-
-.profile_details .profile_view .img-circle {
-    border: 1px solid #E6E9ED;
-    padding: 2px;
-    height: 118px;
-    width: 118px;
+.col-md-4{
+    position: relative;
+    min-height: 1px;
+    float: left;
+    padding-right: 10px;
+    padding-left: 10px;
 }

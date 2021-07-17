@@ -50,7 +50,7 @@ class Profile extends \yii\db\ActiveRecord
             [['identity_proof_type'],'file','skipOnEmpty'=> true,'extensions' => 'png,jpg,pdf'],
             [['profile_picture'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             [['gender'], 'string', 'max' => 10],
-            [['state', 'city'], 'string', 'max' => 50],
+            [['state', 'city'], 'string', 'max' => 100],
             [['auth_key'], 'string', 'max' => 32],
             [['first_name','last_name'], 'match', 'pattern' => '/^[a-zA-Z_ ]*$/', 'message' => 'Only alphabetic characters allowed'],
             ['phone_number', 'match', 'pattern' =>'/^[0-9]{10}$/','message' => 'Phone Number Must be Exactly 10 Digit.'],

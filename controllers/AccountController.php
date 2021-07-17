@@ -34,7 +34,7 @@ class AccountController extends Controller
                 'only' => ['logout','change-profile-picture'],
                 'rules' => [
                     [
-                        'actions' => ['login','logout','change-profile-picture','get-city-list','SupplierSignup','CustomerSignup','ForgotPassword'],
+                        'actions' => ['login','logout','change-profile-picture','get-city-list','get-state-list','SupplierSignup','CustomerSignup','ForgotPassword'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -101,7 +101,7 @@ class AccountController extends Controller
         $model = new SupplierSignupForm();
 
         if($model->load(Yii::$app->request->post()) && $model->signup()){
-            return $this->redirect(['supplier/dashboard']);            
+            return $this->redirect(['supplier/dashboard']);
         }
         return $this->render('supplier-signup', ['model' => $model]);
     }
@@ -183,8 +183,8 @@ class AccountController extends Controller
     public function actionGetCityList(){
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
-            if(isset($_POST['getStateId'])){
-                $cityId = States::find()->select('id')->where(['state_name'=>$data])->asArray()->one();
+            if(isset($_POST['getStateName'])){
+                $cityId = States::find()->select('id')->where(['state_name'=>$_POST['getStateName']])->asArray()->one();
                 $cityLists = Cities::find()->select('city_name')->where(['state_id'=>$cityId])->asArray()->all();
             }
         }        
@@ -195,8 +195,8 @@ class AccountController extends Controller
     public function actionGetStateList(){
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
-            if(isset($_POST['getCityId'])){
-                $stateId = Cities::find()->select('state_id')->where(['city_name'=>$data])->asArray()->one();
+            if(isset($_POST['getCityName'])){
+                $stateId = Cities::find()->select('state_id')->where(['city_name'=>$_POST['getCityName']])->asArray()->one();
                 $stateLists = States::find()->select('state_name')->where(['id'=>$stateId])->asArray()->all();
             }
         }        
