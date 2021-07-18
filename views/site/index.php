@@ -11,42 +11,49 @@
   
   
 ?>       
-<?php $form = ActiveForm::begin(['id' => 'login-form']); ?> 
 <!-- page content -->
 <div role="main">
   <div class="page-title">
-    <div class="title_left">
+    <div class="title_left mb-32">
       <h3>Supplier List</h3>
-    </div>    <br>
+    </div>
     <div class="title_right">    
       <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="city">States</label>
-            <?=
-              Html::dropDownList('state', null,
-              ArrayHelper::map(States::find()->all(), 'state_name', 'state_name'),
-              ['id' => 'search-state-name','class'=>'form-control','prompt'=>'- Select state -',
-              
-            ]);?>
-              
+        <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+          <div class="col-md-3">
+            <div class="form-group">
+              <?= $form->field($model, 'search_input')->textInput(['autofocus'=>true,'placeholder'=>'search....','autocomplete' => 'offgg']); ?>                
+            </div>
+          </div> 
+          <div class="col-md-3">
+            <div class="form-group">
+              <?= $form->field($model, 'state_name')->widget(Select2::classname(), [
+                  'data' => ArrayHelper::map(States::find()->all(),'state_name','state_name'),
+                  'options' => ['placeholder' => 'Select States','id'=>'search-state-name'],
+                  'pluginOptions' => ['allowClear' => true],                                
+              ]); ?>                
+            </div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="city">City</label>
-            <?=
-              Html::dropDownList('state', null,
-              ArrayHelper::map(Cities::find()->all(), 'city_name', 'city_name'),
-              ['id' => 'search-city-name','class'=>'form-control','prompt'=>'- Select City -']);
-            ?>
-          </div>          
-        </div>        
+          <div class="col-md-3">
+            <div class="form-group">
+              <?= $form->field($model, 'city_name')->widget(Select2::classname(), [
+                  'data' => ArrayHelper::map(Cities::find()->all(),'city_name','city_name'),
+                  'options' => ['placeholder' => 'Select States','disabled'=>true,'id'=>'search-city-name'],
+                  'pluginOptions' => ['allowClear' => true,],                                
+              ]); ?> 
+            </div>          
+          </div>        
+          <div class="col-md-3">
+            <div class="form-group">         
+              <?= Html::submitButton('Search', ['class' => 'btn btn-success search-btn']) ?> &nbsp;
+              <?= Html::Button('Clear', ['class' => 'btn btn-primary search-btn','id'=>'clear-btn']) ?>
+            </div>          
+          </div>        
+        <?php  ActiveForm::end(); ?>
       </div>
     </div>
   </div>
 </div>
-<?php  ActiveForm::end(); ?>
 
   <div class="clearfix"></div>
   <div class="row">

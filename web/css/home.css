@@ -100,3 +100,15 @@ h2 {
 .alignright{
     float: right;
 }
+.search-btn{
+    margin-top: 23px;
+}
+.mt-2{
+    margin-top: 2px;
+}
+.mb-2{
+    margin-bottom: 2px;
+}
+.mb-32{
+    margin-bottom: 32px;
+}

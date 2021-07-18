@@ -1,27 +1,25 @@
 $(document).ready(function(e){
-    $("#search-state-name").on('change',function(){
-        var state_name = $('#search-state-name').val();
-    //    alert('state :'+state_name);
-       $.ajax({
-            url: '/state-city-search/index',		
-            type: 'post',
-            dataType: 'php',
-            data: {'state_name': state_name}
-        })
+    $("#clear-btn").on('click',function(){
+        $('#search-state-name').val(null).trigger('change');
+        $('#search-city-name').val(null).trigger('change');
+        $('#search-search_input').val(""); 
+        window.location('/site/index?page=1');   
     }); 
 
-    $('body').on('click','#cylinder-booking',function (event) {
-        var bookBtn = $('#cylinder-booking').attr("href"); 
-        alert('bookBtn'+bookBtn);
-    });
+    // $('body').on('click','#cylinder-booking',function (event) {
+    //     var bookBtn = $('#cylinder-booking').attr("href"); 
+    //     alert('bookBtn'+bookBtn);
+    // });
+
+    $("#search-state-name").on('change',function(){
+        $("#search-city-name").removeAttr('disabled');
+        getCityList();
+    });  
 
     $('body').on('click','#supplierInfo',function (event) {
-        var supplierInfo = $(this).attr("supplier-data"); 
-
+        var supplierInfo = $(this).attr("supplier-data");
         $("#supplier-state").text($(this).attr("state-name"));
-
         $("#cityName").text($(this).attr("city-name"));
-
         $("#company-name").text($(this).attr("data-company"));
         
         $.ajax({
@@ -46,3 +44,22 @@ $(document).ready(function(e){
         
     })
 });
+
+/* city list */
+function getCityList(){
+    var getStateName =  $("#search-state-name").val();
+    $.ajax({
+        url: '/site/get-city-list',		
+        type: 'post',
+        dataType: 'json',
+        data: {'getStateName': getStateName},            
+    }).done(function (response) {
+        if (response.status == 200 && response.cityLists!== "") {
+            var cityList = '';
+            $(response.cityLists).each(function(index,value){
+                cityList += '<option value ="'+value.city_name+'">'+value.city_name+'</option>'
+            });
+            $("#search-city-name").html(cityList); 
+        }
+    });	
+}

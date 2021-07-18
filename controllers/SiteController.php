@@ -15,7 +15,7 @@ use app\components\Helper;
 use app\models\Cities;
 use app\models\States;
 use yii\data\Pagination;
-
+use app\models\Search;
 class SiteController extends Controller
 {
     /**
@@ -68,12 +68,19 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = "home";
- 
-        $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['status' => 'Enabled','account_type' => ['Supplier']]);
+        $model = new Search();
+        if ($model->load(Yii::$app->request->post())){            
+            if(!empty($model->state_name)){
+                $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['state'=>$model->state_name,'city'=>$model->city_name,'status' => 'Enabled','account_type' => ['Supplier'],]);
+            }
+        }
+        else{
+            $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['status' => 'Enabled','account_type' => ['Supplier'],]);
+        }
         $pagination = new Pagination(['totalCount' => $user->count(),'defaultPageSize' => 6]);        
         $supplierList = $user->offset($pagination->offset)->limit($pagination->limit)->asArray()->all();
-
-        return $this->render('index',['supplierList'=>$supplierList,'pagination'=>$pagination]);
+        
+        return $this->render('index',['supplierList'=>$supplierList,'pagination'=>$pagination,'model'=> $model]);
     }
 
     /**
@@ -134,4 +141,16 @@ class SiteController extends Controller
             return json_encode(['status'=>200,'cylinders'=>$cylinders]);
         }
     }
+
+    /* Get city list*/
+    public function actionGetCityList(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            if(isset($_POST['getStateName'])){
+                $cityId = States::find()->select('id')->where(['state_name'=>$_POST['getStateName']])->asArray()->one();
+                $cityLists = Cities::find()->select('city_name')->where(['state_id'=>$cityId])->asArray()->all();
+            }
+        }        
+        return json_encode(['status'=>200,'cityLists'=>$cityLists]);
+    } 
 }

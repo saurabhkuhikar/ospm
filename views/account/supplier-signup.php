@@ -125,7 +125,7 @@ use app\components\Helper;
 <div class="col-md-2"></div>
 <?php
   $this->registerJsFile(
-    Yii::getAlias('@homeUrl') . '/js/get_state_list.js',
+    Yii::getAlias('@homeUrl') . '/js/get_city_list.js',
     ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
   );
 ?>
