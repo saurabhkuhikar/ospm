@@ -18,8 +18,7 @@
     <div class="title_left">
       <h3>Supplier List</h3>
     </div>    <br>
-    <div class="title_right">
-    
+    <div class="title_right">    
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
@@ -42,16 +41,7 @@
               ['id' => 'search-city-name','class'=>'form-control','prompt'=>'- Select City -']);
             ?>
           </div>          
-        </div>
-        <div class="col-md-4">
-          <div class="alignright">
-            <?=
-              LinkPager::widget([
-              'pagination' => $pagination,
-              ]);
-            ?>
-          </div>
-        </div>
+        </div>        
       </div>
     </div>
   </div>
@@ -108,7 +98,11 @@
     </div>
   </div>
 </div>
-
+<div class="col-md-12">
+  <div class="alignright">
+    <?= LinkPager::widget(['pagination' => $pagination,]); ?>
+  </div>
+</div>
 <!-- Availble Cylinders popup :: start -->
 
 <div id="supplierModal" class="modal fade" role="dialog">

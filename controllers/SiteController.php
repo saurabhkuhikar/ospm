@@ -68,12 +68,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = "home";
-        //pagination query
-        $query = User::find()->where(['status' => 'Enabled','account_type' => ['Supplier']]);
-        $countQuery = clone $query;
-        $pagination = new Pagination(['totalCount' => $countQuery->count(),'defaultPageSize' => 6]);
-        //supplier detail query
-        $supplierList = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['account_type' => ['Supplier']])->offset($pagination->offset)->limit($pagination->limit)->asArray()->all();
+ 
+        $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['status' => 'Enabled','account_type' => ['Supplier']]);
+        $pagination = new Pagination(['totalCount' => $user->count(),'defaultPageSize' => 6]);        
+        $supplierList = $user->offset($pagination->offset)->limit($pagination->limit)->asArray()->all();
 
         return $this->render('index',['supplierList'=>$supplierList,'pagination'=>$pagination]);
     }
