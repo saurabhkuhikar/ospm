@@ -25,7 +25,7 @@ class SupplierController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','dashboard','profile'],
+                'only' => ['logout','dashboard','profile','get-city-list'],
                 'rules' => [
                     [
                         'actions' => ['logout','dashboard','get-city-list','profile'],

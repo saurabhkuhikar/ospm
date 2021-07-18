@@ -38,15 +38,15 @@
             <div class="form-group">
               <?= $form->field($model, 'city_name')->widget(Select2::classname(), [
                   'data' => ArrayHelper::map(Cities::find()->all(),'city_name','city_name'),
-                  'options' => ['placeholder' => 'Select States','disabled'=>true,'id'=>'search-city-name'],
+                  'options' => ['placeholder' => 'Select States','id'=>'search-city-name'],
                   'pluginOptions' => ['allowClear' => true,],                                
               ]); ?> 
             </div>          
           </div>        
           <div class="col-md-3">
             <div class="form-group">         
-              <?= Html::submitButton('Search', ['class' => 'btn btn-success search-btn']) ?> &nbsp;
-              <?= Html::Button('Clear', ['class' => 'btn btn-primary search-btn','id'=>'clear-btn']) ?>
+              <?= Html::submitButton('Search', ['class' => 'btn btn-success search-btn','id'=>'submit-btn']) ?> &nbsp;
+              <?= Html::a('Clear', ['site/index'],['class' => 'btn btn-primary search-btn','id'=>'clear-btn']) ?>
             </div>          
           </div>        
         <?php  ActiveForm::end(); ?>

@@ -29,7 +29,7 @@ class SiteController extends Controller
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout','contact','about','login','index','get-cylinder-list-detail'],
+                        'actions' => ['logout','contact','about','login','index','get-cylinder-list-detail','get-city-list'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -70,8 +70,8 @@ class SiteController extends Controller
         $this->layout = "home";
         $model = new Search();
         if ($model->load(Yii::$app->request->post())){            
-            if(!empty($model->state_name)){
-                $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['state'=>$model->state_name,'city'=>$model->city_name,'status' => 'Enabled','account_type' => ['Supplier'],]);
+            if(!empty($model->state_name) || !empty($model->city_name)|| !empty($model->search_input) ){
+                $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->orwhere(['state'=>$model->state_name,])->orwhere(['company_name'=>$model->search_input])->orwhere(['city'=>$model->city_name,'status' => 'Enabled','account_type' => ['Supplier'],]);
             }
         }
         else{

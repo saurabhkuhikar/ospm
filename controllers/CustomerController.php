@@ -30,7 +30,7 @@ class CustomerController extends \yii\web\Controller
                 'only' => ['logout','dashboard','profile'],
                 'rules' => [
                     [
-                        'actions' => ['logout','dashboard','profile'],
+                        'actions' => ['logout','dashboard','profile','get-city-list'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

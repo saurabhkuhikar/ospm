@@ -1,10 +1,14 @@
 $(document).ready(function(e){
-    $("#clear-btn").on('click',function(){
-        $('#search-state-name').val(null).trigger('change');
-        $('#search-city-name').val(null).trigger('change');
-        $('#search-search_input').val(""); 
-        window.location('/site/index?page=1');   
-    }); 
+    
+    $("#submit-btn").on('click',function(){
+        var state = $('#search-state-name').val();
+        var city = $('#search-city-name').val();
+        var search = $('#search-search_input').val(); 
+        if(state == "" && city =="" && search == ""){
+            alert('Please select Either state list or search bar');
+        }
+
+    })
 
     // $('body').on('click','#cylinder-booking',function (event) {
     //     var bookBtn = $('#cylinder-booking').attr("href"); 

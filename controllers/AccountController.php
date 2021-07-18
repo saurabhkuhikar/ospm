@@ -34,7 +34,7 @@ class AccountController extends Controller
                 'only' => ['logout','change-profile-picture'],
                 'rules' => [
                     [
-                        'actions' => ['login','logout','change-profile-picture','get-city-list','get-state-list','SupplierSignup','CustomerSignup','ForgotPassword'],
+                        'actions' => ['login','logout','change-profile-picture','get-city-list','SupplierSignup','CustomerSignup','ForgotPassword'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
