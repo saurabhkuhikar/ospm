@@ -98,7 +98,7 @@ use app\components\Helper;
                         <div class="form-group">
                             <?= $form->field($model, 'city')->widget(Select2::classname(), [
                                 'data' => ArrayHelper::map(Cities::find()->all(),'city_name','city_name'),
-                                'options' => ['placeholder' => 'Select Cities'],
+                                'options' => ['placeholder' => 'Select Cities','disabled'=>true],
                                 'pluginOptions' => ['allowClear' => true,],  
                                 ]);
                             ?>   
@@ -125,7 +125,7 @@ use app\components\Helper;
 <div class="col-md-2"></div>
 <?php
   $this->registerJsFile(
-    Yii::getAlias('@homeUrl') . '/js/dropdown_change.js',
+    Yii::getAlias('@homeUrl') . '/js/get_state_list.js',
     ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
   );
 ?>

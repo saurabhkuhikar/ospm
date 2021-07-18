@@ -125,16 +125,6 @@ class SupplierController extends \yii\web\Controller
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
     }
 
-    /* Get State list*/
-    public function actionGetStateList(){
-        if (Yii::$app->request->isAjax) {
-            $data = Yii::$app->request->post();
-            if(isset($_POST['getCityName'])){
-                $stateId = Cities::find()->select('state_id')->where(['city_name'=>$_POST['getCityName']])->asArray()->one();
-                $stateLists = States::find()->select('state_name')->where(['id'=>$stateId])->asArray()->all();
-            }
-        }        
-        return json_encode(['status'=>200,'stateLists'=>$stateLists]);
-    }
+    
 
 }

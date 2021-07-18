@@ -1,6 +1,11 @@
 $(document).ready(function(e){
     $('body').on('click','#supplierInfo',function (event) {
-        var supplierInfo = $(this).attr("supplier-data");
+        var supplierInfo = $(this).attr("supplier-data"); 
+
+        $("#supplier-state").text($(this).attr("state-name"));
+
+        $("#cityName").text($(this).attr("city-name"));
+
         $("#company-name").text($(this).attr("data-company"));
         
         $.ajax({

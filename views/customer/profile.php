@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="form-group">
                                 <?= $form->field($model, 'city')->widget(Select2::classname(), [
                                     'data' => ArrayHelper::map(Cities::find()->all(),'city_name','city_name'),                                        
-                                    'options' => ['id'=>'customer-profile-city-list','placeholder' => 'Select Cities'],
+                                    'options' => ['id'=>'customer-profile-city-list','disabled'=>true,'placeholder' => 'Select Cities'],
                                     'pluginOptions' => ['allowClear' => true],]);
                                 ?>   
                             </div>
@@ -137,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
   $this->registerJsFile(
-    Yii::getAlias('@homeUrl') . '/js/dropdown_change.js',
+    Yii::getAlias('@homeUrl') . '/js/get_state_list.js',
     ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
   );
 ?>
