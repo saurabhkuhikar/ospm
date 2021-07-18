@@ -96,7 +96,7 @@
                       <button type="button" id="supplierInfo"  state-name = "<?= $supplier['state']?>" city-name = "<?= $supplier['city']?>" supplier-data= "<?= base64_encode($supplier['id']) ?>" data-company="<?= $supplier['company_name'] ?>" class="btn btn-success btn-xs">
                         View <i class="fa fa-list"></i> 
                       </button>
-                      <?= Html::a('Book', ['/cylinder-booking/create','token'=>base64_encode($supplier['id'])], ['class'=>'btn btn-primary btn-xs'])?>
+                      <?= Html::a('Book', ['/cylinder-booking/create','token'=>base64_encode($supplier['id'])], ['class'=>'btn btn-primary btn-xs','id'=>'cylinder-booking'])?>
                     </div>
                   </div>
                 </div>

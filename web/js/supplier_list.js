@@ -10,6 +10,18 @@ $(document).ready(function(e){
         })
     }); 
 
+    $('body').on('click',"#cylinder-booking",function(){
+        var bookBtn = $('#cylinder-booking').attr('href');
+       alert('bookBtn :'+bookBtn);
+       $.ajax({
+            url: '/account/login',		
+            type: 'post',
+            dataType: 'php',
+            data: {'bookBtn': bookBtn}
+        })
+    }); 
+
+
 
 
     $('body').on('click','#supplierInfo',function (event) {
