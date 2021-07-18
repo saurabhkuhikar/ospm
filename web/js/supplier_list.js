@@ -1,4 +1,17 @@
 $(document).ready(function(e){
+    $("#search-state-name").on('change',function(){
+        var state_name = $('#search-state-name').val();
+    //    alert('state :'+state_name);
+       $.ajax({
+            url: '/state-city-search/index',		
+            type: 'post',
+            dataType: 'php',
+            data: {'state_name': state_name}
+        })
+    }); 
+
+
+
     $('body').on('click','#supplierInfo',function (event) {
         var supplierInfo = $(this).attr("supplier-data"); 
 

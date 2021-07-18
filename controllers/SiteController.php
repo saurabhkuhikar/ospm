@@ -12,6 +12,9 @@ use app\models\ContactForm;
 use app\models\User;
 use app\models\CylinderList;
 use app\components\Helper;
+use app\models\Cities;
+use app\models\States;
+use yii\data\Pagination;
 
 class SiteController extends Controller
 {
@@ -65,9 +68,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = "home";
-      
-        $supplierList = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['account_type' => ['Supplier']])->asArray()->all();
-        return $this->render('index',['supplierList'=>$supplierList]);
+        //pagination query
+        $query = User::find()->where(['status' => 'Enabled','account_type' => ['Supplier']]);
+        $countQuery = clone $query;
+        $pagination = new Pagination(['totalCount' => $countQuery->count(),'defaultPageSize' => 6]);
+        //supplier detail query
+        $supplierList = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['account_type' => ['Supplier']])->offset($pagination->offset)->limit($pagination->limit)->asArray()->all();
+
+        return $this->render('index',['supplierList'=>$supplierList,'pagination'=>$pagination]);
     }
 
     /**

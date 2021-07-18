@@ -5,14 +5,13 @@
   use app\models\States;
   use app\models\Cities;
   use kartik\select2\Select2;
-
   use yii\helpers\ArrayHelper;
+  use yii\widgets\LinkPager;
   $this->title = 'My Yii Application'; 
   
   
-  $data = ArrayHelper::map(States::find()->all(),'state_name','state_name');
 ?>       
-
+<?php $form = ActiveForm::begin(['id' => 'login-form']); ?> 
 <!-- page content -->
 <div role="main">
   <div class="page-title">
@@ -20,9 +19,44 @@
       <h3>Supplier List</h3>
     </div>    <br>
     <div class="title_right">
-          
+    
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="city">States</label>
+            <?=
+              Html::dropDownList('state', null,
+              ArrayHelper::map(States::find()->all(), 'state_name', 'state_name'),
+              ['id' => 'search-state-name','class'=>'form-control','prompt'=>'- Select state -',
+              
+            ]);?>
+              
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="city">City</label>
+            <?=
+              Html::dropDownList('state', null,
+              ArrayHelper::map(Cities::find()->all(), 'city_name', 'city_name'),
+              ['id' => 'search-city-name','class'=>'form-control','prompt'=>'- Select City -']);
+            ?>
+          </div>          
+        </div>
+        <div class="col-md-4">
+          <div class="alignright">
+            <?=
+              LinkPager::widget([
+              'pagination' => $pagination,
+              ]);
+            ?>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+<?php  ActiveForm::end(); ?>
 
   <div class="clearfix"></div>
   <div class="row">
