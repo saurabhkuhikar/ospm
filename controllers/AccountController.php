@@ -57,7 +57,7 @@ class AccountController extends Controller
     public function actionLogin()
     {
         $this->layout = 'login';
-        
+        $request = Yii::$app->request->post('bookBtn');        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
