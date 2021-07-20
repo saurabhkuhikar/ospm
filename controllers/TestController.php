@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\User;
 use app\components\Helper;
 use app\components\Instamojo;
 
@@ -119,5 +120,39 @@ class TestController extends Controller
 
         Helper::createSession('checkout_session', json_encode(['id' => $checkout_session->id,'amount' => $subscription]));
         return json_encode(['id' => $checkout_session->id]);
+    }
+
+    public function actionExport(){
+        $output = '';
+        $output .= '
+
+        <table bordered="1">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>State</th>
+            <th>City</th>
+        </tr>    
+        ';
+
+        $users = User::find()->all();
+        foreach ($users as $user) { 
+            $output .= '
+            <tr>
+                <td>'.$user->first_name.'</td>
+                <td>'.$user->last_name.'</td>
+                <td>'.$user->email.'</td>
+                <td>'.$user->phone_number.'</td>
+                <td>'.$user->state.'</td>
+                <td>'.$user->city.'</td>
+            </tr>';
+        }
+
+        $output .= '</table>';
+        header("Content-Type: application/xls");
+        header("Content-Disposition:attachment; filename=FullReport.xls");
+        echo $output; 
     }
 }
