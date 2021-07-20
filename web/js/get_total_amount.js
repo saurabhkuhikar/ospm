@@ -26,7 +26,7 @@ function calculateTotalAmount(){
 				}
 			});
 		}else{
-			$(this).val(cylinderQuantity.substring(0, 1));
+			$("#cylinderbooking-cylinder_quantity").val("");
 		}
 	}	
 }
