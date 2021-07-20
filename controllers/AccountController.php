@@ -17,6 +17,7 @@ use app\models\Cities;
 use app\models\States;
 use app\components\Helper;
 use yii\web\UploadedFile;
+use yii\helper\Url;
 
 /**
  * OsmpController implements the CRUD actions for Users model.
@@ -57,7 +58,6 @@ class AccountController extends Controller
     public function actionLogin()
     {
         $this->layout = 'login';
-        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -65,7 +65,13 @@ class AccountController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if(Yii::$app->user->identity->account_type == "Customer"){
-                return $this->redirect(['customer/dashboard']);
+                if(!empty(Helper::getSession('url'))){
+                    $url = Helper::getSession('url');
+                    session_unset();
+                    return $this->redirect([$url]);
+                }else{
+                    return $this->redirect(['customer/dashboard']);
+                }
             }
             return $this->redirect(['supplier/dashboard']);
         }
@@ -189,6 +195,19 @@ class AccountController extends Controller
             }
         }        
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
+    }    
+    // /* Get url request */
+    public function actionCheckUser(){
+     
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post(); 
+            if(isset($_POST['url'])){
+                Helper::createSession('url',$_POST['url']);
+            }else{
+                session_unset();
+            }        
+        }        
+        return json_encode(['status'=>200]);
     }    
 
 }

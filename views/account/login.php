@@ -29,7 +29,7 @@
               <?= $form->field($model, 'password')->passwordInput(['autofocus' => true,'placeholder' => 'Password']) ?>
             </div>
             <div class="form-group">
-              <?= Html::submitButton('Login', ['class' => 'form-control btn btn-primary submit px-3', 'name' => 'login-button']) ?>
+              <?= Html::submitButton('Login', ['class' => 'form-control btn btn-primary submit px-3','id'=>'login-btn', 'name' => 'login-button']) ?>
             </div>
             <div class="form-group d-md-flex">
               <div class="w-50 text-left"></div>
@@ -42,3 +42,9 @@
     </div>
   </div>    
 <?php ActiveForm::end(); ?>
+<?php
+  $this->registerJsFile(
+    Yii::getAlias('@homeUrl') . '/js/login.js',
+    ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
+  );
+?>

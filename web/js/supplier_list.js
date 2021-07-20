@@ -1,6 +1,6 @@
 $(document).ready(function(e){
     
-    $("#submit-btn").on('click',function(){
+    $("#search-btn").on('click',function(){
         var state = $('#search-state-name').val();
         var city = $('#search-city-name').val();
         var search = $('#search-search_input').val(); 
@@ -10,10 +10,11 @@ $(document).ready(function(e){
 
     })
 
-    // $('body').on('click','#cylinder-booking',function (event) {
-    //     var bookBtn = $('#cylinder-booking').attr("href"); 
-    //     alert('bookBtn'+bookBtn);
-    // });
+    $('body').on('click','#cylinder-booking',function (event) {
+        var bookBtn = $(this).attr('href'); 
+        sessionStorage.setItem("booking",bookBtn);
+    });
+    
 
     $("#search-state-name").on('change',function(){
         $("#search-city-name").removeAttr('disabled');

@@ -43,7 +43,7 @@ class Profile extends \yii\db\ActiveRecord
     {
         return [
             // email and password are both required
-            [['first_name','last_name','email','phone_number','gender','address','state','city','identity_proof','aadhar_card_number'], 'required','on'=>'updateProfile'],
+            [['first_name','last_name','email','age','phone_number','gender','address','state','city','identity_proof','aadhar_card_number'], 'required','on'=>'updateProfile'],
             [['age','phone_number'],'integer'],
             [['email'],'email'],
             [['identity_proof','company_name','account_type','created', 'updated'],'safe'],

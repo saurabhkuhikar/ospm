@@ -73,6 +73,9 @@ class SiteController extends Controller
             if(!empty($model->state_name) || !empty($model->city_name)|| !empty($model->search_input) ){
                 $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->orwhere(['state'=>$model->state_name,])->orwhere(['company_name'=>$model->search_input])->orwhere(['city'=>$model->city_name,'status' => 'Enabled','account_type' => ['Supplier'],]);
             }
+            else{
+                $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['status' => 'Enabled','account_type' => ['Supplier'],]);
+            }
         }
         else{
             $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['status' => 'Enabled','account_type' => ['Supplier'],]);

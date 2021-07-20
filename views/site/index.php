@@ -45,7 +45,7 @@
           </div>        
           <div class="col-md-3">
             <div class="form-group">         
-              <?= Html::submitButton('Search', ['class' => 'btn btn-success search-btn','id'=>'submit-btn']) ?> &nbsp;
+              <?= Html::submitButton('Search', ['class' => 'btn btn-success search-btn','id'=>'search-btn']) ?> &nbsp;
               <?= Html::a('Clear', ['site/index'],['class' => 'btn btn-primary search-btn','id'=>'clear-btn']) ?>
             </div>          
           </div>        
