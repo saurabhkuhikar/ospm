@@ -2,25 +2,24 @@ $(document).ready(function(e){
     
     $("#search-btn").on('click',function(){
         var state = $('#search-state-name').val();
-        var city = $('#search-city-name').val();
         var search = $('#search-search_input').val(); 
-        if(state == "" && city =="" && search == ""){
-            alert('Please select Either state list or search bar');
+        if(state == "" && search == ""){
+            $('.field-empty').show();
+            return false;
         }
 
-    })
+    });
 
     $('body').on('click','#cylinder-booking',function (event) {
         var bookBtn = $(this).attr('href'); 
         sessionStorage.setItem("booking",bookBtn);
     });
     
-
-    $("#search-state-name").on('change',function(){
+    $("#search-state-name").on('select2:select',function(event){
         $("#search-city-name").removeAttr('disabled');
-        getCityList();
+        getCityList();        
     });  
-
+    
     $('body').on('click','#supplierInfo',function (event) {
         var supplierInfo = $(this).attr("supplier-data");
         $("#supplier-state").text($(this).attr("state-name"));

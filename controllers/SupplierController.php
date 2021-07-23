@@ -12,6 +12,7 @@ use app\models\Profile;
 use yii\web\UploadedFile;
 use app\components\Helper;
 use app\models\BookingRequest;
+use app\models\CylinderBooking;
 use app\models\Cities;
 use app\models\States;
 
@@ -125,6 +126,43 @@ class SupplierController extends \yii\web\Controller
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
     }
 
-    
+
+    public function actionExportBookingList(){
+        $booking_data = '';
+
+        $booking_data .='
+        <table bordered="1"> 
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Customer id</th>
+            <th>Cylinder Type</th>
+            <th>Cylinder Quantity</th>
+            <th>Total Amount</th>
+            <th>Order Date</th>
+            <th>Order Status</th>
+            <th>Payment Option</th>
+        </tr>';
+
+        $booking_lists = CylinderBooking::find()->all();
+        foreach($booking_lists as $booking_list){
+            $booking_data .='
+            <tr>
+                <td>'.$booking_list->first_name.'</td>
+                <td>'.$booking_list->last_name.'</td>
+                <td>'.$booking_list->customer_id.'</td>
+                <td>'.$booking_list->cylinder_type.'</td>
+                <td>'.$booking_list->cylinder_quantity.'</td>
+                <td>'.$booking_list->total_amount.'</td>
+                <td>'.$booking_list->order_date.'</td>
+                <td>'.$booking_list->order_status.'</td>
+                <td>'.$booking_list->payment_option.'</td>  
+            </tr>';
+        }
+        $booking_data .='</table>';
+        header("Content-Type: application/xls");
+        header("Content-Disposition:attachment; filename=CylinderBookingList.xls");
+        return $booking_data;
+    }   
 
 }

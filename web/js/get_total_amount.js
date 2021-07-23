@@ -25,8 +25,6 @@ function calculateTotalAmount(){
 					$("#cylinderbooking-total_amount").val(response.totalAmount);
 				}
 			});
-		}else{
-			$("#cylinderbooking-cylinder_quantity").val("");
 		}
 	}	
 }

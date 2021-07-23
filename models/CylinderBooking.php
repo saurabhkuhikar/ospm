@@ -43,10 +43,11 @@ class CylinderBooking extends \yii\db\ActiveRecord
     {
         return [
             [['first_name', 'last_name', 'covid_test_result', 'covid_test_date', 'cylinder_type', 'cylinder_quantity', 'order_date'], 'required'],
+            [['payment_option',], 'required','on'=>'paymentOption'],  
             [['covid_test_date','customer_id','supplier_id','order_date', 'total_amount', 'created', 'updated'], 'safe'],
             [['first_name', 'last_name', 'cylinder_type', 'order_status', 'payment_id', 'payment_token', 'payment_status'], 'string', 'max' => 255],
             [['covid_test_result'], 'string', 'max' => 20],
-            [['cylinder_quantity','total_amount'],'number'],
+            [['cylinder_quantity'],'number','min' => 1,'max' => 5,],
         ];
     }
 
@@ -61,6 +62,7 @@ class CylinderBooking extends \yii\db\ActiveRecord
             'last_name' => 'Last Name',
             'customer_id' => 'Customer ID',
             'supplier_id' => 'Supplier ID',
+            'payment_option' => 'Select Payment Options', 
             'covid_test_result' => 'Covid Test Result',
             'covid_test_date' => 'Covid Test Date',
             'cylinder_type' => 'Cylinder Type',

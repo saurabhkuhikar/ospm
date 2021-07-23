@@ -23,8 +23,8 @@ class Search extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            // [[], 'required'],
-            [['state_name','search_input','city_name'], 'safe'],
+            [['state_name',], 'safe' ],
+            [['search_input','city_name'], 'safe'],
             [['state_name','city_name'], 'string', 'max' => 50],
         ];
     }
@@ -37,7 +37,7 @@ class Search extends \yii\db\ActiveRecord
         return [
             'city_name' => 'City',
             'state_name' => 'State',
-            'search_input'=>'Search',
+            'search_input'=>'Search Companay Name',
         ];
     }   
     

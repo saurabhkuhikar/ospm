@@ -35,7 +35,7 @@ class AccountController extends Controller
                 'only' => ['logout','change-profile-picture'],
                 'rules' => [
                     [
-                        'actions' => ['login','logout','change-profile-picture','get-city-list','SupplierSignup','CustomerSignup','ForgotPassword'],
+                        'actions' => ['login','logout','check-booking-button','change-profile-picture','get-city-list','SupplierSignup','CustomerSignup','ForgotPassword'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -197,7 +197,7 @@ class AccountController extends Controller
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
     }    
     // /* Get url request */
-    public function actionCheckUser(){
+    public function actionCheckBookingButton(){
      
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post(); 

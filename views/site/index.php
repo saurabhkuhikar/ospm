@@ -38,7 +38,7 @@
             <div class="form-group">
               <?= $form->field($model, 'city_name')->widget(Select2::classname(), [
                   'data' => ArrayHelper::map(Cities::find()->all(),'city_name','city_name'),
-                  'options' => ['placeholder' => 'Select States','id'=>'search-city-name'],
+                  'options' => ['placeholder' => 'Select Cities','id'=>'search-city-name','disabled'=>true],
                   'pluginOptions' => ['allowClear' => true,],                                
               ]); ?> 
             </div>          
@@ -51,6 +51,13 @@
           </div>        
         <?php  ActiveForm::end(); ?>
       </div>
+      <?php if (Yii::$app->session->hasFlash('error')): ?>
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+              <?= Yii::$app->session->getFlash('error') ?>
+        </div>
+      <?php endif; ?>
+      <p class="field-empty" style="display:none;color:red">Please select either state or search field.</p>
     </div>
   </div>
 </div>

@@ -69,20 +69,29 @@ class SiteController extends Controller
     {
         $this->layout = "home";
         $model = new Search();
+        $user_data = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture']);
         if ($model->load(Yii::$app->request->post())){            
-            if(!empty($model->state_name) || !empty($model->city_name)|| !empty($model->search_input) ){
-                $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->orwhere(['state'=>$model->state_name,])->orwhere(['company_name'=>$model->search_input])->orwhere(['city'=>$model->city_name,'status' => 'Enabled','account_type' => ['Supplier'],]);
+            if(!empty($model->search_input) && !empty($model->state_name) && !empty($model->city_name)) {
+                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],'state'=>$model->state_name,'city'=>$model->city_name,])->orwhere(['company_name'=>$model->search_input]);
             }
-            else{
-                $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['status' => 'Enabled','account_type' => ['Supplier'],]);
+            elseif(!empty($model->state_name) && !empty($model->city_name)){
+                $user = $user_data->andwhere(['state'=>$model->state_name,'city'=>$model->city_name,'status' => 'Enabled','account_type' => ['Supplier'],]);
             }
+            elseif(!empty($model->search_input)) {                
+                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],'company_name'=>$model->search_input]);
+            }else{  
+                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],]);
+            }
+            $pagination = new Pagination(['totalCount' => $user->count(),'defaultPageSize' => 6]);        
+            $supplierList = $user->offset($pagination->offset)->limit($pagination->limit)->asArray()->all();
+        }else{
+            $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],]);
+            $pagination = new Pagination(['totalCount' => $user->count(),'defaultPageSize' => 6]);        
+            $supplierList = $user->offset($pagination->offset)->limit($pagination->limit)->asArray()->all();
         }
-        else{
-            $user = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture'])->where(['status' => 'Enabled','account_type' => ['Supplier'],]);
+        if(empty($supplierList)){
+            Yii::$app->session->setFlash('error', "No result found");
         }
-        $pagination = new Pagination(['totalCount' => $user->count(),'defaultPageSize' => 6]);        
-        $supplierList = $user->offset($pagination->offset)->limit($pagination->limit)->asArray()->all();
-        
         return $this->render('index',['supplierList'=>$supplierList,'pagination'=>$pagination,'model'=> $model]);
     }
 

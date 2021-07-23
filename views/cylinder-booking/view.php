@@ -28,6 +28,13 @@ $this->title = "View Booking Details";
             <div class="panel">
                 <div class="panel-heading"><?= Html::encode($this->title) ?></div>
                 <div class="panel-body">
+                <?php if (Yii::$app->session->hasFlash('order success')): ?>
+                    <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <h4><i class = "fa fa-check-circle"></i> Successful!</h4>
+                        <?= Yii::$app->session->getFlash('order success') ?>
+                    </div>
+                <?php endif; ?>
                     <?= DetailView::widget([
                         'model' => $model,
                         'attributes' => [
@@ -36,8 +43,8 @@ $this->title = "View Booking Details";
                             'last_name',
                             // 'customer_id', 
                             // 'supplier_id',
-                            'covid_test_result',
-                            'covid_test_date',
+                            // 'covid_test_result',
+                            // 'covid_test_date',
                             'cylinder_type',
                             'cylinder_quantity',
                             'total_amount',

@@ -62,7 +62,7 @@ use kartik\select2\Select2;
                             ]);?>
                         </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'cylinder_quantity')->textInput(['maxlength' => true,'placeholder'=>'Enter the Cylinder Quantity','type' => 'number','min'=>1,'max'=>5]) ?>
+                            <?= $form->field($model, 'cylinder_quantity')->textInput(['maxlength' => true,'autocomplete'=> 'off','placeholder'=>'Enter the Cylinder Quantity','type' => 'number','min'=>1,'max'=>5]) ?>
                         </div>
                     </div>
                     <div class="row">
@@ -75,7 +75,7 @@ use kartik\select2\Select2;
                                 [
                                     // inline too, not bad
                                     'inline' => false,
-                                    'options' => ['placeholder' => 'Select Order Date '],
+                                    'options' => ['placeholder' => 'Select Order Date ','autocomplete'=> 'off'],
                                     // modify template for custom rendering
                                     // 'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
                                     'clientOptions' => [
@@ -89,7 +89,7 @@ use kartik\select2\Select2;
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">                            
-                                <?= Html::submitButton('Submit', ['class' => 'btn btn-success','id' => "checkout-button"]) ?>
+                                <?= Html::submitButton('Next', ['class' => 'btn btn-success','id' => "checkout-button"]) ?>
                             </div>
                         </div>
                     </div>

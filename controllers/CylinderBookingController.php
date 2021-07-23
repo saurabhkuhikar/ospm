@@ -16,9 +16,7 @@ use app\models\CylinderList;
  * CylinderBookingController implements the CRUD actions for CylinderBooking model.
  */
 class CylinderBookingController extends Controller
-{
-
-   
+{   
     /**
      * {@inheritdoc}
      */
@@ -28,10 +26,10 @@ class CylinderBookingController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','index','view','create','update','bill-amount'],
+                'only' => ['logout','index','create','update','bill-amount','payment-option','online-payment'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete','bill-amount'],
+                        'actions' => ['index','view','create','update','delete','bill-amount','payment-option','online-payment'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -69,6 +67,7 @@ class CylinderBookingController extends Controller
     public function actionView($id)
     {
         $this->layout = 'dashboard'; 
+        Yii::$app->session->setFlash('order success', "You have successfully Placed the order.The order will be deliver soon...");
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -81,7 +80,8 @@ class CylinderBookingController extends Controller
      */
     public function actionCreate($token)   
     {      
-        $this->layout = 'dashboard';       
+        $this->layout = 'dashboard';     
+        Helper::checkAccess("Customer");  
         $model = new CylinderBooking();            
         if ($model->load(Yii::$app->request->post())) {
             $model->customer_id = Helper::getCurrentUserId();
@@ -91,7 +91,7 @@ class CylinderBookingController extends Controller
                 $model->total_amount = $totalAmountSession;
             }
             if($model->save()){
-                return $this->redirect(['view','id' => $model->id]);
+                return $this->redirect(['payment-option','id' => $model->id]);
             }
         }
         
@@ -120,6 +120,33 @@ class CylinderBookingController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionPaymentOption($id)   
+    {      
+        $this->layout = 'dashboard'; 
+        Helper::checkAccess("Customer");
+        $model = $this->findModel($id);
+        
+        $model->setScenario('paymentOption');       
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                if($model->payment_option == "Online"){
+                    return $this->redirect(['online-payment','id' => $model->id]);
+                }
+                return $this->redirect(['view','id' => $model->id]);
+            }
+        }
+        
+        return $this->render('payment-option', ['model' => $model,]);         
+    }
+
+    public function actionOnlinePayment($id){
+        $this->layout = 'dashboard'; 
+        Helper::checkAccess("Customer");
+        $model = $this->findModel($id);
+        
+        return $this->render('online-payment',['model' => $model,]);
     }
 
     /**
@@ -151,6 +178,10 @@ class CylinderBookingController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /**
+     * send total amount of order.
+     * @return mixed
+     */
     public function actionBillAmount()
     {
       

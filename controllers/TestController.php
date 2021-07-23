@@ -153,6 +153,7 @@ class TestController extends Controller
         $output .= '</table>';
         header("Content-Type: application/xls");
         header("Content-Disposition:attachment; filename=FullReport.xls");
-        echo $output; 
+        return $output;
+        die(); 
     }
 }
