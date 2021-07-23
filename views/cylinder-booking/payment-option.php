@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>                    
                     <div class="row">
                         <div class="col-md-12">
-                            <?= Html::submitButton('Submit', ['class' => 'btn btn-success', 'name' => 'payment-button']) ?>
+                            <?= Html::submitButton('Submit', ['class' => 'btn btn-success', 'name' => 'payment-option-button']) ?>
                         </div>
                     </div>
                 <?php ActiveForm::end(); ?>               
