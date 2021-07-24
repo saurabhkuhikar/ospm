@@ -144,7 +144,7 @@ class CylinderBookingController extends Controller
     public function actionOnlinePayment($id){
         $this->layout = 'dashboard'; 
         Helper::checkAccess("Customer");
-        $model = $this->findModel($id);
+        $model = $this->findModel($id); 
         
         return $this->render('online-payment',['model' => $model,]);
     }

@@ -72,13 +72,13 @@ class SiteController extends Controller
         $user_data = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture']);
         if ($model->load(Yii::$app->request->post())){            
             if(!empty($model->search_input) && !empty($model->state_name) && !empty($model->city_name)) {
-                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],'state'=>$model->state_name,'city'=>$model->city_name,])->orwhere(['company_name'=>$model->search_input]);
+                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],'state'=>$model->state_name,'city'=>$model->city_name,])->orwhere(['company_name'=>trim($model->search_input," ")]);
             }
             elseif(!empty($model->state_name) && !empty($model->city_name)){
                 $user = $user_data->andwhere(['state'=>$model->state_name,'city'=>$model->city_name,'status' => 'Enabled','account_type' => ['Supplier'],]);
             }
             elseif(!empty($model->search_input)) {                
-                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],'company_name'=>$model->search_input]);
+                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],'company_name'=>trim($model->search_input," ")]);
             }else{  
                 $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],]);
             }
