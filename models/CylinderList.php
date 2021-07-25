@@ -11,7 +11,7 @@ use Yii;
  * @property string $user_id
  * @property string|null $cylinder_type
  * @property string|null $cylinder_quantity
- * @property string $cylinder_price
+ * @property string $selling_price
  * @property string $created
  * @property string $updated
  */
@@ -31,11 +31,11 @@ class CylinderList extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cylinder_price','cylinder_type','cylinder_quantity'], 'required'],
+            [['selling_price','cylinder_type_id','cylinder_quantity'], 'required'],
             [['created', 'updated'], 'safe'],
-            [['cylinder_type', ], 'string', 'max' => 255],
+            [['cylinder_type_id', ], 'string', 'max' => 255],
             [['user_id'],'number'],
-            [['cylinder_price','cylinder_quantity'], 'number'],
+            [['selling_price','cylinder_quantity'], 'number'],
         ];
     }
 
@@ -47,11 +47,19 @@ class CylinderList extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'cylinder_type' => 'Cylinder Type',
+            'cylinder_type_id' => 'Cylinder Type',
             'cylinder_quantity' => 'Cylinder Quantity',
-            'cylinder_price' => 'Cylinder Price',
+            'selling_price' => 'Selling  Price',
             'created' => 'Created',
             'updated' => 'Updated',
         ];
     }
+
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getCylinderType()
+    {
+        return $this->hasOne(CylinderType::className(), ['cylinder_type_id' => 'id']);
+    } 
 }

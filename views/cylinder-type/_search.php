@@ -17,7 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'liter') ?>
+    <?= $form->field($model, 'litre_quantity') ?>
+
+    <?= $form->field($model, 'label') ?>
 
     <?= $form->field($model, 'created') ?>
 

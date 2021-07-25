@@ -56,7 +56,7 @@ use kartik\select2\Select2;
                     <div class="row">
                         <div class="col-md-6">
                             <?= $form->field($model, 'cylinder_type')->widget(Select2::classname(), [
-                                'data' => ArrayHelper::map(CylinderType::find()->all(),'liter','liter'),                                        
+                                'data' => ArrayHelper::map(CylinderType::find()->all(),'id','litre_quantity'),                                        
                                 'options' => ['placeholder' => 'Select Cylinder Types'],
                                 'pluginOptions' => ['allowClear' => true],  
                             ]);?>

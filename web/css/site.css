@@ -161,3 +161,6 @@ a.desc:after {
 -ms-flex: 50%; /* IE10 */
 flex: 50%;
 }
+.mt-24{
+    margin-top: 24px;
+}

@@ -19,11 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'user_id') ?>
 
-    <?= $form->field($model, 'cylinder_type') ?>
+    <?= $form->field($model, 'cylinder_type_id') ?>
 
     <?= $form->field($model, 'cylinder_quantity') ?>
 
-    <?= $form->field($model, 'cylinder_price') ?>
+    <?= $form->field($model, 'selling_price') ?>
 
     <?php // echo $form->field($model, 'created') ?>
 

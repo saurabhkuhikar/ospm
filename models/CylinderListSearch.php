@@ -18,7 +18,7 @@ class CylinderListSearch extends CylinderList
     {
         return [
             [['id'], 'integer'],
-            [['user_id', 'cylinder_type', 'cylinder_quantity', 'cylinder_price', 'created', 'updated'], 'safe'],
+            [['user_id', 'cylinder_type_id', 'cylinder_quantity', 'selling_price', 'created', 'updated'], 'safe'],
         ];
     }
 
@@ -64,9 +64,9 @@ class CylinderListSearch extends CylinderList
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'cylinder_type', $this->cylinder_type])
+        $query->andFilterWhere(['like', 'cylinder_type_id', $this->cylinder_type_id])
             ->andFilterWhere(['like', 'cylinder_quantity', $this->cylinder_quantity])
-            ->andFilterWhere(['like', 'cylinder_price', $this->cylinder_price]);
+            ->andFilterWhere(['like', 'selling_price', $this->selling_price]);
 
         return $dataProvider;
     }

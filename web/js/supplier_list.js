@@ -38,7 +38,7 @@ $(document).ready(function(e){
                     cylinderDetails += '<tr class="center-txt">';
                     cylinderDetails += '<td>'+value.cylinder_type+'</td>';
                     cylinderDetails += '<td>'+value.cylinder_quantity+'</td>';
-                    cylinderDetails += '<td>'+new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(value.cylinder_price)+'</td>';
+                    cylinderDetails += '<td>'+new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(value.selling_price)+'</td>';
                     cylinderDetails += '</tr>';
                 });
                 $("#cylinders").html(cylinderDetails);

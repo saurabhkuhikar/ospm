@@ -17,9 +17,8 @@ class CylinderTypeSearch extends CylinderType
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['liter'], 'string'],
-            [['created', 'updated'], 'safe'],
+            [['id', 'litre_quantity'], 'integer'],
+            [['label', 'created', 'updated'], 'safe'],
         ];
     }
 
@@ -60,10 +59,12 @@ class CylinderTypeSearch extends CylinderType
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'liter' => $this->liter,
+            'litre_quantity' => $this->litre_quantity,
             'created' => $this->created,
             'updated' => $this->updated,
         ]);
+
+        $query->andFilterWhere(['like', 'label', $this->label]);
 
         return $dataProvider;
     }

@@ -26,7 +26,7 @@ class SupplierController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','dashboard','profile','get-city-list'],
+                'only' => ['logout','index','dashboard','profile','get-city-list'],
                 'rules' => [
                     [
                         'actions' => ['logout','dashboard','get-city-list','profile'],
@@ -127,7 +127,7 @@ class SupplierController extends \yii\web\Controller
     }
 
 
-    public function actionExportBookingList(){
+    public function actionExportBookingList($status){
         $booking_data = '';
 
         $booking_data .='
@@ -160,6 +160,7 @@ class SupplierController extends \yii\web\Controller
             </tr>';
         }
         $booking_data .='</table>';
+        Helper::dd($booking_data);
         header("Content-Type: application/xls");
         header("Content-Disposition:attachment; filename=CylinderBookingList.xls");
         return $booking_data;

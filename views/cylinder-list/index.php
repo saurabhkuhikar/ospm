@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ActiveForm;
+use app\models\CylinderType;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CylinderListSearch */
@@ -19,13 +23,28 @@ $this->title = 'Cylinder Lists';
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>
-                            <?= Html::a('Add Cylinder', ['create'], ['class' => 'btn btn-success']) ?>
-                        </p>
-
-                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-   
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>
+                                    <?= Html::a('Add Cylinder', ['create'], ['class' => 'btn btn-success mt-24']) ?>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <?php $form = ActiveForm::begin(); ?>
+                                <?php $data = ['All'=>'All','5'=>5,'10'=>10,'15'=>15]?>
+                                <?= $form->field($model, 'export_list')->widget(Select2::classname(), [
+                                    'data' =>  $data,                                        
+                                    'options' => ['placeholder' => 'Select Cylinder Types'],
+                                    'pluginOptions' => ['allowClear' => true,],  
+                                    ]); 
+                                ?> 
+                            </div>
+                            <div class="col-md-2">
+                                <?= Html::submitButton('Export', ['class' => 'btn btn-success mt-24']) ?>
+                            </div>  
+                            <?php ActiveForm::end(); ?>
+                        </div>  
+                    
                         <?= GridView::widget([
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
@@ -34,9 +53,9 @@ $this->title = 'Cylinder Lists';
 
                                 //'id',
                                 //'user_id',
-                                'cylinder_type',
+                                'cylinder_type_id',
                                 'cylinder_quantity',
-                                'cylinder_price',
+                                'selling_price',
                                 //'created',
                                 [
                                     'attribute' => 'created',

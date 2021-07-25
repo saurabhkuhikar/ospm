@@ -9,30 +9,17 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="cylinder-type-form">
-<div class="col-md-2"></div>
+
     <?php $form = ActiveForm::begin(); ?>
-    <div class="col-md-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading"><?= Html::encode($this->title) ?></div>
-            <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <?= $form->field($model, 'liter')->textInput() ?>   
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+    <?= $form->field($model, 'litre_quantity')->textInput() ?>
+
+    <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
-    <div class="col-md-2"></div>
+
     <?php ActiveForm::end(); ?>
+
 </div>

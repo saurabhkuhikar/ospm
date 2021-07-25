@@ -26,10 +26,10 @@ class CylinderBookingController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','index','create','update','bill-amount','payment-option','online-payment'],
+                'only' => ['logout','index','booking','create','update','bill-amount','payment-option','online-payment'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete','bill-amount','payment-option','online-payment'],
+                        'actions' => ['index','booking','view','create','update','delete','bill-amount','payment-option','online-payment'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -69,7 +69,7 @@ class CylinderBookingController extends Controller
         $this->layout = 'dashboard'; 
         Yii::$app->session->setFlash('order success', "You have successfully Placed the order.The order will be deliver soon...");
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel(base64_decode($id)),
         ]);
     }
 
@@ -97,6 +97,37 @@ class CylinderBookingController extends Controller
         
         return $this->render('create', ['model' => $model,'token' => $token]);         
     }
+
+    /**
+     * Creates a new CylinderBooking model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionBooking($token)   
+    {      
+        $this->layout = 'dashboard';     
+        Helper::checkAccess("Customer");  
+        $model = new CylinderBooking();            
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->first_name = Yii::$app->user->identity->first_name;
+            $model->last_name = Yii::$app->user->identity->last_name;
+            $model->customer_id = Helper::getCurrentUserId();
+            $model->supplier_id = base64_decode($token);
+            $totalAmountSession = Helper::getSession('totalAmount');           
+            if($model->total_amount != $totalAmountSession  && $model->total_amount != Null){
+                $model->total_amount = $totalAmountSession;
+            }
+            // Helper::dd($model);
+            if($model->save()){
+                return $this->redirect(['view','id' => base64_encode($model->id)]);
+            }
+            Helper::checkError($model);
+        }
+        
+        return $this->render('booking', ['model' => $model,'token' => $token]);         
+    }
+
 
     /**
      * Updates an existing CylinderBooking model.
@@ -188,7 +219,7 @@ class CylinderBookingController extends Controller
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
             $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'cylinder_type' => $data['cylinderType']])->one();
-            $totalAmount = $cylinderLists->cylinder_price * $data['cylinderQuantity'];  
+            $totalAmount = $cylinderLists->selling_price * $data['cylinderQuantity'];  
             Helper::createSession('totalAmount',$totalAmount);
             return json_encode(['status'=>200,'totalAmount'=>$totalAmount]);
         }

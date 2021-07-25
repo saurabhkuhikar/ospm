@@ -16,6 +16,7 @@ $this->title = 'Booking Requests';
         <div class="panel">
             <div class="panel-heading"><?=$_GET['status']?></div>
             <div class="panel-body">
+            <?= Html::a('Export', ['booking-request/export-booking-list','status'=>$_GET['status'],], ['class' => 'btn btn-success mt-24']) ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,

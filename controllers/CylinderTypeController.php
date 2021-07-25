@@ -3,13 +3,11 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
 use app\models\CylinderType;
 use app\models\CylinderTypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\components\Helper;
 
 /**
  * CylinderTypeController implements the CRUD actions for CylinderType model.
@@ -22,21 +20,10 @@ class CylinderTypeController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['login','index','view','create','update','delete'],
-                'rules' => [
-                    [
-                        'actions' => ['index','view','create','update','delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['POST'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -69,6 +56,7 @@ class CylinderTypeController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+
     /**
      * Creates a new CylinderType model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -76,7 +64,6 @@ class CylinderTypeController extends Controller
      */
     public function actionCreate()
     {
-        
         $model = new CylinderType();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -85,8 +72,7 @@ class CylinderTypeController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-        ]);        
-        // return $this->redirect(['account/login']);
+        ]);
     }
 
     /**
@@ -98,7 +84,6 @@ class CylinderTypeController extends Controller
      */
     public function actionUpdate($id)
     {
-        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

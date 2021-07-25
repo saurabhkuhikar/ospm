@@ -12,37 +12,29 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cylinder-type-index">
 
-<div class="col-md-2"></div>
-    <div class="col-md-12">
-        <div class="panel panel-info">
-            <div class="panel-heading"><?= Html::encode($this->title) ?></div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>
-                            <?= Html::a('Add Cylinder Type', ['create'], ['class' => 'btn btn-success']) ?>
-                        </p>
+    <h1><?= Html::encode($this->title) ?></h1>
 
-                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <p>
+        <?= Html::a('Create Cylinder Type', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
-                        <?= GridView::widget([
-                            'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
-                            'columns' => [
-                                ['class' => 'yii\grid\SerialColumn'],
-                                'id',
-                                'liter',
-                                'created',
-                                'updated',
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                                ['class' => 'yii\grid\ActionColumn'],
-                            ],
-                        ]); ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'litre_quantity',
+            'label',
+            'created',
+            'updated',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

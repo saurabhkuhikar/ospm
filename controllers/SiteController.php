@@ -72,13 +72,13 @@ class SiteController extends Controller
         $user_data = User::find()->select(['company_name','id','first_name','state','city','phone_number','profile_picture']);
         if ($model->load(Yii::$app->request->post())){            
             if(!empty($model->search_input) && !empty($model->state_name) && !empty($model->city_name)) {
-                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],'state'=>$model->state_name,'city'=>$model->city_name,])->orwhere(['company_name'=>trim($model->search_input," ")]);
+                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],'state'=>$model->state_name,'city'=>$model->city_name,])->andwhere(['company_name'=>trim($model->search_input," ")]);
             }
             elseif(!empty($model->state_name) && !empty($model->city_name)){
                 $user = $user_data->andwhere(['state'=>$model->state_name,'city'=>$model->city_name,'status' => 'Enabled','account_type' => ['Supplier'],]);
             }
             elseif(!empty($model->search_input)) {                
-                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],'company_name'=>trim($model->search_input," ")]);
+                $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],])->andWhere(['like', 'company_name', trim($model->search_input," ")]);
             }else{  
                 $user = $user_data->where(['status' => 'Enabled','account_type' => ['Supplier'],]);
             }
@@ -139,12 +139,12 @@ class SiteController extends Controller
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
             $cylinders = [
-                ['cylinder_type' => '5 Litre', 'cylinder_quantity' => 0, 'cylinder_price' => 0],
-                ['cylinder_type' => '10 Litre', 'cylinder_quantity' => 0, 'cylinder_price' => 0],
-                ['cylinder_type' => '15 Litre', 'cylinder_quantity' => 0, 'cylinder_price' => 0]
+                ['cylinder_type' => '5 Litre', 'cylinder_quantity' => 0, 'selling_price' => 0],
+                ['cylinder_type' => '10 Litre', 'cylinder_quantity' => 0, 'selling_price' => 0],
+                ['cylinder_type' => '15 Litre', 'cylinder_quantity' => 0, 'selling_price' => 0]
             ];
 
-            $cylinderLists = CylinderList::find()->select(['cylinder_type','cylinder_quantity','cylinder_price'])->where(['user_id'=> base64_decode($data['supplierInfo'])])->asArray()->all();
+            $cylinderLists = CylinderList::find()->select(['cylinder_type','cylinder_quantity','selling_price'])->where(['user_id'=> base64_decode($data['supplierInfo'])])->asArray()->all();
             
             if(count($cylinderLists) > 0){
                 $cylinders = $cylinderLists;

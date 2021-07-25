@@ -24,6 +24,7 @@ class DashboardAsset extends AssetBundle
         'theme/vendors/font-awesome/css/font-awesome.min.css',   
         'css/site.css',
         'css/custom.css',
+        'css/booking.css',
     ];
     public $js = [
         'theme/build/js/custom.min.js',

@@ -24,9 +24,9 @@ $this->title = 'Updated Cylinder list';
                         'attributes' => [
                             // 'id',
                             // 'user_id',
-                            'cylinder_type',
+                            'cylinder_type_id',
                             'cylinder_quantity',
-                            'cylinder_price',
+                            'selling_price',
                             'created',
                             'updated',
                         ],

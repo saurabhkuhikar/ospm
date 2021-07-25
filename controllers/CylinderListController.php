@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\components\Helper;
 use app\models\Profile;
+use app\models\ExportCylinderStock;
 /**
  * CylinderListController implements the CRUD actions for CylinderList model.
  */
@@ -51,10 +52,39 @@ class CylinderListController extends Controller
         $this->layout = 'dashboard';
         $searchModel = new CylinderListSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new ExportCylinderStock();
+        if ($model->load(Yii::$app->request->post()) ) {
+            if(!empty($model->export_list)){
+                $stock_data = '';
+                $stock_data .='
+                <table bordered="1"> 
+                <tr>                         
+                    <th>Cylinder Quantity</th>
+                    <th>Selling Price</th>
+                </tr>';
 
+                $model->export_list == "All" ? $cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->all()               
+                :$cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),'cylinder_type_id'=>$model->export_list])->all();
+                
+
+                foreach($cylinder_lists as $cylinder_list){
+                    $stock_data .='
+                    <tr>                    
+                    <td>'.$cylinder_list->cylinder_quantity.'</td>
+                    <td>'.$cylinder_list->selling_price.'</td>                    
+                    </tr>';
+                }
+                $stock_data .='</table>';
+                // Helper::dd($stock_data);
+                header("Content-Type: application/xls");
+                header("Content-Disposition:attachment; filename=CylinderStocksAvaliable.xls");
+                return $stock_data;
+            }
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model'=>$model,
         ]);
     }
 
@@ -84,9 +114,9 @@ class CylinderListController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Helper::getCurrentUserId();
             $cylinderLists = CylinderList::find()->where(['cylinder_type'=>$model->cylinder_type,'user_id'=>Helper::getCurrentUserId()])->one();
-            if($model->cylinder_type == $cylinderLists['cylinder_type']){
+            if($model->cylinder_type == $cylinderLists['cylinder_type_id']){
                 $cylinderLists->cylinder_quantity = $cylinderLists['cylinder_quantity'] + $model->cylinder_quantity;
-                $cylinderLists->cylinder_price = $model->cylinder_price;
+                $cylinderLists->selling_price = $model->selling_price;
                 $cylinderLists->save();
                 return $this->redirect(['view', 'id' => $cylinderLists->id]);
             }            
@@ -155,9 +185,4 @@ class CylinderListController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionRelation(){
-        $model = Profile::find()->where(['id' => yii::$app->user->identity->id])->one();
-        Helper::dd($model->getcylinderlist()->all());
-        
-    }
 }
