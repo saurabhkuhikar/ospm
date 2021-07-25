@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\CylinderType;
 
 /**
  * This is the model class for table "cylinder_lists".
@@ -58,8 +59,8 @@ class CylinderList extends \yii\db\ActiveRecord
     /**
     * @return \yii\db\ActiveQuery
     */
-    public function getCylinderType()
+    public function getCylindertypes()
     {
-        return $this->hasOne(CylinderType::className(), ['cylinder_type_id' => 'id']);
+        return $this->hasOne(CylinderType::className(), ['id' => 'cylinder_type_id']);
     } 
 }

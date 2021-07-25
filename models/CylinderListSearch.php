@@ -11,6 +11,8 @@ use app\models\CylinderList;
  */
 class CylinderListSearch extends CylinderList
 {
+    public $litre_quantity;
+
     /**
      * {@inheritdoc}
      */
@@ -19,6 +21,7 @@ class CylinderListSearch extends CylinderList
         return [
             [['id'], 'integer'],
             [['user_id', 'cylinder_type_id', 'cylinder_quantity', 'selling_price', 'created', 'updated'], 'safe'],
+            [['litre_quantity'],'string']
         ];
     }
 
@@ -41,7 +44,7 @@ class CylinderListSearch extends CylinderList
     public function search($params)
     {
         $query = CylinderList::find();
-
+        $query->joinWith(['cylindertypes']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -64,9 +67,11 @@ class CylinderListSearch extends CylinderList
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'cylinder_type_id', $this->cylinder_type_id])
-            ->andFilterWhere(['like', 'cylinder_quantity', $this->cylinder_quantity])
-            ->andFilterWhere(['like', 'selling_price', $this->selling_price]);
+        //$query->andFilterWhere(['like', 'cylinder_type_id', $this->cylinder_type_id])
+        $query->andFilterWhere(['like', 'cylinder_quantity', $this->cylinder_quantity])
+        ->andFilterWhere(['like', 'selling_price', $this->selling_price]);
+
+        $query->andFilterWhere(['=', 'cylinder_types.litre_quantity', $this->litre_quantity]);
 
         return $dataProvider;
     }

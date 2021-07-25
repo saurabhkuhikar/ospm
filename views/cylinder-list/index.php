@@ -29,20 +29,6 @@ $this->title = 'Cylinder Lists';
                                     <?= Html::a('Add Cylinder', ['create'], ['class' => 'btn btn-success mt-24']) ?>
                                 </p>
                             </div>
-                            <div class="col-md-4">
-                                <?php $form = ActiveForm::begin(); ?>
-                                <?php $data = ['All'=>'All','5'=>5,'10'=>10,'15'=>15]?>
-                                <?= $form->field($model, 'export_list')->widget(Select2::classname(), [
-                                    'data' =>  $data,                                        
-                                    'options' => ['placeholder' => 'Select Cylinder Types'],
-                                    'pluginOptions' => ['allowClear' => true,],  
-                                    ]); 
-                                ?> 
-                            </div>
-                            <div class="col-md-2">
-                                <?= Html::submitButton('Export', ['class' => 'btn btn-success mt-24']) ?>
-                            </div>  
-                            <?php ActiveForm::end(); ?>
                         </div>  
                     
                         <?= GridView::widget([
@@ -53,7 +39,23 @@ $this->title = 'Cylinder Lists';
 
                                 //'id',
                                 //'user_id',
-                                'cylinder_type_id',
+                                //'cylinder_type_id',
+                                [
+                                    'attribute' => 'litre_quantity',
+                                    'format' => 'html',
+                                    'label' => 'Cylinder Type',
+                                    'filterInputOptions' => [
+                                        'class'       => 'form-control',
+                                        'placeholder' => 'Cylinder Type'
+                                    ],
+                                    'value' => function ($model) {
+                                        if (isset($model->cylindertypes->litre_quantity) && $model->cylindertypes->litre_quantity !== null) {
+                                            return $model->cylindertypes->litre_quantity.' '.$model->cylindertypes->label;
+                                        } else {
+                                            return "";
+                                        }
+                                    },
+                                ],
                                 'cylinder_quantity',
                                 'selling_price',
                                 //'created',

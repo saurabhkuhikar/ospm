@@ -52,39 +52,40 @@ class CylinderListController extends Controller
         $this->layout = 'dashboard';
         $searchModel = new CylinderListSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $model = new ExportCylinderStock();
-        if ($model->load(Yii::$app->request->post()) ) {
-            if(!empty($model->export_list)){
-                $stock_data = '';
-                $stock_data .='
-                <table bordered="1"> 
-                <tr>                         
-                    <th>Cylinder Quantity</th>
-                    <th>Selling Price</th>
-                </tr>';
+        
+        // $model = new ExportCylinderStock();
+        // if ($model->load(Yii::$app->request->post()) ) {
+        //     if(!empty($model->export_list)){
+        //         $stock_data = '';
+        //         $stock_data .='
+        //         <table bordered="1"> 
+        //         <tr>                         
+        //             <th>Cylinder Quantity</th>
+        //             <th>Selling Price</th>
+        //         </tr>';
 
-                $model->export_list == "All" ? $cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->all()               
-                :$cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),'cylinder_type_id'=>$model->export_list])->all();
+        //         $model->export_list == "All" ? $cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->all()               
+        //         :$cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),'cylinder_type_id'=>$model->export_list])->all();
                 
 
-                foreach($cylinder_lists as $cylinder_list){
-                    $stock_data .='
-                    <tr>                    
-                    <td>'.$cylinder_list->cylinder_quantity.'</td>
-                    <td>'.$cylinder_list->selling_price.'</td>                    
-                    </tr>';
-                }
-                $stock_data .='</table>';
-                // Helper::dd($stock_data);
-                header("Content-Type: application/xls");
-                header("Content-Disposition:attachment; filename=CylinderStocksAvaliable.xls");
-                return $stock_data;
-            }
-        }
+        //         foreach($cylinder_lists as $cylinder_list){
+        //             $stock_data .='
+        //             <tr>                    
+        //             <td>'.$cylinder_list->cylinder_quantity.'</td>
+        //             <td>'.$cylinder_list->selling_price.'</td>                    
+        //             </tr>';
+        //         }
+        //         $stock_data .='</table>';
+        //         // Helper::dd($stock_data);
+        //         header("Content-Type: application/xls");
+        //         header("Content-Disposition:attachment; filename=CylinderStocksAvaliable.xls");
+        //         return $stock_data;
+        //     }
+        // }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'model'=>$model,
+            //'model'=>$model,
         ]);
     }
 
