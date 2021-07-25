@@ -59,7 +59,7 @@ class CylinderList extends \yii\db\ActiveRecord
     /**
     * @return \yii\db\ActiveQuery
     */
-    public function getCylindertypes()
+    public function getCylinderTypes()
     {
         return $this->hasOne(CylinderType::className(), ['id' => 'cylinder_type_id']);
     } 

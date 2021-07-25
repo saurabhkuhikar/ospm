@@ -44,7 +44,7 @@ class CylinderListSearch extends CylinderList
     public function search($params)
     {
         $query = CylinderList::find();
-        $query->joinWith(['cylindertypes']);
+        $query->joinWith(['cylinderTypes']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

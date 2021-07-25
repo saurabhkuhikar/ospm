@@ -49,8 +49,8 @@ $this->title = 'Cylinder Lists';
                                         'placeholder' => 'Cylinder Type'
                                     ],
                                     'value' => function ($model) {
-                                        if (isset($model->cylindertypes->litre_quantity) && $model->cylindertypes->litre_quantity !== null) {
-                                            return $model->cylindertypes->litre_quantity.' '.$model->cylindertypes->label;
+                                        if (isset($model->cylinderTypes->litre_quantity) && $model->cylinderTypes->litre_quantity !== null) {
+                                            return $model->cylinderTypes->litre_quantity.' '.$model->cylinderTypes->label;
                                         } else {
                                             return "";
                                         }
