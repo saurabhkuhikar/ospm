@@ -181,7 +181,7 @@ class BookingRequestController extends Controller
             <th>Payment Option</th>
         </tr>';
 
-        $booking_lists = CylinderBooking::find()->all();
+        $booking_lists = CylinderBooking::find()->where(['order_status'=>$status])->all();
         foreach($booking_lists as $booking_list){
             $booking_data .='
             <tr>
@@ -197,7 +197,7 @@ class BookingRequestController extends Controller
             </tr>';
         }
         $booking_data .='</table>';
-        Helper::dd($booking_data);
+ 
         header("Content-Type: application/xls");
         header("Content-Disposition:attachment; filename=CylinderBookingList.xls");
         return $booking_data;
