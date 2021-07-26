@@ -24,9 +24,10 @@ $this->title = 'Cylinder Lists';
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <p>
                                     <?= Html::a('Add Cylinder', ['create'], ['class' => 'btn btn-success mt-24']) ?>
+                                    <?= Html::a('Excel Export', ['cylinder-list/export-cylinder-stock'], ['class' => 'btn btn-info mt-24']) ?>
                                 </p>
                             </div>
                         </div>  

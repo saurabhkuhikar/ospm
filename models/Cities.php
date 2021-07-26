@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use app\models\States;
 /**
  * This is the model class for table "cities".
  *
@@ -43,5 +43,14 @@ class Cities extends \yii\db\ActiveRecord
             'city_name' => 'City Name',
             'state_id' => 'State ID',
         ];
+    }
+     /**
+     * Gets query for [[Cities]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStates()
+    {
+        return $this->hasMany(States::className(), ['id' => 'state_id',]);
     }
 }

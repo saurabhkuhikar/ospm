@@ -55,11 +55,6 @@ class BookingRequestController extends Controller
         $searchModel = new BookingRequestSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        // $model = new ExportCylinderStock();
-        // if ($model->load(Yii::$app->request->post()) ) {
-        
-        // }
-
         return $this->render('index', ['searchModel' => $searchModel,'dataProvider' => $dataProvider]);    
 
     }
@@ -168,7 +163,7 @@ class BookingRequestController extends Controller
         $booking_data = '';
 
         $booking_data .='
-        <table bordered="1"> 
+        <table border="1"> 
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
@@ -181,25 +176,25 @@ class BookingRequestController extends Controller
             <th>Payment Option</th>
         </tr>';
 
-        $booking_lists = CylinderBooking::find()->where(['order_status'=>$status])->all();
+        $booking_lists = BookingRequest::find()->where(['order_status'=>$status])->joinWith('cylindertypes')->all();
         foreach($booking_lists as $booking_list){
             $booking_data .='
             <tr>
                 <td>'.$booking_list->first_name.'</td>
                 <td>'.$booking_list->last_name.'</td>
                 <td>'.$booking_list->customer_id.'</td>
-                <td>'.$booking_list->cylinder_type.'</td>
+                <td>'.$booking_list->cylindertypes->litre_quantity.' '.$booking_list->cylindertypes->label.'</td>
                 <td>'.$booking_list->cylinder_quantity.'</td>
                 <td>'.$booking_list->total_amount.'</td>
                 <td>'.$booking_list->order_date.'</td>
                 <td>'.$booking_list->order_status.'</td>
                 <td>'.$booking_list->payment_option.'</td>  
-            </tr>';
+                </tr>';
         }
         $booking_data .='</table>';
- 
         header("Content-Type: application/xls");
         header("Content-Disposition:attachment; filename=CylinderBookingList.xls");
         return $booking_data;
-    }   
+    }     
+
 }

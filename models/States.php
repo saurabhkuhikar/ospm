@@ -50,8 +50,8 @@ class States extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getStates()
+    public function getCities()
     {
-        return $this->hasMany(Cities::className(), ['state_id' => 'id']);
+        return $this->hasMany(Cities::className(), ['state_id' => 'id',]);
     }
 }

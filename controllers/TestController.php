@@ -126,7 +126,7 @@ class TestController extends Controller
         $output = '';
         $output .= '
 
-        <table bordered="1">
+        <table border= "1">
         <tr>
             <th>First Name</th>
             <th>Last Name</th>

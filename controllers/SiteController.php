@@ -139,17 +139,16 @@ class SiteController extends Controller
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
             $cylinders = [
-                ['cylinder_type' => '5 Litre', 'cylinder_quantity' => 0, 'selling_price' => 0],
-                ['cylinder_type' => '10 Litre', 'cylinder_quantity' => 0, 'selling_price' => 0],
-                ['cylinder_type' => '15 Litre', 'cylinder_quantity' => 0, 'selling_price' => 0]
+                ['cylinderTypes'=>['litre_quantity' => '5','label'=>'liter'], 'cylinder_quantity' => 0, 'selling_price' => 0],
+                ['cylinderTypes'=>['litre_quantity' => '10','label'=>'liter'], 'cylinder_quantity' => 0, 'selling_price' => 0],
+                ['cylinderTypes'=>['litre_quantity' => '15','label'=>'liter'], 'cylinder_quantity' => 0, 'selling_price' => 0]
             ];
 
-            $cylinderLists = CylinderList::find()->select(['cylinder_type','cylinder_quantity','selling_price'])->where(['user_id'=> base64_decode($data['supplierInfo'])])->asArray()->all();
-            
+            $cylinderLists = CylinderList::find()->select(['cylinder_type_id','cylinder_quantity','selling_price'])->where(['user_id'=> base64_decode($data['supplierInfo'])])->joinWith(['cylinderTypes'])->asArray()->all();
             if(count($cylinderLists) > 0){
                 $cylinders = $cylinderLists;
             }
-            
+            // helper::dd( $cylinders);
             return json_encode(['status'=>200,'cylinders'=>$cylinders]);
         }
     }
@@ -159,8 +158,7 @@ class SiteController extends Controller
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
             if(isset($_POST['getStateName'])){
-                $cityId = States::find()->select('id')->where(['state_name'=>$_POST['getStateName']])->asArray()->one();
-                $cityLists = Cities::find()->select('city_name')->where(['state_id'=>$cityId])->asArray()->all();
+                $cityLists = Cities::find()->where(['state_name'=>$_POST['getStateName']])->joinWith('states')->asArray()->all();
             }
         }        
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);

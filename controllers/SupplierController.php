@@ -118,8 +118,7 @@ class SupplierController extends \yii\web\Controller
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
             if(isset($_POST['getStateName'])){
-                $stateId = States::find()->select('id')->where(['state_name'=>$_POST['getStateName']])->asArray()->one();
-                $cityLists = Cities::find()->select('city_name')->where(['state_id'=>$stateId])->asArray()->all();
+                $cityLists = Cities::find()->where(['state_name'=>$_POST['getStateName']])->joinWith('states')->asArray()->all();
             }
         }
         

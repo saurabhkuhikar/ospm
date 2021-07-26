@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\CylinderType;
 
 /**
  * This is the model class for table "cylinder_bookings".
@@ -73,5 +74,12 @@ class BookingRequest extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getCylindertypes()
+    {
+        return $this->hasOne(CylinderType::className(), ['id' => 'cylinder_type']);
     }
 }

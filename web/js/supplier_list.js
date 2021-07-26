@@ -36,7 +36,7 @@ $(document).ready(function(e){
                 var cylinderDetails = '';
                 $(response.cylinders).each(function(index,value){
                     cylinderDetails += '<tr class="center-txt">';
-                    cylinderDetails += '<td>'+value.cylinder_type+'</td>';
+                    cylinderDetails += '<td>'+value.cylinderTypes.litre_quantity+' '+value.cylinderTypes.label+'</td>';
                     cylinderDetails += '<td>'+value.cylinder_quantity+'</td>';
                     cylinderDetails += '<td>'+new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(value.selling_price)+'</td>';
                     cylinderDetails += '</tr>';

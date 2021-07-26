@@ -17,7 +17,6 @@ use app\models\Cities;
 use app\models\States;
 use app\components\Helper;
 use yii\web\UploadedFile;
-use yii\helper\Url;
 
 /**
  * OsmpController implements the CRUD actions for Users model.
@@ -190,8 +189,7 @@ class AccountController extends Controller
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
             if(isset($_POST['getStateName'])){
-                $cityId = States::find()->select('id')->where(['state_name'=>$_POST['getStateName']])->asArray()->one();
-                $cityLists = Cities::find()->select('city_name')->where(['state_id'=>$cityId])->asArray()->all();
+                $cityLists = Cities::find()->where(['state_name'=>$_POST['getStateName']])->joinWith('states')->asArray()->all();
             }
         }        
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
