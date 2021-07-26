@@ -38,7 +38,7 @@ use kartik\select2\Select2;
                                         <div class="form-group">
                                             <div class="col-md-6">
                                                 <?= $form->field($model, 'cylinder_type')->widget(Select2::classname(), [
-                                                    'data' => ArrayHelper::map(CylinderType::find()->all(),'id','litre_quantity'),                                        
+                                                    'data' => ArrayHelper::map(CylinderType::find()->all(),'id','litre_quantity',),                                        
                                                     'options' => ['placeholder' => 'Select Cylinder Types',],
                                                     'pluginOptions' => ['allowClear' => true],  
                                                 ]);?>
@@ -101,14 +101,28 @@ use kartik\select2\Select2;
                                     <h2 class="fs-title">Cart Details</h2>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <?= $form->field($model, 'total_amount')->textInput(['readOnly'=>true,'maxlength' => true]) ?>
-                                            <?= $form->field($model, 'token')->hiddenInput(['readOnly'=>true,'maxlength' => true,'value' => $token])->label(false) ?>
+                                            <div class = "mt-24">
+                                                <p><strong>View Booking Details</strong></p>
+                                                <div>
+                                                    <span>Cylinder Type : </span><span id = "cylinderType"></span>
+                                                </div>
+                                                <div>
+                                                    <span>Cylinder Quantity: </span><span id = "cylinderQuantity"></span>
+                                                </div>
+                                                <div>
+                                                    <span>Order Date : </span><span id = "orderDate"></span>
+                                                </div>
+
+                                            </div>
                                         </div>  
                                     </div>
                                 </div> <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="next" class="next action-button" value="Next Step" />
                             </fieldset>
                             <fieldset>
                                 <div class="form-card">
+                                        <?= $form->field($model, 'total_amount')->textInput(['readOnly'=>true,'maxlength' => true]) ?>
+                                        <?= $form->field($model, 'token')->hiddenInput(['readOnly'=>true,'maxlength' => true,'value' => $token])->label(false) ?>
+
                                     <h2 class="fs-title ">Payment Information</h2> <br><br>
                                     
                                     <div class="row">

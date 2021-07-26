@@ -218,7 +218,7 @@ class CylinderBookingController extends Controller
       
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
-            $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'cylinder_type' => $data['cylinderType']])->one();
+            $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'cylinder_type_id' => $data['cylinderType']])->one();
             $totalAmount = $cylinderLists->selling_price * $data['cylinderQuantity'];  
             Helper::createSession('totalAmount',$totalAmount);
             return json_encode(['status'=>200,'totalAmount'=>$totalAmount]);

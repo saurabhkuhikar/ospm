@@ -84,10 +84,11 @@ class CylinderListController extends Controller
         $model = new CylinderList();
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Helper::getCurrentUserId();
-            $cylinderLists = CylinderList::find()->where(['cylinder_type'=>$model->cylinder_type,'user_id'=>Helper::getCurrentUserId()])->one();
-            if($model->cylinder_type == $cylinderLists['cylinder_type_id']){
+            $cylinderLists = CylinderList::find()->where(['cylinder_type_id'=>$model->cylinder_type_id,'user_id'=>Helper::getCurrentUserId()])->joinWith('cylinderTypes')->one();
+            if($model->cylinder_type_id == $cylinderLists['cylinder_type_id']){
                 $cylinderLists->cylinder_quantity = $cylinderLists['cylinder_quantity'] + $model->cylinder_quantity;
                 $cylinderLists->selling_price = $model->selling_price;
+                // Helper::dd($cylinderLists);
                 $cylinderLists->save();
                 return $this->redirect(['view', 'id' => $cylinderLists->id]);
             }            
@@ -169,23 +170,24 @@ class CylinderListController extends Controller
                 $stock_data .='
                 <table border="1"> 
                 <tr>                         
+                    <th>Cylinder Type</th>
                     <th>Cylinder Quantity</th>
                     <th>Selling Price</th>
                 </tr>';
 
-                $model->export_list == "All" ? $cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->joinWith('cylinderTypes')->all()               
-                :$cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->joinWith(['cylinderTypes'])->all();
+                $model->export_list == "All" ? $cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->all()               
+                :$cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),'litre_quantity'=>$model->export_list])->joinWith(['cylinderTypes'])->all();
                 
-                Helper::dd($cylinder_lists);
-
+                
                 foreach($cylinder_lists as $cylinder_list){
                     $stock_data .='
                     <tr>                    
+                    <td>'.$cylinder_list->cylinderTypes->litre_quantity.'</td>
                     <td>'.$cylinder_list->cylinder_quantity.'</td>
                     <td>'.$cylinder_list->selling_price.'</td>                    
                     </tr>';
                 }
-                $stock_data .='</table>';
+                $stock_data .='</table>';               
                 header("Content-Type: application/xls");
                 header("Content-Disposition:attachment; filename=CylinderStocksAvaliable.xls");
                 return $stock_data;
