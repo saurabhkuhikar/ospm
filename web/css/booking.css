@@ -57,6 +57,17 @@ html {
     padding: 10px 5px;
     margin: 10px 5px
 }
+#msform .action-button-conform {
+    width: 100px;
+    background:#ffc107;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px
+}
 
 #msform .action-button:hover,
 #msform .action-button:focus {
@@ -197,4 +208,35 @@ select.list-dt:focus {
 
 .radio.selected {
     box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1)
+}
+.mb-20{
+    margin-bottom: 20px;
+}
+.mt-24{
+    margin-top: 24px;
+}
+.mt-20{
+    margin-top: 20px;
+}
+.mt-16{
+    margin-top: 16px;
+}
+
+.panel-details{
+    font-size: 16px;
+    font-family: auto;
+    font-weight: bold;
+    color: black;
+    margin-top: 24px;   
+}
+.txt{
+    float: right;
+    font-weight: bold;
+    color: black;
+}
+hr{
+ border-color:black;
+}
+#cylinderbooking-total_amount{
+    color: red;
 }

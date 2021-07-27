@@ -29,7 +29,7 @@ class SupplierController extends \yii\web\Controller
                 'only' => ['logout','index','dashboard','profile','get-city-list'],
                 'rules' => [
                     [
-                        'actions' => ['logout','dashboard','get-city-list','profile'],
+                        'actions' => ['dashboard','get-city-list','profile'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

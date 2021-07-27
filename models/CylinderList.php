@@ -34,7 +34,7 @@ class CylinderList extends \yii\db\ActiveRecord
         return [
             [['selling_price','cylinder_type_id','cylinder_quantity'], 'required'],
             [['created', 'updated'], 'safe'],
-            [['cylinder_type_id', ], 'string', 'max' => 255],
+            [['cylinder_type_id', ], 'integer',],
             [['user_id'],'number'],
             [['selling_price','cylinder_quantity'], 'number'],
         ];

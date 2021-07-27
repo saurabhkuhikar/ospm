@@ -86,9 +86,8 @@ class CylinderListController extends Controller
             $model->user_id = Helper::getCurrentUserId();
             $cylinderLists = CylinderList::find()->where(['cylinder_type_id'=>$model->cylinder_type_id,'user_id'=>Helper::getCurrentUserId()])->joinWith('cylinderTypes')->one();
             if($model->cylinder_type_id == $cylinderLists['cylinder_type_id']){
-                $cylinderLists->cylinder_quantity = $cylinderLists['cylinder_quantity'] + $model->cylinder_quantity;
+                $cylinderLists->cylinder_quantity = $cylinderLists->cylinder_quantity + $model->cylinder_quantity;
                 $cylinderLists->selling_price = $model->selling_price;
-                // Helper::dd($cylinderLists);
                 $cylinderLists->save();
                 return $this->redirect(['view', 'id' => $cylinderLists->id]);
             }            

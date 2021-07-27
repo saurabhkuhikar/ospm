@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\components\Helper;
 use app\models\CylinderList;
+use app\models\GstTable;
 
 /**
  * CylinderBookingController implements the CRUD actions for CylinderBooking model.
@@ -114,7 +115,8 @@ class CylinderBookingController extends Controller
             $model->last_name = Yii::$app->user->identity->last_name;
             $model->customer_id = Helper::getCurrentUserId();
             $model->supplier_id = base64_decode($token);
-            $totalAmountSession = Helper::getSession('totalAmount');           
+            $totalAmountSession = Helper::getSession('totalAmount');    
+            $model->total_amount = $totalAmountSession;       
             if($model->total_amount != $totalAmountSession  && $model->total_amount != Null){
                 $model->total_amount = $totalAmountSession;
             }
@@ -218,10 +220,17 @@ class CylinderBookingController extends Controller
       
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
-            $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'cylinder_type_id' => $data['cylinderType']])->one();
-            $totalAmount = $cylinderLists->selling_price * $data['cylinderQuantity'];  
+            $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'litre_quantity'=>$data['cylinderType']])->joinWith('cylinderTypes')->one();//'cylinder_type_id' => $data['cylinderType']
+            $taxAmount = GstTable::find()->asArray()->one();
+            $totalAmount = ($cylinderLists->selling_price * $data['cylinderQuantity']);             
+            $gstAmount =  $totalAmount *$taxAmount['gst']/100;
+            $sgstAmount =  $totalAmount *$taxAmount['sgst']/100;
+            $cgstAmount =  $totalAmount *$taxAmount['cgst']/100;
+            $totalAmount += $gstAmount;
             Helper::createSession('totalAmount',$totalAmount);
-            return json_encode(['status'=>200,'totalAmount'=>$totalAmount]);
+            
+            // Helper::dd($totalAmount);
+            return json_encode(['status'=>200,'gstAmount'=>$gstAmount,'cgstAmount'=>$cgstAmount,'sgstAmount'=>$sgstAmount,'totalAmount'=>$totalAmount]);
         }
     }
 }
