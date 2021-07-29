@@ -39,9 +39,9 @@ $this->title = 'Booking Requests';
                                 'class'       => 'form-control',
                                 'placeholder' => 'Cylinder Type',
                             ],
-                            'value' => function ($model) {
-                                if (isset($model->cylindertypes->litre_quantity) && $model->cylindertypes->litre_quantity !== null) {
-                                    return $model->cylindertypes->litre_quantity.' '.$model->cylindertypes->label;
+                            'value' => function ($model) {                         
+                                if (isset($model->cylindertypelabel->litre_quantity) && $model->cylindertypelabel->litre_quantity !== null) {
+                                    return $model->cylindertypelabel->litre_quantity.' '.$model->cylindertypelabel->label;
                                 } else {
                                     return "";
                                 }

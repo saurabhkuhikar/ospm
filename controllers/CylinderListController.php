@@ -181,7 +181,7 @@ class CylinderListController extends Controller
                 foreach($cylinder_lists as $cylinder_list){
                     $stock_data .='
                     <tr>                    
-                    <td>'.$cylinder_list->cylinderTypes->litre_quantity.'</td>
+                    <td>'.$cylinder_list->cylinderTypes->litre_quantity.' '.$cylinder_list->cylinderTypes->label.'</td>
                     <td>'.$cylinder_list->cylinder_quantity.'</td>
                     <td>'.$cylinder_list->selling_price.'</td>                    
                     </tr>';

@@ -43,7 +43,7 @@ class BookingRequestSearch extends BookingRequest
     public function search($params)
     {
         $query = BookingRequest::find();
-        $query->joinWith(['cylindertypes']);
+        $query->joinWith(['cylindertypelabel']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -88,7 +88,7 @@ class BookingRequestSearch extends BookingRequest
             ->andFilterWhere(['like', 'payment_token', $this->payment_token])
             ->andFilterWhere(['like', 'payment_status', $this->payment_status]);
 
-        $query->andFilterWhere(['=', 'cylinder_types.litre_quantity', $this->litre_quantity]);
+       $query->andFilterWhere(['=', 'cylinder_types.litre_quantity', $this->litre_quantity]);
         
         return $dataProvider;
     }

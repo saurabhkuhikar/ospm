@@ -80,6 +80,14 @@ class BookingRequest extends \yii\db\ActiveRecord
     */
     public function getCylindertypes()
     {
-        return $this->hasOne(CylinderType::className(), ['id' => 'cylinder_type']);
+        return $this->hasOne(CylinderType::className(), ['litre_quantity' => 'cylinder_type']);
     }
+    /**relations for label
+    * @return \yii\db\ActiveQuery
+    */
+    public function getCylindertypelabel()
+    {
+        return $this->hasOne(CylinderType::className(), ['litre_quantity' => 'cylinder_type']);
+    }
+
 }
