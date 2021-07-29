@@ -220,7 +220,7 @@ class CylinderBookingController extends Controller
       
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
-            $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'litre_quantity'=>$data['cylinderType']])->joinWith('cylinderTypes')->one();//'cylinder_type_id' => $data['cylinderType']
+            $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'cylinder_type_id'=>$data['cylinderType']])->joinWith('cylinderTypes')->one();
             $taxAmount = GstTable::find()->asArray()->one();
             $totalAmount = ($cylinderLists->selling_price * $data['cylinderQuantity']);             
             $gstAmount =  $totalAmount *$taxAmount['gst']/100;

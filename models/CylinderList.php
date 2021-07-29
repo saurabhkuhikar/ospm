@@ -10,7 +10,7 @@ use app\models\CylinderType;
  *
  * @property int $id
  * @property string $user_id
- * @property string|null $cylinder_type
+ * @property string|null $cylinder_type_id
  * @property string|null $cylinder_quantity
  * @property string $selling_price
  * @property string $created

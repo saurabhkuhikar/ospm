@@ -12,7 +12,7 @@ use Yii;
  * @property string $last_name
  * @property string $covid_test_result
  * @property string $covid_test_date
- * @property string $cylinder_type
+ * @property string $cylinder_type_id
  * @property string $cylinder_quantity
  * @property string $total_amount
  * @property string|null $order_date
@@ -42,10 +42,10 @@ class CylinderBooking extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name','payment_option', 'covid_test_result', 'covid_test_date', 'cylinder_type', 'cylinder_quantity', 'order_date'], 'required'],
+            [['first_name', 'last_name','payment_option', 'covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'order_date'], 'required'],
             [['payment_option',], 'required','on'=>'paymentOption'],  
             [['covid_test_date','customer_id','supplier_id','order_date', 'total_amount', 'created', 'updated'], 'safe'],
-            [['first_name', 'last_name', 'cylinder_type', 'order_status', 'payment_id', 'payment_token', 'payment_status'], 'string', 'max' => 255],
+            [['first_name', 'last_name', 'order_status', 'payment_id', 'payment_token', 'payment_status'], 'string', 'max' => 255],
             [['covid_test_result'], 'string', 'max' => 20],
             [['cylinder_quantity'],'number','min' => 1,'max' => 5,],
         ];
@@ -65,7 +65,7 @@ class CylinderBooking extends \yii\db\ActiveRecord
             'payment_option' => 'Select Payment Options', 
             'covid_test_result' => 'Covid Test Result',
             'covid_test_date' => 'Covid Test Date',
-            'cylinder_type' => 'Cylinder Type',
+            'cylinder_type_id' => 'Cylinder Type',
             'cylinder_quantity' => 'Cylinder Quantity',
             'total_amount' => 'Total Amount',
             'order_date' => 'Order Date',
@@ -77,4 +77,12 @@ class CylinderBooking extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+
+     /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getCylinderTypes()
+    {
+        return $this->hasOne(CylinderType::className(), ['id' => 'cylinder_type_id']);
+    } 
 }

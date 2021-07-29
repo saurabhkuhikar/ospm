@@ -108,7 +108,7 @@ class BookingRequestController extends Controller
 
         if ($model->load(Yii::$app->request->post())){
             if($model->order_status == "Delivered"){
-                $cylinderLists = CylinderList::find()->where(['user_id'=> $model->supplier_id , 'litre_quantity'=>$model->cylinder_type])->joinWith('cylinderTypes')->asArray()->one();               
+                $cylinderLists = CylinderList::find()->where(['user_id'=> $model->supplier_id , 'litre_quantity'=>$model->cylinder_type_id])->joinWith('cylinderTypes')->asArray()->one();               
                 Helper::dd($cylinderLists);
                 $cylinderLists->cylinder_quantity = $cylinderLists->cylinder_quantity - $model->cylinder_quantity;                
                 $cylinderLists->save();

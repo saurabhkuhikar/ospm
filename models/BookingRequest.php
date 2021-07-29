@@ -63,7 +63,7 @@ class BookingRequest extends \yii\db\ActiveRecord
             'supplier_id' => 'Supplier ID',
             'covid_test_result' => 'Covid Test Result',
             'covid_test_date' => 'Covid Test Date',
-            'cylinder_type' => 'Cylinder Type',
+            'cylinder_type_id' => 'Cylinder Type',
             'cylinder_quantity' => 'Cylinder Quantity',
             'total_amount' => 'Total Amount',
             'order_date' => 'Order Date',
@@ -80,14 +80,7 @@ class BookingRequest extends \yii\db\ActiveRecord
     */
     public function getCylindertypes()
     {
-        return $this->hasOne(CylinderType::className(), ['litre_quantity' => 'cylinder_type']);
-    }
-    /**relations for label
-    * @return \yii\db\ActiveQuery
-    */
-    public function getCylindertypelabel()
-    {
-        return $this->hasOne(CylinderType::className(), ['litre_quantity' => 'cylinder_type']);
+        return $this->hasOne(CylinderType::className(), ['id' => 'cylinder_type_id']);
     }
 
 }

@@ -19,7 +19,7 @@ class BookingRequestSearch extends BookingRequest
     {
         return [
             [['id'], 'integer'],
-            [['first_name', 'last_name', 'customer_id', 'supplier_id', 'covid_test_result', 'covid_test_date', 'cylinder_type', 'cylinder_quantity', 'total_amount', 'order_date', 'order_status', 'payment_id', 'payment_token', 'payment_status', 'created', 'updated'], 'safe'],
+            [['first_name', 'last_name', 'customer_id', 'supplier_id', 'covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'total_amount', 'order_date', 'order_status', 'payment_id', 'payment_token', 'payment_status', 'created', 'updated'], 'safe'],
             [['litre_quantity'],'string']
         ];
     }
@@ -43,7 +43,7 @@ class BookingRequestSearch extends BookingRequest
     public function search($params)
     {
         $query = BookingRequest::find();
-        $query->joinWith(['cylindertypelabel']);
+        $query->joinWith(['cylindertypes']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

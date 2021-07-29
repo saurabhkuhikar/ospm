@@ -38,8 +38,8 @@ use kartik\select2\Select2;
                                         <div class="row">
                                             <div class="form-group">
                                                 <div class="col-md-6">
-                                                    <?= $form->field($model, 'cylinder_type')->widget(Select2::classname(), [
-                                                        'data' => ArrayHelper::map(CylinderType::find()->all(),'litre_quantity','litre_quantity',),                                        
+                                                    <?= $form->field($model, 'cylinder_type_id')->widget(Select2::classname(), [
+                                                        'data'=>ArrayHelper::map(CylinderType::find()->all(),'id',function($litre){return $litre->litre_quantity.' '.$litre->label;}),                                        
                                                         'options' => ['placeholder' => 'Select Cylinder Types',],
                                                         'pluginOptions' => ['allowClear' => true],  
                                                     ]);?>
@@ -107,7 +107,7 @@ use kartik\select2\Select2;
                                     <h2 class="fs-title">Cart Details</h2>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class = "">
+                                            <div class = "mt-24">
                                                 <div class = "mb-20">
                                                     <span>Cylinder Type : </span><span id = "cylinderType" class ="txt"></span>
                                                 </div>
@@ -127,7 +127,7 @@ use kartik\select2\Select2;
                                                     <span>CGST : </span><span id = "CGST_value" class ="txt"></span>
                                                 </div>
                                                 <div class = "mb-20">
-                                                    <span >Total amount : </span><span class ="right" id ="cylinderbooking-total_amount"></span>
+                                                    <span class = "totalAmountLabel">Total amount : </span><span class ="right" id ="cylinderbooking-total_amount"></span>
                                                     <?= $form->field($model, 'token')->hiddenInput(['readOnly'=>true,'maxlength' => true,'value' => $token])->label(false) ?> 
                                                 </div>
                                             </div>

@@ -29,7 +29,7 @@ $this->title = "View Booking Request Details";
                             // 'supplier_id',
                             'covid_test_result',
                             'covid_test_date',
-                            'cylinder_type',
+                            'cylinder_type_id',
                             'cylinder_quantity',
                             'total_amount',
                             'order_date',

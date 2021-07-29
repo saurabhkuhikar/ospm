@@ -30,7 +30,7 @@ $this->title = 'Booking Requests';
                         // 'supplier_id',
                         //'covid_test_result',
                         // 'covid_test_date',
-                        // 'cylinder_type',
+                        // 'cylinder_type_id',
                         [
                             'attribute' => 'litre_quantity',
                             'format' => 'html',
@@ -40,8 +40,8 @@ $this->title = 'Booking Requests';
                                 'placeholder' => 'Cylinder Type',
                             ],
                             'value' => function ($model) {                         
-                                if (isset($model->cylindertypelabel->litre_quantity) && $model->cylindertypelabel->litre_quantity !== null) {
-                                    return $model->cylindertypelabel->litre_quantity.' '.$model->cylindertypelabel->label;
+                                if (isset($model->cylindertypes->litre_quantity) && $model->cylindertypes->litre_quantity !== null) {
+                                    return $model->cylindertypes->litre_quantity.' '.$model->cylindertypes->label;
                                 } else {
                                     return "";
                                 }

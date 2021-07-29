@@ -30,7 +30,7 @@ use yii\helpers\ArrayHelper;
                     </div>                   
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $form->field($model, 'cylinder_type')->textInput(['maxlength' => true,'readOnly'=>true])?>
+                            <?= $form->field($model, 'cylinder_type_id')->textInput(['maxlength' => true,'readOnly'=>true])?>
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'cylinder_quantity')->textInput(['maxlength' => true,'readOnly'=>true,'type' => 'number','min'=>1,'max'=>5]) ?>

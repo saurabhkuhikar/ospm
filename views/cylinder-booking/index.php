@@ -35,7 +35,24 @@ $this->title = 'Cylinder Bookings';
                                 // 'customer_id',
                                 // 'covid_test_result',
                                 //'covid_test_date',
-                                'cylinder_type',
+                                // 'cylinder_type_id',
+                                [
+                                    'attribute' => 'cylinder_type',
+                                    'format' => 'html',
+                                    'label' => 'Cylinder Type',
+                                    'filterInputOptions' => [
+                                        'class'       => 'form-control',
+                                        'placeholder' => 'Cylinder Type',
+                                    ],
+                                    'value' => function ($model) {                                          
+                                                       
+                                        if (isset($model->cylinderTypes->litre_quantity) && $model->cylinderTypes->litre_quantity !== null) {
+                                            return $model->cylinderTypes->litre_quantity.' '.$model->cylinderTypes->label;
+                                        } else {
+                                            return "";
+                                        }
+                                    },
+                                ],
                                 'cylinder_quantity',
                                 'total_amount',
                                 'order_date',

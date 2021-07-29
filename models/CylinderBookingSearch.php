@@ -11,15 +11,18 @@ use app\models\CylinderBooking;
  */
 class CylinderBookingSearch extends CylinderBooking
 {
+    public $cylinder_type;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
+
         return [
-            [['first_name', 'last_name', 'supplier_id','customer_id', 'covid_test_result', 'covid_test_date', 'cylinder_type', 'cylinder_quantity', 'total_amount', 'order_date', 'order_status', 'payment_id', 'payment_token', 'payment_status', 'created', 'updated'], 'safe'],
-        
+            [['first_name', 'last_name', 'supplier_id','customer_id', 'covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'total_amount', 'order_date', 'order_status', 'payment_id', 'payment_token', 'payment_status', 'created', 'updated'], 'safe'],
             [['id'], 'integer'],
+            [['cylinder_type'],'string']
         ];
     }
 
@@ -42,6 +45,7 @@ class CylinderBookingSearch extends CylinderBooking
     public function search($params)
     {
         $query = CylinderBooking::find();
+        $query->joinWith(['cylinderTypes']);
 
         // add conditions that should always apply here
 
@@ -75,17 +79,18 @@ class CylinderBookingSearch extends CylinderBooking
             $orderStatus = Null;
         }
 
+        // ->andFilterWhere(['like', 'cylinder_type_id', $this->cylinder_type_id])
         $query->andFilterWhere(['like', 'first_name', $this->first_name])
             ->andFilterWhere(['like', 'last_name', $this->last_name])
             ->andFilterWhere(['like', 'supplier_id', $this->supplier_id])
             ->andFilterWhere(['like', 'covid_test_result', $this->covid_test_result])
-            ->andFilterWhere(['like', 'cylinder_type', $this->cylinder_type])
             ->andFilterWhere(['like', 'cylinder_quantity', $this->cylinder_quantity])
             ->andFilterWhere(['like', 'total_amount', $this->total_amount])
             ->andFilterWhere(['like', 'order_status', $orderStatus])
             ->andFilterWhere(['like', 'payment_id', $this->payment_id])
             ->andFilterWhere(['like', 'payment_token', $this->payment_token])
             ->andFilterWhere(['like', 'payment_status', $this->payment_status]);
+        $query->andFilterWhere(['=', 'cylinder_types.litre_quantity', $this->cylinder_type]);
 
         return $dataProvider;
     }

@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'covid_test_date') ?>
 
-    <?php // echo $form->field($model, 'cylinder_type') ?>
+    <?php // echo $form->field($model, 'cylinder_type_id') ?>
 
     <?php // echo $form->field($model, 'cylinder_quantity') ?>
 

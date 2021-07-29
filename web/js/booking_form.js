@@ -86,7 +86,7 @@ $(document).ready(function(){
     
     function calculateTotalAmount(){
         var cylinderQuantity = $("#cylinderbooking-cylinder_quantity").val();
-        var cylinderType = $("#cylinderbooking-cylinder_type").val();		
+        var cylinderType = $("#cylinderbooking-cylinder_type_id").val();		
         var token = $("#cylinderbooking-token").val();
         if(cylinderQuantity != "" && cylinderType != ""){
             if(cylinderQuantity < 6 ){
@@ -111,7 +111,7 @@ $(document).ready(function(){
 /* cart details show*/
 $(document).ready(function(){
     $(".next").click(function(){
-        var cylinderType = $('#cylinderbooking-cylinder_type').val();
+        var cylinderType = $('#cylinderbooking-cylinder_type_id').val();
         var cylinderQuantity = $("#cylinderbooking-cylinder_quantity").val();
         var orderDate = $("#cylinderbooking-order_date").val();
         $('#cylinderType').html(cylinderType);
