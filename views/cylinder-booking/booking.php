@@ -152,7 +152,7 @@ use kartik\select2\Select2;
                                         </div>                              
                                     </div>
                                 </div>
-                                <?= Html::submitButton('Submit', ['class' => 'btn btn-lg btn-success', 'name' => 'payment-option-button']) ?>
+                                <?= Html::submitButton('Placed Order', ['class' => 'btn btn-lg btn-success', 'name' => 'payment-option-button']) ?>
                             </fieldset>
                         <?php ActiveForm::end(); ?>
                     </div>

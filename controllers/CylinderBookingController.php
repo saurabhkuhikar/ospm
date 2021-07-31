@@ -30,7 +30,7 @@ class CylinderBookingController extends Controller
                 'only' => ['logout','index','booking','create','update','bill-amount','payment-option','online-payment'],
                 'rules' => [
                     [
-                        'actions' => ['index','booking','view','create','update','delete','bill-amount','payment-option','online-payment'],
+                        'actions' => ['index','successful-page','booking','view','create','update','delete','bill-amount','payment-option','online-payment'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -122,7 +122,7 @@ class CylinderBookingController extends Controller
             }
             // Helper::dd($model);
             if($model->save()){
-                return $this->redirect(['view','id' => base64_encode($model->id)]);
+                return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
             }
             Helper::checkError($model);
         }
@@ -174,12 +174,15 @@ class CylinderBookingController extends Controller
         return $this->render('payment-option', ['model' => $model,]);         
     }
 
-    public function actionOnlinePayment($id){
-        $this->layout = 'dashboard'; 
-        Helper::checkAccess("Customer");
-        $model = $this->findModel($id); 
+    public function actionSuccessfulPage($id){
+        $this->layout = 'home'; 
+        Helper::checkAccess("Customer");       
+        $model = $this->findModel(base64_decode($id));
+        $order_id = ''; 
+        $order_id .= str_replace("-","",$model->order_date).'-'.$model->customer_id.'-'.
+        $model->id .'-'.$model->cylinder_quantity ;
         
-        return $this->render('online-payment',['model' => $model,]);
+        return $this->render('successful-page',['order_id'=>$order_id]);
     }
 
     /**

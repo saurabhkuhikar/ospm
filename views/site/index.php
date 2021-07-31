@@ -50,13 +50,7 @@
             </div>          
           </div>        
         <?php  ActiveForm::end(); ?>
-      </div>
-      <?php if (Yii::$app->session->hasFlash('error')): ?>
-        <div class="alert alert-danger alert-dismissable">
-            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-              <?= Yii::$app->session->getFlash('error') ?>
-        </div>
-      <?php endif; ?>
+      </div>      
       <p class="field-empty" style="display:none;color:red">Please select either state or search field.</p>
     </div>
   </div>
@@ -66,8 +60,14 @@
   <div class="row">
     <div class="col-md-12">
       <div class="x_panel">
-        <div class="x_content">          
+        <div class="x_content"> 
           <div class="row">              
+            <?php if (Yii::$app->session->hasFlash('error')): ?>
+              <div class="alert alert-danger alert-dismissable">
+                  <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= Yii::$app->session->getFlash('error') ?>
+              </div>
+            <?php endif; ?>         
             <?php foreach($supplierList as $supplier){ ?>               
               <div class="col-md-4  profile_details">
                 <div class="well profile_view">

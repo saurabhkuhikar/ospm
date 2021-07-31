@@ -161,3 +161,15 @@ a.desc:after {
 -ms-flex: 50%; /* IE10 */
 flex: 50%;
 }
+.mt-50{
+    margin-top: 50px;
+}
+.jumbotron{
+    box-shadow: 2px 2px 4px #000000;
+}
+.successfull-icon{
+    color: green;
+}  
+.error-message{
+ color: red;
+}

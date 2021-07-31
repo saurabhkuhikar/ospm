@@ -11,7 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\components\Helper;
 use app\models\Profile;
-use app\models\ExportCylinderStock;
+// use app\models\ExportCylinderStock;
 /**
  * CylinderListController implements the CRUD actions for CylinderList model.
  */
@@ -161,22 +161,21 @@ class CylinderListController extends Controller
     public function actionExportCylinderStock(){
 
         $this->layout = 'dashboard';
-
-        $model = new ExportCylinderStock();
-        if ($model->load(Yii::$app->request->post()) ) {
-            if(!empty($model->export_list)){
+        if (Yii::$app->request->post()) {
+            $data = Yii::$app->request->post();
+            $cylinderType = $data['export_type'];
+            if(!empty($cylinderType)){
                 $stock_data = '';
                 $stock_data .='
                 <table border="1"> 
                 <tr>                         
-                    <th>Cylinder Type</th>
-                    <th>Cylinder Quantity</th>
-                    <th>Selling Price</th>
+                <th>Cylinder Type</th>
+                <th>Cylinder Quantity</th>
+                <th>Selling Price</th>
                 </tr>';
-
-                $model->export_list == "All" ? $cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->all()               
-                :$cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),'litre_quantity'=>$model->export_list])->joinWith(['cylinderTypes'])->all();
                 
+                $cylinderType == "All" ? $cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->all()               
+                :$cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),'litre_quantity'=>$cylinderType])->joinWith(['cylinderTypes'])->all();
                 
                 foreach($cylinder_lists as $cylinder_list){
                     $stock_data .='
@@ -187,12 +186,23 @@ class CylinderListController extends Controller
                     </tr>';
                 }
                 $stock_data .='</table>';               
+                // Helper::dd($stock_data);  
                 header("Content-Type: application/xls");
-                header("Content-Disposition:attachment; filename=CylinderStocksAvaliable.xls");
+                header("Content-Disposition:attachment; filename=CylinderStocksAvaliable.xls");                
+                
                 return $stock_data;
-            }
+            }          
         }
-        return $this->render('export-cylinder-stock',['model'=>$model]);
+        
+    }      
+    public function actionExportFile()
+    {
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post(); 
+            if(!empty($data)){
+                
+            }
+            return json_encode(['status'=>200,'data'=>$data]);
+        }
     }
-
 }
