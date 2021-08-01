@@ -109,25 +109,58 @@ class CylinderBookingController extends Controller
         $this->layout = 'dashboard';     
         Helper::checkAccess("Customer");  
         $model = new CylinderBooking();            
-        if ($model->load(Yii::$app->request->post())) {
+        // if ($model->load(Yii::$app->request->post())) {
 
-            $model->first_name = Yii::$app->user->identity->first_name;
-            $model->last_name = Yii::$app->user->identity->last_name;
-            $model->customer_id = Helper::getCurrentUserId();
-            $model->supplier_id = base64_decode($token);
-            $totalAmountSession = Helper::getSession('totalAmount');    
-            $model->total_amount = $totalAmountSession;       
-            if($model->total_amount != $totalAmountSession  && $model->total_amount != Null){
-                $model->total_amount = $totalAmountSession;
-            }
-            // Helper::dd($model);
-            if($model->save()){
-                return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
-            }
-            Helper::checkError($model);
-        }
+        //     $model->first_name = Yii::$app->user->identity->first_name;
+        //     $model->last_name = Yii::$app->user->identity->last_name;
+        //     $model->customer_id = Helper::getCurrentUserId();
+        //     $model->supplier_id = base64_decode($token);
+        //     $totalAmountSession = Helper::getSession('totalAmount');    
+        //     $model->total_amount = $totalAmountSession;       
+        //     if($model->total_amount != $totalAmountSession  && $model->total_amount != Null){
+        //         $model->total_amount = $totalAmountSession;
+        //     }
+        //     if($model->save()){
+        //         return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
+        //     }
+        //     Helper::checkError($model);
+        // }
         
         return $this->render('booking', ['model' => $model,'token' => $token]);         
+    }
+
+    /**
+     * Save Cylinder Details.
+     *
+     * @return string
+     */
+    public function actionSaveCylinderDetail()
+    {
+        if (Yii::$app->request->isAjax) {
+            $model = new CylinderBooking();           
+            $data = Yii::$app->request->post();
+            $data['CylinderBooking']['first_name'] = Yii::$app->user->identity->first_name;
+            $data['CylinderBooking']['last_name'] = Yii::$app->user->identity->last_name;
+            $data['CylinderBooking']['customer_id'] = Helper::getCurrentUserId();
+            $data['CylinderBooking']['supplier_id'] = base64_decode($data['CylinderBooking']['token']);
+            $totalAmountSession = Helper::getSession('totalAmount');    
+    
+            if($data['total_amount'] != $totalAmountSession  && $data['total_amount'] != Null){
+                $data['CylinderBooking']['total_amount'] = $totalAmountSession;
+            }
+              
+            $model->attributes = $data['CylinderBooking'];
+
+            if ($model->save()) {
+                return json_encode(['status' => 200,'message'=>'Your Cylinder Details Saved Successfully.','id' => base64_encode($model->id)]);
+            } else {
+                $errors = [];
+                foreach ($model->getErrors() as $errorKey => $errorValue) {
+                    $errors += [$errorKey => $errorValue[0]];
+                }
+                return json_encode(['status' => 401, 'errors' => $errors]);
+            }
+        }
     }
 
 
