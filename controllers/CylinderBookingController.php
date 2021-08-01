@@ -231,9 +231,8 @@ class CylinderBookingController extends Controller
             $cgstAmount =  $totalAmount *$taxAmount['cgst']/100;
             $totalAmount += $gstAmount;
             Helper::createSession('totalAmount',$totalAmount);
-            
-            // Helper::dd($totalAmount);
-            return json_encode(['status'=>200,'gstAmount'=>$gstAmount,'cgstAmount'=>$cgstAmount,'sgstAmount'=>$sgstAmount,'totalAmount'=>$totalAmount]);
+            $cylinderType = $cylinderLists->cylinderTypes->litre_quantity.' '.$cylinderLists->cylinderTypes->label;
+            return json_encode(['status'=>200,'cylinderType'=>$cylinderType,'gstAmount'=>$gstAmount,'cgstAmount'=>$cgstAmount,'sgstAmount'=>$sgstAmount,'totalAmount'=>$totalAmount]);
         }
     }
 }

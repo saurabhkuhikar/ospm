@@ -96,13 +96,14 @@ $(document).ready(function(){
                     dataType: 'json',
                     data: {'cylinderQuantity': cylinderQuantity, 'cylinderType': cylinderType, 'token': token}
                 }).done(function (response) {
-                    if (response.status == 200) {                        
+                    if (response.status == 200) {  
+                        
                         $("#GST_value").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.gstAmount));
                         $("#SGST_value").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.sgstAmount));
                         $("#CGST_value").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.cgstAmount));
+                        $('#cylinderType').html(response.cylinderType);
                         
                         $("#cylinderbooking-total_amount").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.totalAmount));
-                        $("#cylinderbooking-total-amount").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.totalAmount));
                     }
                 });
             }
@@ -110,13 +111,13 @@ $(document).ready(function(){
     }
 /* cart details show*/
 $(document).ready(function(){
-    $(".next").click(function(){
-        var cylinderType = $("#cylinderbooking-cylinder_type_id").val();
+    $(".next").click(function(){       
         var cylinderQuantity = $("#cylinderbooking-cylinder_quantity").val();
         var orderDate = $("#cylinderbooking-order_date").val();
-        $('#cylinderType').html(cylinderType);
+        var date = new Date(orderDate);
+
+        console.log(date);
         $('#cylinderQuantity').html(cylinderQuantity);
-        $('#orderDate').html(orderDate);
-		
+        $('#orderDate').html(date.toDateString());		
 	});
 });

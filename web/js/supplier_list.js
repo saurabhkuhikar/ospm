@@ -10,11 +10,6 @@ $(document).ready(function(e){
 
     });
 
-    $('body').on('click','#cylinder-booking',function (event) {
-        var bookBtn = $(this).attr('href'); 
-        sessionStorage.setItem("booking",bookBtn);
-    });
-    
     $("#search-state-name").on('select2:select',function(event){
         $("#search-city-name").removeAttr('disabled');
         getCityList();        

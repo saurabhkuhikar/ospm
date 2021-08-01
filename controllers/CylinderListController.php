@@ -186,7 +186,6 @@ class CylinderListController extends Controller
                     </tr>';
                 }
                 $stock_data .='</table>';               
-                // Helper::dd($stock_data);  
                 header("Content-Type: application/xls");
                 header("Content-Disposition:attachment; filename=CylinderStocksAvaliable.xls");                
                 
@@ -195,14 +194,5 @@ class CylinderListController extends Controller
         }
         
     }      
-    public function actionExportFile()
-    {
-        if (Yii::$app->request->isAjax) {
-            $data = Yii::$app->request->post(); 
-            if(!empty($data)){
-                
-            }
-            return json_encode(['status'=>200,'data'=>$data]);
-        }
-    }
+    
 }

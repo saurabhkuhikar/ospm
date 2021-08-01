@@ -1,20 +1,22 @@
 $(document).ready(function(e){
     $('#login-btn').on('click',function(e){        
-        getUrlRequest();
+        // getUrlRequest();
     })
+    $('body').on('click','#cylinder-booking',function (event) {
+        var bookBtn = $(this).attr('href'); 
+    });
 
 });
 
 function getUrlRequest(){    
-    var url = sessionStorage.getItem("booking");
+    
     $.ajax({
         url: '/account/check-booking-button',		
         type: 'post',
         dataType: 'json',
-        data: {'url':url},   
+        data: {'bookBtn':bookBtn},   
         success:function (response) {
             if (response.status == 200 ) {
-                sessionStorage.removeItem("booking");
             }               
         }
     });	

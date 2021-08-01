@@ -31,7 +31,7 @@ class HomeAsset extends AssetBundle
         'css/home.css'
     ];
     public $js = [
-        // 'js/common.js',
+        'js/login.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
