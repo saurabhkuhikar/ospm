@@ -3,25 +3,28 @@ $(document).ready(function(){
     var host =  "http://localhost:8080";
 
     $('body').on('click', '.save_cylinder_details', function (event) {
-        
-        // var this = $(this);
         var cylinderDetailsData = $('#formCylinderDetails').serializeArray();
-        //cylinderDetailsData.push({ name: "Scenario[scenarioCalculator]", value: scenarioCalc });    
-        
+        cylinderDetailsData.push({ name: "CylinderBooking[token]", value: $("#msform").attr('data-token') });    
+    
         $.ajax({
-            url: host + '/cylinder-booking/save-cylinder-detail',
+            url: '/cylinder-booking/save-cylinder-detail',
             type: 'post',
             dataType: 'json',
             data: cylinderDetailsData,
         }).done(function (cylinderDetailsResponce) {
             if (cylinderDetailsResponce.status == 200) {
-                //next(this);
+                next('save_cylinder_details');
             }
 
             if (cylinderDetailsResponce.status == 401) {
                 $.each(cylinderDetailsResponce.errors, function (index, value) {
-                    $('.cylinderbooking-' + index).addClass('has-error');
-                    $('.cylinderbooking-' + index).find('.help-block').text(value);
+                    if(index == "order_date"){
+                        $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
+                        $('#cylinderbooking-' + index).parent().parent().find('.help-block').text(value);
+                    }else{
+                        $('#cylinderbooking-' + index).parent().addClass('has-error');
+                        $('#cylinderbooking-' + index).parent().find('.help-block').text(value);
+                    }
                 });
             }
         });
@@ -45,9 +48,9 @@ $(document).ready(function(){
 var current_fs, next_fs, previous_fs; //fieldsets
 var opacity;
 
-function next(){
-    current_fs = $(this).parent();
-    next_fs = $(this).parent().next();      
+function next(param){
+    current_fs = $("."+param).parent();
+    next_fs = $("."+param).parent().next();      
         
     //Add Class Active
     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -69,9 +72,9 @@ function next(){
     });
 }
 
-function prev(){
-    current_fs = $(this).parent();
-    previous_fs = $(this).parent().prev();
+function prev(param){
+    current_fs = $("."+param).parent();
+    previous_fs = $("."+param).parent().prev();
     
     //Remove class active
     $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");

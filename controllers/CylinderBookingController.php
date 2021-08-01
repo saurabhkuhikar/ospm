@@ -27,10 +27,10 @@ class CylinderBookingController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','index','booking','create','update','bill-amount','payment-option','online-payment'],
+                'only' => ['logout','index','booking','create','update','bill-amount','payment-option','online-payment','save-cylinder-detail'],
                 'rules' => [
                     [
-                        'actions' => ['index','successful-page','booking','view','create','update','delete','bill-amount','payment-option','online-payment'],
+                        'actions' => ['index','successful-page','booking','view','create','update','delete','bill-amount','payment-option','online-payment','save-cylinder-detail'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -108,7 +108,8 @@ class CylinderBookingController extends Controller
     {      
         $this->layout = 'dashboard';     
         Helper::checkAccess("Customer");  
-        $model = new CylinderBooking();            
+        $model = new CylinderBooking();  
+        $model->setScenario('cylinderDetail');          
         // if ($model->load(Yii::$app->request->post())) {
 
         //     $model->first_name = Yii::$app->user->identity->first_name;
@@ -137,20 +138,20 @@ class CylinderBookingController extends Controller
     public function actionSaveCylinderDetail()
     {
         if (Yii::$app->request->isAjax) {
-            $model = new CylinderBooking();           
+            $model = new CylinderBooking();
+            $model->setScenario('cylinderDetail');
+
             $data = Yii::$app->request->post();
             $data['CylinderBooking']['first_name'] = Yii::$app->user->identity->first_name;
             $data['CylinderBooking']['last_name'] = Yii::$app->user->identity->last_name;
             $data['CylinderBooking']['customer_id'] = Helper::getCurrentUserId();
             $data['CylinderBooking']['supplier_id'] = base64_decode($data['CylinderBooking']['token']);
-            $totalAmountSession = Helper::getSession('totalAmount');    
-    
-            if($data['total_amount'] != $totalAmountSession  && $data['total_amount'] != Null){
-                $data['CylinderBooking']['total_amount'] = $totalAmountSession;
-            }
-              
+            $data['CylinderBooking']['cylinder_type_id'] = $data['CylinderBooking']['cylinder_type_id'];
+            $data['CylinderBooking']['cylinder_quantity'] = $data['CylinderBooking']['cylinder_quantity'];
+            $data['CylinderBooking']['order_date'] = $data['CylinderBooking']['order_date'];
+            
             $model->attributes = $data['CylinderBooking'];
-
+            
             if ($model->save()) {
                 return json_encode(['status' => 200,'message'=>'Your Cylinder Details Saved Successfully.','id' => base64_encode($model->id)]);
             } else {

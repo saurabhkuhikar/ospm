@@ -25,11 +25,11 @@
                             <li id="confirm"><strong>Payment</strong></li>
                         </ul> 
 
-                        <div id="msform">
+                        <div id="msform" data-token=<?= (isset($token))? $token: Null?>>
                             <!-- fieldsets -->
 
                             <fieldset>
-                                <?php $form = ActiveForm::begin(['id'=>'formCylinderDetails','action'=>'']); ?>
+                                <?php $form = ActiveForm::begin(['id'=>'formCylinderDetails','action'=>'cylinder-booking/save-cylinder-detail']); ?>
                                     <div class="form-card">
                                         <h2 class="fs-title">Cylinder Details</h2>
                                         <div class="panel-details">
@@ -64,7 +64,7 @@
                                             </div> 
                                         </div>
                                     </div> 
-                                    <input type="button" class="save_cylinder_details" value="Next Step" />
+                                    <input type="button" class="save_cylinder_details btn btn-info" value="Next Step" />
                                 <?php ActiveForm::end(); ?>
                             </fieldset>
 

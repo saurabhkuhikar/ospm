@@ -42,7 +42,8 @@ class CylinderBooking extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name','payment_option', 'covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'order_date'], 'required'],
+            //[['first_name', 'last_name','payment_option', 'covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'order_date'], 'required'],
+            [['first_name', 'last_name', 'cylinder_type_id', 'cylinder_quantity', 'order_date'], 'required','on'=>'cylinderDetail'],  
             [['payment_option',], 'required','on'=>'paymentOption'],  
             [['covid_test_date','customer_id','supplier_id','order_date', 'total_amount', 'created', 'updated'], 'safe'],
             [['first_name', 'last_name', 'order_status', 'payment_id', 'payment_token', 'payment_status'], 'string', 'max' => 255],
