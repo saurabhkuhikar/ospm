@@ -168,18 +168,21 @@ class CylinderListController extends Controller
                 $stock_data = '';
                 $stock_data .='
                 <table border="1"> 
-                <tr>                         
+                <tr>          
+                <th>First Name</th>
+                <th>Last Name</th>               
                 <th>Cylinder Type</th>
                 <th>Cylinder Quantity</th>
                 <th>Selling Price</th>
                 </tr>';
                 
-                $cylinderType == "All" ? $cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->all()               
-                :$cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),'litre_quantity'=>$cylinderType])->joinWith(['cylinderTypes'])->all();
-                
+                $cylinderType == "All" ? $cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),])->innerJoinWith('userdetails')->all()               
+                :$cylinder_lists = CylinderList::find()->where(['user_id'=>Helper::getCurrentUserId(),'litre_quantity'=>$cylinderType])->joinWith(['cylinderTypes'])->innerJoinWith('userdetails')->all();
                 foreach($cylinder_lists as $cylinder_list){
                     $stock_data .='
-                    <tr>                    
+                    <tr>       
+                    <td>'.$cylinder_list->userdetails->first_name.'</td>
+                    <td>'.$cylinder_list->userdetails->last_name.'</td>             
                     <td>'.$cylinder_list->cylinderTypes->litre_quantity.' '.$cylinder_list->cylinderTypes->label.'</td>
                     <td>'.$cylinder_list->cylinder_quantity.'</td>
                     <td>'.$cylinder_list->selling_price.'</td>                    

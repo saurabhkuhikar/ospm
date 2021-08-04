@@ -73,12 +73,21 @@ class BookingRequest extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+
     /**
     * @return \yii\db\ActiveQuery
     */
     public function getCylindertypes()
     {
         return $this->hasOne(CylinderType::className(), ['id' => 'cylinder_type_id']);
+    }
+
+    /**get customer details
+    * @return \yii\db\ActiveQuery
+    */
+    public function getUserdetails()
+    {
+        return $this->hasOne(User::className(), ['id' => 'customer_id']);
     }
 
 }

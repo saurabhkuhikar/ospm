@@ -177,20 +177,20 @@ class BookingRequestController extends Controller
             <th>Payment Option</th>
         </tr>';
 
-        $booking_lists = BookingRequest::find()->where(['order_status'=>$status])->joinWith('cylindertypes')->all();
+        $booking_lists = BookingRequest::find()->where(['order_status'=>$status])->joinWith('cylindertypes')->innerJoinWith('userdetails')->all();
         foreach($booking_lists as $booking_list){
             $booking_data .='
             <tr>
-                <td>'.$booking_list->first_name.'</td>
-                <td>'.$booking_list->last_name.'</td>
-                <td>'.$booking_list->customer_id.'</td>
-                <td>'.$booking_list->cylindertypes->litre_quantity.' '.$booking_list->cylindertypes->label.'</td>
-                <td>'.$booking_list->cylinder_quantity.'</td>
-                <td>'.$booking_list->total_amount.'</td>
-                <td>'.$booking_list->order_date.'</td>
-                <td>'.$booking_list->order_status.'</td>
-                <td>'.$booking_list->payment_option.'</td>  
-                </tr>';
+            <td>'.$booking_list->userdetails->first_name.'</td>
+            <td>'.$booking_list->userdetails->last_name.'</td>
+            <td>'.$booking_list->customer_id.'</td>
+            <td>'.$booking_list->cylindertypes->litre_quantity.' '.$booking_list->cylindertypes->label.'</td>
+            <td>'.$booking_list->cylinder_quantity.'</td>
+            <td>'.$booking_list->total_amount.'</td>
+            <td>'.$booking_list->order_date.'</td>
+            <td>'.$booking_list->order_status.'</td>
+            <td>'.$booking_list->payment_option.'</td>  
+            </tr>';
         }
         $booking_data .='</table>';
         header("Content-Type: application/xls");
