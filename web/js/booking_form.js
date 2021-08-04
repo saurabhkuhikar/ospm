@@ -1,11 +1,18 @@
 $(document).ready(function(){
 
-    var host =  "http://localhost:8080";
+    // var host =  "http://localhost:8080";
 
     $('body').on('click', '.save_cylinder_details', function (event) {
         var cylinderDetailsData = $('#formCylinderDetails').serializeArray();
         cylinderDetailsData.push({ name: "CylinderBooking[token]", value: $("#msform").attr('data-token') });    
-    
+       
+        var cylinderQuantity = $("#cylinderbooking-cylinder_quantity").val();
+        var orderDate = $("#cylinderbooking-order_date").val();
+        var date = new Date(orderDate);
+
+        $('#cylinderQuantity').html(cylinderQuantity);
+        $('#orderDate').html(date.toDateString());
+
         $.ajax({
             url: '/cylinder-booking/save-cylinder-detail',
             type: 'post',
@@ -18,6 +25,7 @@ $(document).ready(function(){
 
             if (cylinderDetailsResponce.status == 401) {
                 $.each(cylinderDetailsResponce.errors, function (index, value) {
+                    
                     if(index == "order_date"){
                         $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
                         $('#cylinderbooking-' + index).parent().parent().find('.help-block').text(value);
@@ -25,6 +33,79 @@ $(document).ready(function(){
                         $('#cylinderbooking-' + index).parent().addClass('has-error');
                         $('#cylinderbooking-' + index).parent().find('.help-block').text(value);
                     }
+                });
+            }
+        });
+
+    });
+
+    $('body').on('click', '.save_covid_details', function (event) {
+        var covidDetailsData = $('#formCovidDetails').serializeArray();
+        covidDetailsData.push({ name: "CylinderBooking[token]", value: $("#msform").attr('data-token') });    
+    
+        $.ajax({
+            url: '/cylinder-booking/save-covid-detail',
+            type: 'post',
+            dataType: 'json',
+            data: covidDetailsData,
+        }).done(function (covidDetailsResponce) {
+            if (covidDetailsResponce.status == 200) {
+                next('save_covid_details');
+            }
+            if (covidDetailsResponce.status == 401) {
+                $.each(covidDetailsResponce.errors, function (index, value) {
+                    console.log(index);
+                    if(index == "covid_test_date"){
+                        $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
+                        $('#cylinderbooking-' + index).parent().parent().find('.help-block').text(value);
+                    }else{
+                        $('#cylinderbooking-' + index).parent().addClass('has-error');
+                        $('#cylinderbooking-' + index).parent().find('.help-block').text(value);
+                    }
+                });
+            }
+        });
+    });
+    
+    $('body').on('click', '.save_cart_details', function (event) {
+        var cylinderDetailsData = $('#formCartDetails').serializeArray();
+        cylinderDetailsData.push({ name: "CylinderBooking[token]", value: $("#msform").attr('data-token') });    
+        
+        $.ajax({
+            url: '/cylinder-booking/save-cart-detail',
+            type: 'post',
+            dataType: 'json',
+            data: cylinderDetailsData,
+        }).done(function (cylinderDetailsResponce) {
+            if (cylinderDetailsResponce.status == 200) {
+                next('save_cart_details');
+            }
+            if (cylinderDetailsResponce.status == 401) {                
+                
+            }
+        });
+    });
+    
+    $('body').on('click', '.save_payment_information', function (event) {
+        var cylinderDetailsData = $('#formPaymentInformation').serializeArray();
+        cylinderDetailsData.push({ name: "CylinderBooking[token]", value: $("#msform").attr('data-token') });    
+        
+        $.ajax({
+            url: '/cylinder-booking/save-payment-information',
+            type: 'post',
+            dataType: 'json',
+            data: cylinderDetailsData,
+        }).done(function (cylinderDetailsResponce) {
+            if (cylinderDetailsResponce.status == 200) {
+                // next('save_payment_information');
+            }
+
+            if (cylinderDetailsResponce.status == 401) {
+                $.each(cylinderDetailsResponce.errors, function (index, value) { 
+                console.log(index);
+                    $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
+                    $('#cylinderbooking-' + index).parent().find('.help-block').text(value);
+                    
                 });
             }
         });
@@ -50,8 +131,9 @@ var opacity;
 
 function next(param){
     current_fs = $("."+param).parent();
-    next_fs = $("."+param).parent().next();      
-        
+    next_fs = $("."+param).parent().parent().eq(0).next();
+    // console.log(current_fs);
+    console.log(next_fs);
     //Add Class Active
     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
     
@@ -74,7 +156,7 @@ function next(param){
 
 function prev(param){
     current_fs = $("."+param).parent();
-    previous_fs = $("."+param).parent().prev();
+    previous_fs = $("."+param).parent().parent().eq(0).prev();
     
     //Remove class active
     $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
@@ -110,13 +192,15 @@ function calculateTotalAmount(){
                 data: {'cylinderQuantity': cylinderQuantity, 'cylinderType': cylinderType, 'token': token}
             }).done(function (response) {
                 if (response.status == 200) {  
-                    
+                   
+
                     $("#GST_value").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.gstAmount));
                     $("#SGST_value").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.sgstAmount));
                     $("#CGST_value").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.cgstAmount));
                     $('#cylinderType').html(response.cylinderType);
                     
                     $("#cylinderbooking-total_amount").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.totalAmount));
+                    $("#cylinderbooking-total-amount").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.totalAmount));
                 }
             });
         }

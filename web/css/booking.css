@@ -42,6 +42,7 @@ html {
     display: none
 }
 
+
 #msform fieldset .form-card {
     text-align: left;
     color: #9E9E9E
@@ -136,22 +137,22 @@ select.list-dt:focus {
     position: relative
 }
 
-#progressbar #account:before {
+#progressbar #cylinder_details:before {
     font-family: FontAwesome;
     content: "\f023"
 }
 
-#progressbar #personal:before {
+#progressbar #covid_details:before {
     font-family: FontAwesome;
     content: "\f007"
 }
 
-#progressbar #payment:before {
+#progressbar #cart_details:before {
     font-family: FontAwesome;
     content: "\f09d"
 }
 
-#progressbar #confirm:before {
+#progressbar #payment:before {
     font-family: FontAwesome;
     content: "\f00c"
 }

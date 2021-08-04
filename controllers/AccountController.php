@@ -64,12 +64,15 @@ class AccountController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if(Yii::$app->user->identity->account_type == "Customer"){
-                
-                return $this->redirect(['customer/dashboard']);
-               
-            }else{
-                return $this->redirect(['supplier/dashboard']);
+                if(!empty(Helper::getSession('url'))){
+                    $url = Helper::getSession('url');
+                    session_unset();
+                    return $this->redirect([$url]);
+                }else{
+                    return $this->redirect(['customer/dashboard']);
+                }
             }
+            return $this->redirect(['supplier/dashboard']);
         }
 
         return $this->render('login', [
@@ -196,7 +199,11 @@ class AccountController extends Controller
      
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post(); 
-                  
+            if(isset($_POST['url'])){
+                Helper::createSession('url',$_POST['url']);
+            }else{
+                session_unset();
+            }        
         }        
         return json_encode(['status'=>200]);
     }    

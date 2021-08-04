@@ -23,8 +23,7 @@ $this->title = "View Booking Request Details";
                         'model' => $model,
                         'attributes' => [
                             // 'id',
-                            'first_name',
-                            'last_name',
+                           
                             // 'customer_id',
                             // 'supplier_id',
                             'covid_test_result',

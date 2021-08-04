@@ -21,11 +21,9 @@ $this->title = 'Booking Requests';
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
-                        // ['class' => 'yii\grid\SerialColumn'],
+                        ['class' => 'yii\grid\SerialColumn'],
 
-                        // 'id',
-                        'first_name',
-                        'last_name',
+                        // 'id',                   
                         // 'customer_id',
                         // 'supplier_id',
                         //'covid_test_result',

@@ -43,11 +43,15 @@ class CylinderBooking extends \yii\db\ActiveRecord
     {
         return [
             //[['first_name', 'last_name','payment_option', 'covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'order_date'], 'required'],
-            [['first_name', 'last_name', 'cylinder_type_id', 'cylinder_quantity', 'order_date'], 'required','on'=>'cylinderDetail'],  
-            [['payment_option',], 'required','on'=>'paymentOption'],  
+            [[ 'cylinder_type_id', 'cylinder_quantity', 'order_date'], 'required','on'=>'cylinderDetail'],  
+            // [[ 'total_amount',], 'required','on'=>'cartDetail'],  
+            [[ 'covid_test_result', 'covid_test_date',], 'required','on'=>'covidDetail'],  
+            [['payment_option','order_status',], 'required','on'=>'paymentInformation'],  
+            // [['payment_option',], 'required','on'=>'paymentOption'],  
             [['covid_test_date','customer_id','supplier_id','order_date', 'total_amount', 'created', 'updated'], 'safe'],
-            [['first_name', 'last_name', 'order_status', 'payment_id', 'payment_token', 'payment_status'], 'string', 'max' => 255],
+            [[ 'order_status', 'payment_id', 'payment_token', 'payment_status'], 'string', 'max' => 255],
             [['covid_test_result'], 'string', 'max' => 20],
+            // [['payment_option'], 'string', 'max' => 100],
             [['cylinder_quantity'],'number','min' => 1,'max' => 5,],
         ];
     }
@@ -58,9 +62,7 @@ class CylinderBooking extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
+            'id' => 'ID',       
             'customer_id' => 'Customer ID',
             'supplier_id' => 'Supplier ID',
             'payment_option' => 'Select Payment Options', 

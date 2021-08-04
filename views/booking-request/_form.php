@@ -20,14 +20,7 @@ use yii\helpers\ArrayHelper;
             <div class="panel">
                 <div class="panel-heading">Update Booking</div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <?= $form->field($model, 'first_name')->textInput(['autofocus'=>true,'readOnly'=>true,'placeholder'=>'First Name','maxlength' => true]) ?>
-                        </div>
-                        <div class="col-md-6">
-                            <?= $form->field($model, 'last_name')->textInput(['autofocus'=>true,'readOnly'=>true,'placeholder'=>'Last Name','maxlength' => true]) ?>
-                        </div>
-                    </div>                   
+                                     
                     <div class="row">
                         <div class="col-md-6">
                             <?= $form->field($model, 'cylinder_type_id')->textInput(['maxlength' => true,'readOnly'=>true])?>

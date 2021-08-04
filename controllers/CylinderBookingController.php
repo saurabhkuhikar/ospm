@@ -141,19 +141,106 @@ class CylinderBookingController extends Controller
             $model = new CylinderBooking();
             $model->setScenario('cylinderDetail');
 
-            $data = Yii::$app->request->post();
-            $data['CylinderBooking']['first_name'] = Yii::$app->user->identity->first_name;
-            $data['CylinderBooking']['last_name'] = Yii::$app->user->identity->last_name;
+            $data = Yii::$app->request->post();           
             $data['CylinderBooking']['customer_id'] = Helper::getCurrentUserId();
             $data['CylinderBooking']['supplier_id'] = base64_decode($data['CylinderBooking']['token']);
             $data['CylinderBooking']['cylinder_type_id'] = $data['CylinderBooking']['cylinder_type_id'];
             $data['CylinderBooking']['cylinder_quantity'] = $data['CylinderBooking']['cylinder_quantity'];
             $data['CylinderBooking']['order_date'] = $data['CylinderBooking']['order_date'];
+
+           
+            $model->attributes = $data['CylinderBooking'];
+
+            if ($model->save()) {
+                Helper::createSession('user_id',$model->id);          
+                return json_encode(['status' => 200,'message'=>'Your Cylinder Details Saved Successfully.','id' => base64_encode($model->id)]);
+            } else {
+                $errors = [];
+                foreach ($model->getErrors() as $errorKey => $errorValue) {
+                    $errors += [$errorKey => $errorValue[0]];
+                }
+                return json_encode(['status' => 401, 'errors' => $errors]);
+            }
+        }
+    }
+
+    /**
+     * Save Covid Details.
+     *
+     * @return string
+     */
+    public function actionSaveCovidDetail()
+    {
+        
+        if (Yii::$app->request->isAjax) {
+            $model = $this->findModel(Helper::getSession('user_id')); 
+            $model->setScenario('covidDetail');
+
+            $data = Yii::$app->request->post(); 
+            // Helper::dd($data);  
+            $data['CylinderBooking']['covid_test_result'] = $data['CylinderBooking']['covid_test_result'];
+            $data['CylinderBooking']['covid_test_date'] = $data['CylinderBooking']['covid_test_date'];
             
             $model->attributes = $data['CylinderBooking'];
-            
+
+            if ($model->save()) {             
+                return json_encode(['status' => 200,'message'=>'Your Covid Detail Saved Successfully.','id' => base64_encode($model->id)]);
+            } else {
+                $errors = [];
+                foreach ($model->getErrors() as $errorKey => $errorValue) {
+                    $errors += [$errorKey => $errorValue[0]];
+                }
+                return json_encode(['status' => 401, 'errors' => $errors]);
+            }
+        }
+    }
+    /**
+     * Save Cart Details.
+     *
+     * @return string
+     */
+    public function actionSaveCartDetail()
+    {
+        if (Yii::$app->request->isAjax) {
+            $model = $this->findModel(Helper::getSession('user_id'));
+
+            $data = Yii::$app->request->post();  
+            $data['CylinderBooking']['total_amount'] = Helper::getSession('totalAmount');
+            $model->attributes = $data['CylinderBooking'];
             if ($model->save()) {
-                return json_encode(['status' => 200,'message'=>'Your Cylinder Details Saved Successfully.','id' => base64_encode($model->id)]);
+                return json_encode(['status' => 200,'message'=>'Your Cart Detail Saved Successfully.','id' => base64_encode($model->id)]);
+            } else {
+                $errors = [];
+                foreach ($model->getErrors() as $errorKey => $errorValue) {
+                    $errors += [$errorKey => $errorValue[0]];
+                }
+                return json_encode(['status' => 401, 'errors' => $errors]);
+            }
+        }
+    }
+
+    /**
+     * Save Payment Information.
+     *
+     * @return string
+     */
+
+    public function actionSavePaymentInformation()
+    {
+        if (Yii::$app->request->isAjax) {
+            $model = $this->findModel(Helper::getSession('user_id'));            
+            $model->setScenario('paymentInformation');
+
+            $data = Yii::$app->request->post();   
+            // Helper::dd($data);
+
+            $data['CylinderBooking']['payment_option'] = $data['CylinderBooking']['payment_option'];
+            $data['CylinderBooking']['order_status'] = "Pending";
+
+            $model->attributes = $data['CylinderBooking'];
+
+            if ($model->save()) {
+                return json_encode(['status' => 200,'message'=>'Your Payment Information Saved Successfully.','id' => base64_encode($model->id)]);
             } else {
                 $errors = [];
                 foreach ($model->getErrors() as $errorKey => $errorValue) {
@@ -189,24 +276,24 @@ class CylinderBookingController extends Controller
         ]);
     }
 
-    public function actionPaymentOption($id)   
-    {      
-        $this->layout = 'dashboard'; 
-        Helper::checkAccess("Customer");
-        $model = $this->findModel($id);
+    // public function actionPaymentOption($id)   
+    // {      
+    //     $this->layout = 'dashboard'; 
+    //     Helper::checkAccess("Customer");
+    //     $model = $this->findModel($id);
         
-        $model->setScenario('paymentOption');       
-        if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
-                if($model->payment_option == "Online"){
-                    return $this->redirect(['online-payment','id' => $model->id]);
-                }
-                return $this->redirect(['view','id' => $model->id]);
-            }
-        }
+    //     $model->setScenario('paymentOption');       
+    //     if ($model->load(Yii::$app->request->post())) {
+    //         if($model->save()){
+    //             if($model->payment_option == "Online"){
+    //                 return $this->redirect(['online-payment','id' => $model->id]);
+    //             }
+    //             return $this->redirect(['view','id' => $model->id]);
+    //         }
+    //     }
         
-        return $this->render('payment-option', ['model' => $model,]);         
-    }
+    //     return $this->render('payment-option', ['model' => $model,]);         
+    // }
 
     public function actionSuccessfulPage($id){
         $this->layout = 'home'; 
@@ -253,8 +340,7 @@ class CylinderBookingController extends Controller
      * @return mixed
      */
     public function actionBillAmount()
-    {
-      
+    {      
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();  
             $cylinderLists = CylinderList::find()->where(['user_id'=>base64_decode($data['token']),'cylinder_type_id'=>$data['cylinderType']])->joinWith('cylinderTypes')->one();

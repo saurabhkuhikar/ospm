@@ -17,15 +17,7 @@ use kartik\select2\Select2;
         <div class="col-md-12">
             <div class="panel">
                 <div class="panel-heading"><?= Html::encode($this->title) ?></div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <?= $form->field($model, 'first_name')->textInput(['autofocus'=>true,'placeholder'=>'First Name','autocomplete'=>'off','maxlength' => true]) ?>
-                        </div>
-                        <div class="col-md-6">
-                            <?= $form->field($model, 'last_name')->textInput(['autofocus'=>true,'placeholder'=>'Last Name','autocomplete'=>'off','maxlength' => true]) ?>
-                        </div>
-                    </div>
+                <div class="panel-body">                    
                     <div class="row">
                         <div class="col-md-6">
                         <?php $data = array('Positive'=>'Positive','Negative'=>'Negative')?>

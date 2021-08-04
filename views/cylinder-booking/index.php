@@ -27,10 +27,8 @@ $this->title = 'Cylinder Bookings';
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
                             'columns' => [
-                                // ['class' => 'yii\grid\SerialColumn'],
-                                // 'id',
-                                'first_name',
-                                'last_name',
+                                ['class' => 'yii\grid\SerialColumn'],
+                                // 'id',                                
                                 // 'supplier_id',
                                 // 'customer_id',
                                 // 'covid_test_result',

@@ -19,15 +19,15 @@
                     <div class="col-md-12">
                         <!-- progressbar -->
                         <ul id="progressbar">
-                            <li class="active" id="account"><strong>Cylinder Details</strong></li>
-                            <li id="personal"><strong>COVID Details</strong></li>
-                            <li id="payment"><strong>Cart Details</strong></li>
-                            <li id="confirm"><strong>Payment</strong></li>
+                            <li class="active" id="cylinder_details"><strong>Cylinder Details</strong></li>
+                            <li id="covid_details"><strong>COVID Details</strong></li>
+                            <li id="cart_details"><strong>Cart Details</strong></li>
+                            <li id="payment"><strong>Payment</strong></li>
                         </ul> 
-
-                        <div id="msform" data-token=<?= (isset($token))? $token: Null?>>
-                            <!-- fieldsets -->
-
+                        
+                        <!-- fieldsets -->
+                        
+                        <div id="msform" data-token=<?= (isset($token))? $token: Null?>>    
                             <fieldset>
                                 <?php $form = ActiveForm::begin(['id'=>'formCylinderDetails','action'=>'cylinder-booking/save-cylinder-detail']); ?>
                                     <div class="form-card">
@@ -69,22 +69,21 @@
                             </fieldset>
 
                             <fieldset>
-                                <?php $form = ActiveForm::begin(['id'=>'formCovidDetails','action'=>'']); ?>
+                                <?php $form = ActiveForm::begin(['id'=>'formCovidDetails','action'=>'cylinder-booking/save-covid-detail']); ?>
                                     <div class="form-card">
                                         <h2 class="fs-title">COVID Details</h2> 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="panel-details">
+                                        <div class="panel-details">
+                                            <div class="row">
+                                                <div class="col-md-6">
                                                     <?php $data = array('Positive'=>'Positive','Negative'=>'Negative')?>
                                                     <?= $form->field($model, 'covid_test_result')->widget(Select2::classname(), [
                                                         'data' => $data,                                        
                                                         'options' => ['placeholder' => 'Select Identity Proof','autocomplete'=>'off',],
                                                         'pluginOptions' => ['allowClear' => true],]); 
                                                     ?> 
+                                                
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="panel-details">
+                                                <div class="col-md-6">                                               
                                                     <?= $form->field($model, 'covid_test_date')->widget(DatePicker::className(),
                                                         [
                                                             // inline too, not bad
@@ -104,12 +103,12 @@
                                         </div>
                                     </div> 
                                     <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
-                                    <input type="button" name="next" class="next action-button" value="Next Step" />
+                                    <input type="button" name="next" class="save_covid_details btn btn-info" value="Next Step" />
                                 <?php ActiveForm::end(); ?>
                             </fieldset>
                             
                             <fieldset>
-                                <?php $form = ActiveForm::begin(['id'=>'formCartDetails','action'=>'']); ?>
+                                <?php $form = ActiveForm::begin(['id'=>'formCartDetails','action'=>'cylinder-booking/save-cart-detail']); ?>
                                     <div class="form-card">
                                         <h2 class="fs-title">Cart Details</h2>
                                         <div class="row">
@@ -142,20 +141,19 @@
                                         </div>
                                     </div> 
                                     <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
-                                    <input type="button" name="next" class=" next action-button-conform" value="Conform" />
+                                    <input type="button" name="next" class="save_cart_details btn btn-info" value="Conform" />
                                 <?php ActiveForm::end(); ?>
                             </fieldset>
                             
                             <fieldset>
-                                <?php $form = ActiveForm::begin(['id'=>'formPaymentInformation','action'=>'']); ?>
+                                <?php $form = ActiveForm::begin(['id'=>'formPaymentInformation','action'=>'cylinder-booking/save-payment-information']); ?>
                                     <div class="form-card">                                    
                                         <h2 class="fs-title ">Payment Information</h2>
                                         <div class = "panel-details">
                                             <div class="row">
                                                 <div class="form-group">
                                                     <div class="col-md-12"> 
-                                                        <label for="">Select Payment Mode</label>
-                                                        <?= $form->field($model, 'payment_option')->radioList(['Cash on Delivery'=>'Cash on Delivery', 'Online' => 'Online'], ['unselect' => null])->label(false)?>
+                                                        <?= $form->field($model, 'payment_option')->radioList(['Cash on Delivery'=>'Cash on Delivery', 'Online' => 'Online'],[])?>
                                                     </div>                        
                                                 </div>                        
                                             </div>         
@@ -164,7 +162,7 @@
                                             </div>                              
                                         </div>
                                     </div>
-                                    <?= Html::submitButton('Placed Order', ['class' => 'btn btn-lg btn-success', 'name' => 'payment-option-button']) ?>
+                                    <input type="button" name="next" class="save_payment_information btn btn-success" value="Placed Order" />
                                 <?php ActiveForm::end(); ?>
                             </fieldset>
                         </div>

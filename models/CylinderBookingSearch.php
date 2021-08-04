@@ -20,7 +20,7 @@ class CylinderBookingSearch extends CylinderBooking
     {
 
         return [
-            [['first_name', 'last_name', 'supplier_id','customer_id', 'covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'total_amount', 'order_date', 'order_status', 'payment_id', 'payment_token', 'payment_status', 'created', 'updated'], 'safe'],
+            [[ 'supplier_id','customer_id', 'covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'total_amount', 'order_date', 'order_status', 'payment_id', 'payment_token', 'payment_status', 'created', 'updated'], 'safe'],
             [['id'], 'integer'],
             [['cylinder_type'],'string']
         ];
@@ -80,9 +80,7 @@ class CylinderBookingSearch extends CylinderBooking
         }
 
         // ->andFilterWhere(['like', 'cylinder_type_id', $this->cylinder_type_id])
-        $query->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name])
-            ->andFilterWhere(['like', 'supplier_id', $this->supplier_id])
+        $query->andFilterWhere(['like', 'supplier_id', $this->supplier_id])
             ->andFilterWhere(['like', 'covid_test_result', $this->covid_test_result])
             ->andFilterWhere(['like', 'cylinder_quantity', $this->cylinder_quantity])
             ->andFilterWhere(['like', 'total_amount', $this->total_amount])
