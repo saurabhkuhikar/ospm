@@ -131,9 +131,7 @@ class SupplierController extends \yii\web\Controller
 
         $booking_data .='
         <table bordered="1"> 
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
+        <tr>            
             <th>Customer id</th>
             <th>Cylinder Type</th>
             <th>Cylinder Quantity</th>
@@ -146,9 +144,7 @@ class SupplierController extends \yii\web\Controller
         $booking_lists = CylinderBooking::find()->all();
         foreach($booking_lists as $booking_list){
             $booking_data .='
-            <tr>
-                <td>'.$booking_list->first_name.'</td>
-                <td>'.$booking_list->last_name.'</td>
+            <tr>                
                 <td>'.$booking_list->customer_id.'</td>
                 <td>'.$booking_list->cylinder_type.'</td>
                 <td>'.$booking_list->cylinder_quantity.'</td>
