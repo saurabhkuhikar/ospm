@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 29, 2021 at 06:55 PM
+-- Generation Time: Aug 05, 2021 at 03:36 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -931,17 +931,15 @@ INSERT INTO `countries` (`id`, `countryCode`, `name`) VALUES
 DROP TABLE IF EXISTS `cylinder_bookings`;
 CREATE TABLE IF NOT EXISTS `cylinder_bookings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
   `customer_id` int(11) DEFAULT NULL,
   `supplier_id` int(11) DEFAULT NULL,
-  `covid_test_result` varchar(20) NOT NULL,
-  `covid_test_date` date NOT NULL,
-  `cylinder_type_id` int(11) NOT NULL,
-  `cylinder_quantity` varchar(20) NOT NULL,
-  `total_amount` float NOT NULL,
-  `order_date` date NOT NULL,
-  `order_status` varchar(255) DEFAULT 'Pending',
+  `covid_test_result` varchar(20) DEFAULT NULL,
+  `covid_test_date` date DEFAULT NULL,
+  `cylinder_type_id` int(11) DEFAULT NULL,
+  `cylinder_quantity` varchar(20) DEFAULT NULL,
+  `total_amount` float DEFAULT NULL,
+  `order_date` date DEFAULT NULL,
+  `order_status` varchar(255) DEFAULT 'Incomplete',
   `payment_id` varchar(255) DEFAULT NULL,
   `payment_option` varchar(255) DEFAULT NULL,
   `payment_token` varchar(255) DEFAULT NULL,
@@ -949,21 +947,16 @@ CREATE TABLE IF NOT EXISTS `cylinder_bookings` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cylinder_bookings`
 --
 
-INSERT INTO `cylinder_bookings` (`id`, `first_name`, `last_name`, `customer_id`, `supplier_id`, `covid_test_result`, `covid_test_date`, `cylinder_type_id`, `cylinder_quantity`, `total_amount`, `order_date`, `order_status`, `payment_id`, `payment_option`, `payment_token`, `payment_status`, `created`, `updated`) VALUES
-(1, 'SAURABH', 'KUHIKAR', 15, 1, 'Negative', '2021-06-29', 1, '1', 8000, '2021-06-30', 'Process', NULL, 'Cash on Delivery', NULL, NULL, '2021-07-27 13:33:50', '2021-07-27 13:33:50'),
-(2, 'SAURABH', 'KUHIKAR', 15, 1, 'Positive', '2021-07-20', 1, '1', 8000, '2021-07-15', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-07-27 17:40:18', '2021-07-27 17:40:18'),
-(3, 'SAURABH', 'KUHIKAR', 15, 1, 'Negative', '2021-06-28', 2, '1', 10500, '2021-07-09', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-07-27 17:41:23', '2021-07-27 17:41:23'),
-(4, 'SAURABH', 'KUHIKAR', 15, 1, 'Positive', '2021-07-20', 1, '1', 8400, '2021-07-20', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-07-27 17:44:11', '2021-07-27 17:44:11'),
-(5, 'SAURABH', 'KUHIKAR', 15, 2, 'Negative', '2021-07-26', 1, '2', 14700, '2021-07-29', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-07-27 17:46:06', '2021-07-27 17:46:06'),
-(6, 'SAURABH', 'KUHIKAR', 15, 1, 'Negative', '2021-08-04', 1, '1', 8400, '2021-07-12', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-07-29 16:58:26', '2021-07-29 16:58:26'),
-(7, 'SAURABH', 'KUHIKAR', 15, 2, 'Negative', '2021-07-21', 2, '2', 21000, '2021-08-05', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-07-29 18:21:20', '2021-07-29 18:21:20'),
-(8, 'SAURABH', 'KUHIKAR', 15, 4, 'Negative', '2021-07-13', 3, '2', 31500, '2021-07-27', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-07-29 18:35:01', '2021-07-29 18:35:01');
+INSERT INTO `cylinder_bookings` (`id`, `customer_id`, `supplier_id`, `covid_test_result`, `covid_test_date`, `cylinder_type_id`, `cylinder_quantity`, `total_amount`, `order_date`, `order_status`, `payment_id`, `payment_option`, `payment_token`, `payment_status`, `created`, `updated`) VALUES
+(1, 19, 1, NULL, NULL, 2, '4', NULL, '2021-07-30', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-05 15:23:00', '2021-08-05 15:23:00'),
+(2, 19, 1, NULL, NULL, 1, '2', NULL, '2021-08-04', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-05 15:24:08', '2021-08-05 15:24:08'),
+(3, 19, 1, 'Negative', '2021-08-06', 2, '4', 42000, '2021-08-05', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-05 15:28:47', '2021-08-05 15:28:47');
 
 -- --------------------------------------------------------
 
@@ -1137,7 +1130,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `auth_key`, `phone_number`, `age`, `gender`, `address`, `state`, `city`, `company_name`, `profile_picture`, `identity_proof`, `identity_proof_type`, `aadhar_card_number`, `account_type`, `status`, `created`, `updated`) VALUES
 (1, 'SAURABH', 'KUHIKAR', 'saurabhkuhikar6@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'OSdccQVQDmWFLWWd90Q4zryhl1vP1xOV', 0958991475, 25, 'female', 'xyz', 'ARUNACHAL PRADESH', 'Dibang Valley', 'sk oxygen supply pvt', '1626414936.jpg', 'Ration Card with address', NULL, '147852369852', 'Supplier', 'Enabled', '2021-07-11 21:53:01', '2021-07-11 21:53:01'),
-(2, 'Nandini', 'supplier', 'nandinikose@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'mIaJ1lL-6nOKPnq93J9CMqSxWvDTzS2R', 9157991475, NULL, 'female', 'snansna', 'MAHARASHTRA', 'Nagpur', 'nandini oxygen supply pvt', 'avatar.png', NULL, NULL, '145215625874', 'Supplier', 'Enabled', '2021-07-11 21:55:07', '2021-07-11 21:55:07'),
+(2, 'Nandini', 'k', 'nandinikose@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'mIaJ1lL-6nOKPnq93J9CMqSxWvDTzS2R', 9157991475, 23, 'female', 'snansna', 'MAHARASHTRA', 'Nagpur', 'nandini oxygen supply pvt', 'avatar.png', 'Passport', NULL, '145215625874', 'Supplier', 'Enabled', '2021-07-11 21:55:07', '2021-07-11 21:55:07'),
 (3, 'Palash', 'kuhikar', 'palash@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Kl07Z5Sgs_h5PHJczyP6qu_d9_Sqmlmh', 1234567890, NULL, 'male', 'old mumbai', 'MAHARASHTRA', 'Nagpur', 'Palash oxygen supply management', '1626415014.jpg', NULL, NULL, '154796322541', 'Supplier', 'Enabled', '2021-07-11 22:01:32', '2021-07-11 22:01:32'),
 (4, 'Harsh', 'kk', 'harsh@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ECSYWzdmQtJmhhDgAuWswEHRxLfZ1pfn', 1246250147, 23, 'male', 'home', 'MAHARASHTRA', 'Nagpur', 'Harsh oxygen supply', 'avatar.png', 'Adhaar card(UID)', NULL, '012654875692', 'Supplier', 'Enabled', '2021-07-11 22:02:56', '2021-07-11 22:02:56'),
 (5, 'Sahil ', 'sahil', 'sahil@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0ZIHfGaVQfGLj_YKiAVNJXjzme2bD40R', 1596321048, NULL, 'male', 'sjdhfvbdhv', 'ARUNACHAL PRADESH', 'Lower Subansiri', 'oxygen cylinder supplier', 'avatar.png', 'Driving License', NULL, '021547985201', 'Supplier', 'Enabled', '2021-07-11 22:04:32', '2021-07-11 22:04:32'),
