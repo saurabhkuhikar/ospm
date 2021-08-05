@@ -24,8 +24,7 @@ $(document).ready(function(){
             }
 
             if (cylinderDetailsResponce.status == 401) {
-                $.each(cylinderDetailsResponce.errors, function (index, value) {
-                    
+                $.each(cylinderDetailsResponce.errors, function (index, value) {                    
                     if(index == "order_date"){
                         $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
                         $('#cylinderbooking-' + index).parent().parent().find('.help-block').text(value);
@@ -54,7 +53,6 @@ $(document).ready(function(){
             }
             if (covidDetailsResponce.status == 401) {
                 $.each(covidDetailsResponce.errors, function (index, value) {
-                    console.log(index);
                     if(index == "covid_test_date"){
                         $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
                         $('#cylinderbooking-' + index).parent().parent().find('.help-block').text(value);
@@ -112,8 +110,8 @@ $(document).ready(function(){
     });
     
 
-    // $(".previous").click(function(){     
-    // });  
+    $(".previous").click(function(){     
+    });  
 
     /* find total amount */
 

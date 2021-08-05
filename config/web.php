@@ -29,9 +29,6 @@ $config = [
             'enableAutoLogin' => false,
             'loginUrl' => ['account/login'],
         ],
-        'session' => [
-            'timeout' => 300,    
-        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],

@@ -66,8 +66,7 @@ class AccountController extends Controller
             if(Yii::$app->user->identity->account_type == "Customer"){
                 if(!empty(Helper::getSession('url'))){
                     $url = Helper::getSession('url');
-                    session_unset();
-                    return $this->redirect([$url]);
+                    return $this->redirect([$url]);                
                 }else{
                     return $this->redirect(['customer/dashboard']);
                 }
@@ -201,9 +200,7 @@ class AccountController extends Controller
             $data = Yii::$app->request->post(); 
             if(isset($_POST['url'])){
                 Helper::createSession('url',$_POST['url']);
-            }else{
-                session_unset();
-            }        
+            }       
         }        
         return json_encode(['status'=>200]);
     }    

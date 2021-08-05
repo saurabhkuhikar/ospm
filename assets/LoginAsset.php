@@ -30,7 +30,7 @@ class LoginAsset extends AssetBundle
         'css/site.css',        
     ];
     public $js = [
-        'js/popper.js',
+        // 'js/popper.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

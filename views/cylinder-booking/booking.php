@@ -74,30 +74,30 @@
                                         <h2 class="fs-title">COVID Details</h2> 
                                         <div class="panel-details">
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <?php $data = array('Positive'=>'Positive','Negative'=>'Negative')?>
-                                                    <?= $form->field($model, 'covid_test_result')->widget(Select2::classname(), [
-                                                        'data' => $data,                                        
-                                                        'options' => ['placeholder' => 'Select Identity Proof','autocomplete'=>'off',],
-                                                        'pluginOptions' => ['allowClear' => true],]); 
-                                                    ?> 
-                                                
-                                                </div>
-                                                <div class="col-md-6">                                               
-                                                    <?= $form->field($model, 'covid_test_date')->widget(DatePicker::className(),
-                                                        [
-                                                            // inline too, not bad
-                                                            'inline' => false,
-                                                            'options' => ['placeholder' => 'Select Covid Test date ','autocomplete'=>'off',],
-                                                            
-                                                            // modify template for custom rendering
-                                                            // 'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
-                                                            'clientOptions' => [
-                                                                'autoclose' => true,
-                                                                'format' => 'yyyy-mm-dd'
-                                                            ]
-                                                        ]); 
-                                                    ?> 
+                                                <div class="form-group">
+                                                    <div class="col-md-6">
+                                                        <?php $data = array('Positive'=>'Positive','Negative'=>'Negative')?>
+                                                        <?= $form->field($model, 'covid_test_result')->widget(Select2::classname(), [
+                                                            'data' => $data,                                        
+                                                            'options' => ['placeholder' => 'Select Identity Proof','autocomplete'=>'off',],
+                                                            'pluginOptions' => ['allowClear' => true],]); 
+                                                        ?>                                                 
+                                                    </div>
+                                                    <div class="col-md-6">                                               
+                                                        <?= $form->field($model, 'covid_test_date')->widget(DatePicker::className(),
+                                                            [
+                                                                // inline too, not bad
+                                                                'inline' => false,
+                                                                'options' => ['placeholder' => 'Select Covid Test Date ','class'=>'form-control','autocomplete'=> 'off'],
+                                                                // modify template for custom rendering
+                                                                // 'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+                                                                'clientOptions' => [
+                                                                    'autoclose' => true,
+                                                                    'format' => 'yyyy-mm-dd'
+                                                                ]
+                                                            ]); 
+                                                        ?> 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

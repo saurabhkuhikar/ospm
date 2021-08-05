@@ -120,9 +120,9 @@ class CylinderBookingController extends Controller
         //     $model->total_amount = $totalAmountSession;       
         //     if($model->total_amount != $totalAmountSession  && $model->total_amount != Null){
         //         $model->total_amount = $totalAmountSession;
-        //     }
-        //     if($model->save()){
-        //         return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
+        // if($model->save()){
+        //     return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
+        // }
         //     }
         //     Helper::checkError($model);
         // }
@@ -177,7 +177,6 @@ class CylinderBookingController extends Controller
             $model->setScenario('covidDetail');
 
             $data = Yii::$app->request->post(); 
-            // Helper::dd($data);  
             $data['CylinderBooking']['covid_test_result'] = $data['CylinderBooking']['covid_test_result'];
             $data['CylinderBooking']['covid_test_date'] = $data['CylinderBooking']['covid_test_date'];
             
@@ -232,7 +231,6 @@ class CylinderBookingController extends Controller
             $model->setScenario('paymentInformation');
 
             $data = Yii::$app->request->post();   
-            // Helper::dd($data);
 
             $data['CylinderBooking']['payment_option'] = $data['CylinderBooking']['payment_option'];
             $data['CylinderBooking']['order_status'] = "Pending";
