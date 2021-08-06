@@ -27,10 +27,10 @@ class CylinderBookingController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','index','booking','create','update','bill-amount','payment-option','online-payment','save-cylinder-detail'],
+                'only' => ['logout','index','failure-page','successful-page','booking','create','update','bill-amount','payment-option','online-payment','save-cylinder-detail'],
                 'rules' => [
                     [
-                        'actions' => ['index','successful-page','booking','view','create','update','delete','bill-amount','payment-option','online-payment','save-cylinder-detail'],
+                        'actions' => ['index','failure-page','successful-page','booking','view','create','update','delete','bill-amount','payment-option','online-payment','save-cylinder-detail'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -295,13 +295,18 @@ class CylinderBookingController extends Controller
 
     public function actionSuccessfulPage($id){
         $this->layout = 'home'; 
-        Helper::checkAccess("Customer");       
+        Helper::checkAccess("Customer");    
         $model = $this->findModel(base64_decode($id));
         $order_id = ''; 
         $order_id .= str_replace("-","",$model->order_date).'-'.$model->customer_id.'-'.
         $model->id .'-'.$model->cylinder_quantity ;
         
         return $this->render('successful-page',['order_id'=>$order_id]);
+    }
+
+    public function actionFailurePage(){
+        $this->layout = 'home'; 
+        return $this->render('failure-page');
     }
 
     /**

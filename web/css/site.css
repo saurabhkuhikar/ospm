@@ -169,7 +169,16 @@ flex: 50%;
 }
 .successfull-icon{
     color: green;
-}  
+} 
+.failure-icon{
+    color: #c55;
+} 
 .error-message{
  color: red;
+}
+.mt-30{
+    margin-top: 30px;
+}
+.mt-60{
+    margin-right: 60px;
 }

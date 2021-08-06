@@ -14,13 +14,14 @@
         <div class="successfull-icon">
           <h1 ><i class = "fa fa-check-circle"></i> Successful!</h1>
         </div>
-          <h2 class="text-center">YOUR ORDER HAS BEEN RECEIVED</h2>
+        <h2 class="text-center">YOUR ORDER HAS BEEN RECEIVED</h2>
         <h3 class="text-center">Thank you for your payment, it’s processing</h3>
         
-        <p class="text-center">Your order # is : <?= $order_id ?></p>
+        <p class="text-center">Your order id is : <?= $order_id ?></p>
         <p class="text-center">You will receive an order confirmation email with details of your order and a link to track your process.</p>
         <div class="btn-group">
-          <a href="/site/index" class="btn btn-lg btn-warning">CONTINUE</a>
+          <a href="/site/index" class="btn btn-primary btn-lg mt-60"><span class="glyphicon glyphicon-home"></span> Back To Home </a>
+          <a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
         </div>
       </div>
     </div>
