@@ -126,7 +126,7 @@ class CylinderBookingController extends Controller
         //     }
         //     Helper::checkError($model);
         // }
-        
+              
         return $this->render('booking', ['model' => $model,'token' => $token]);         
     }
 
@@ -238,6 +238,7 @@ class CylinderBookingController extends Controller
             $model->attributes = $data['CylinderBooking'];
 
             if ($model->save()) {
+                return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
                 return json_encode(['status' => 200,'message'=>'Your Payment Information Saved Successfully.','id' => base64_encode($model->id)]);
             } else {
                 $errors = [];
@@ -295,11 +296,14 @@ class CylinderBookingController extends Controller
 
     public function actionSuccessfulPage($id){
         $this->layout = 'home'; 
-        Helper::checkAccess("Customer");    
+        Helper::checkAccess("Customer");         
         $model = $this->findModel(base64_decode($id));
-        $order_id = ''; 
-        $order_id .= str_replace("-","",$model->order_date).'-'.$model->customer_id.'-'.
-        $model->id .'-'.$model->cylinder_quantity ;
+        if($model->order_status == "Pending"){
+            $order_id = ''; 
+            $order_id .= str_replace("-","",$model->order_date).'-'.$model->customer_id.'-'.$model->id .'-'.$model->cylinder_quantity;
+        }else{
+            return $this->render('failure-page');
+        }
         
         return $this->render('successful-page',['order_id'=>$order_id]);
     }
