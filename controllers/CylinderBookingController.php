@@ -237,10 +237,10 @@ class CylinderBookingController extends Controller
 
             $model->attributes = $data['CylinderBooking'];
             if ($model->save()) {
-                if($model->payment_option == "Online"){
-                    return $this->redirect(['online-payment','id' => base64_encode($model->id)]);
-                }
-                return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
+                // if($model->payment_option == "Online"){
+                //     return $this->redirect(['online-payment','id' => base64_encode($model->id)]);
+                // }
+                // return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
                 return json_encode(['status' => 200,'message'=>'Your Payment Information Saved Successfully.','id' => base64_encode($model->id)]);
             } else {
                 $errors = [];
