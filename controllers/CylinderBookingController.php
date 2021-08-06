@@ -236,8 +236,10 @@ class CylinderBookingController extends Controller
             $data['CylinderBooking']['order_status'] = "Pending";
 
             $model->attributes = $data['CylinderBooking'];
-
             if ($model->save()) {
+                if($model->payment_option == "Online"){
+                    return $this->redirect(['online-payment','id' => base64_encode($model->id)]);
+                }
                 return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
                 return json_encode(['status' => 200,'message'=>'Your Payment Information Saved Successfully.','id' => base64_encode($model->id)]);
             } else {
@@ -275,24 +277,6 @@ class CylinderBookingController extends Controller
         ]);
     }
 
-    // public function actionPaymentOption($id)   
-    // {      
-    //     $this->layout = 'dashboard'; 
-    //     Helper::checkAccess("Customer");
-    //     $model = $this->findModel($id);
-        
-    //     $model->setScenario('paymentOption');       
-    //     if ($model->load(Yii::$app->request->post())) {
-    //         if($model->save()){
-    //             if($model->payment_option == "Online"){
-    //                 return $this->redirect(['online-payment','id' => $model->id]);
-    //             }
-    //             return $this->redirect(['view','id' => $model->id]);
-    //         }
-    //     }
-        
-    //     return $this->render('payment-option', ['model' => $model,]);         
-    // }
 
     public function actionSuccessfulPage($id){
         $this->layout = 'home'; 
@@ -313,6 +297,12 @@ class CylinderBookingController extends Controller
         return $this->render('failure-page');
     }
 
+    public function actionOnlinePayment()
+    {
+        $this->layout = 'dashboard';
+        
+        return $this->render('online-payment',);
+    }
     /**
      * Deletes an existing CylinderBooking model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

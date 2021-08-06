@@ -28,7 +28,22 @@ $this->title = "View Booking Request Details";
                             // 'supplier_id',
                             'covid_test_result',
                             'covid_test_date',
-                            'cylinder_type_id',
+                            [
+                                'attribute' => 'litre_quantity',
+                                'format' => 'html',
+                                'label' => 'Cylinder Type',
+                                'filterInputOptions' => [
+                                    'class'       => 'form-control',
+                                    'placeholder' => 'Cylinder Type'
+                                ],
+                                'value' => function ($model) {                                    
+                                    if (isset($model->cylindertypes->litre_quantity) && $model->cylindertypes->litre_quantity !== null) {
+                                        return $model->cylindertypes->litre_quantity.' '.$model->cylindertypes->label;
+                                    } else {
+                                        return "";
+                                    }
+                                },
+                            ],
                             'cylinder_quantity',
                             'total_amount',
                             'order_date',

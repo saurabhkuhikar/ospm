@@ -16,21 +16,35 @@ $this->title = 'Updated Cylinder list';
     <div class="col-md-12">
             <div class="panel">
                 <div class="panel-heading"><?= Html::encode($this->title) ?></div>
-                <div class="panel-body"> 
-
-                                       
+                <div class="panel-body">                    
+                    <a href="/cylinder-list/create" class="btn btn-info ">Add More Cylinders</a> 
                     <?= DetailView::widget([
                         'model' => $model,
                         'attributes' => [
                             // 'id',
                             // 'user_id',
-                            'cylinder_type_id',
+                            [
+                                'attribute' => 'litre_quantity',
+                                'format' => 'html',
+                                'label' => 'Cylinder Type',
+                                'filterInputOptions' => [
+                                    'class'       => 'form-control',
+                                    'placeholder' => 'Cylinder Type'
+                                ],
+                                'value' => function ($model) {
+                                    if (isset($model->cylinderTypes->litre_quantity) && $model->cylinderTypes->litre_quantity !== null) {
+                                        return $model->cylinderTypes->litre_quantity.' '.$model->cylinderTypes->label;
+                                    } else {
+                                        return "";
+                                    }
+                                },
+                            ],
                             'cylinder_quantity',
                             'selling_price',
                             'created',
                             'updated',
                         ],
-                    ]) ?>
+                    ]) ?>                   
                 </div>
             </div>
         </div>
