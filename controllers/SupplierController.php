@@ -14,7 +14,7 @@ use app\components\Helper;
 use app\models\BookingRequest;
 use app\models\CylinderBooking;
 use app\models\Cities;
-use app\models\States;
+use app\models\CylinderList;
 
 class SupplierController extends \yii\web\Controller
 {    
@@ -29,7 +29,7 @@ class SupplierController extends \yii\web\Controller
                 'only' => ['logout','index','dashboard','profile','get-city-list'],
                 'rules' => [
                     [
-                        'actions' => ['dashboard','get-city-list','profile'],
+                        'actions' => ['dashboard','show-cylinder-stock-graph','get-city-list','profile'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -123,6 +123,20 @@ class SupplierController extends \yii\web\Controller
         }
         
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
+    }
+
+    public function actionShowCylinderStockGraph(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $cylinderListStocks = CylinderList::find()->where(['user_id'=> Helper::getCurrentUserId()])->joinWith('cylinderTypes')->asArray()->all();
+            $cylinder_quantity = [];
+            $label = [];
+            foreach( $cylinderListStocks as $cylinderListStock){
+                array_push($label, $cylinderListStock['cylinderTypes']['litre_quantity'].' '.$cylinderListStock['cylinderTypes']['label']);
+               array_push($cylinder_quantity,$cylinderListStock['cylinder_quantity']);
+            }
+        }        
+        return json_encode(['status'=>200,'label'=>$label,'cylinder_quantity'=>$cylinder_quantity]);
     }
 
 

@@ -27,10 +27,10 @@ class CylinderBookingController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','index','failure-page','successful-page','booking','create','update','bill-amount','payment-option','online-payment','save-cylinder-detail'],
+                'only' => ['logout','index','booking','create','successful-page','update','bill-amount','payment-option',],
                 'rules' => [
                     [
-                        'actions' => ['index','failure-page','successful-page','booking','view','create','update','delete','bill-amount','payment-option','online-payment','save-cylinder-detail'],
+                        'actions' => ['index','failure-page','successful-page','booking','view','create','update','delete','bill-amount','save-covid-detail','save-cart-detail','save-payment-information','payment-option','online-payment','save-cylinder-detail'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -110,22 +110,7 @@ class CylinderBookingController extends Controller
         Helper::checkAccess("Customer");  
         $model = new CylinderBooking();  
         $model->setScenario('cylinderDetail');          
-        // if ($model->load(Yii::$app->request->post())) {
-
-        //     $model->first_name = Yii::$app->user->identity->first_name;
-        //     $model->last_name = Yii::$app->user->identity->last_name;
-        //     $model->customer_id = Helper::getCurrentUserId();
-        //     $model->supplier_id = base64_decode($token);
-        //     $totalAmountSession = Helper::getSession('totalAmount');    
-        //     $model->total_amount = $totalAmountSession;       
-        //     if($model->total_amount != $totalAmountSession  && $model->total_amount != Null){
-        //         $model->total_amount = $totalAmountSession;
-        // if($model->save()){
-        //     return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
-        // }
-        //     }
-        //     Helper::checkError($model);
-        // }
+        
               
         return $this->render('booking', ['model' => $model,'token' => $token]);         
     }
@@ -153,7 +138,7 @@ class CylinderBookingController extends Controller
 
             if ($model->save()) {
                 Helper::createSession('user_id',$model->id);          
-                return json_encode(['status' => 200,'message'=>'Your Cylinder Details Saved Successfully.','id' => base64_encode($model->id)]);
+                return json_encode(['status' => 200,'message'=>'Your Cylinder Details Saved Successfully.',]);
             } else {
                 $errors = [];
                 foreach ($model->getErrors() as $errorKey => $errorValue) {
@@ -162,6 +147,7 @@ class CylinderBookingController extends Controller
                 return json_encode(['status' => 401, 'errors' => $errors]);
             }
         }
+        return $this->redirect(['failure-page']);
     }
 
     /**
@@ -183,7 +169,7 @@ class CylinderBookingController extends Controller
             $model->attributes = $data['CylinderBooking'];
 
             if ($model->save()) {             
-                return json_encode(['status' => 200,'message'=>'Your Covid Detail Saved Successfully.','id' => base64_encode($model->id)]);
+                return json_encode(['status' => 200,'message'=>'Your Covid Detail Saved Successfully.',]);
             } else {
                 $errors = [];
                 foreach ($model->getErrors() as $errorKey => $errorValue) {
@@ -192,6 +178,7 @@ class CylinderBookingController extends Controller
                 return json_encode(['status' => 401, 'errors' => $errors]);
             }
         }
+        return $this->redirect(['failure-page']);
     }
     /**
      * Save Cart Details.
@@ -216,6 +203,7 @@ class CylinderBookingController extends Controller
                 return json_encode(['status' => 401, 'errors' => $errors]);
             }
         }
+        return $this->redirect(['failure-page']);
     }
 
     /**
@@ -236,12 +224,8 @@ class CylinderBookingController extends Controller
             $data['CylinderBooking']['order_status'] = "Pending";
 
             $model->attributes = $data['CylinderBooking'];
-            if ($model->save()) {
-                // if($model->payment_option == "Online"){
-                //     return $this->redirect(['online-payment','id' => base64_encode($model->id)]);
-                // }
-                // return $this->redirect(['successful-page','id' => base64_encode($model->id)]);
-                return json_encode(['status' => 200,'message'=>'Your Payment Information Saved Successfully.','id' => base64_encode($model->id)]);
+            if ($model->save()) {                
+                return json_encode(['status' => 200,'order_status'=>$model->payment_option,'message'=>'Your Payment Information Saved Successfully.',]);
             } else {
                 $errors = [];
                 foreach ($model->getErrors() as $errorKey => $errorValue) {
@@ -250,6 +234,7 @@ class CylinderBookingController extends Controller
                 return json_encode(['status' => 401, 'errors' => $errors]);
             }
         }
+        return $this->redirect(['failure-page']);
     }
 
 
@@ -277,23 +262,28 @@ class CylinderBookingController extends Controller
         ]);
     }
 
-
-    public function actionSuccessfulPage($id){
+    /**
+     * successfull page
+     *     
+     */
+    public function actionSuccessfulPage(){
         $this->layout = 'home'; 
-        Helper::checkAccess("Customer");         
-        $model = $this->findModel(base64_decode($id));
+        if(!isset($_SESSION['user_id'])){
+            return $this->redirect(['failure-page']);
+        }
+        $model = $this->findModel(Helper::getSession('user_id'));
         if($model->order_status == "Pending"){
+            session_unset();
             $order_id = ''; 
             $order_id .= str_replace("-","",$model->order_date).'-'.$model->customer_id.'-'.$model->id .'-'.$model->cylinder_quantity;
-        }else{
-            return $this->render('failure-page');
         }
-        
         return $this->render('successful-page',['order_id'=>$order_id]);
+       
     }
 
     public function actionFailurePage(){
         $this->layout = 'home'; 
+
         return $this->render('failure-page');
     }
 

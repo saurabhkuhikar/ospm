@@ -95,12 +95,15 @@ $(document).ready(function(){
             data: cylinderDetailsData,
         }).done(function (cylinderDetailsResponce) {
             if (cylinderDetailsResponce.status == 200) {
-                // next('save_payment_information');
+                if(cylinderDetailsResponce.order_status == "Online"){
+                  window.location='/cylinder-booking/online-payment';
+                }else{
+                    window.location='/cylinder-booking/successful-page';
+                }
             }
 
             if (cylinderDetailsResponce.status == 401) {
                 $.each(cylinderDetailsResponce.errors, function (index, value) { 
-                console.log(index);
                     $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
                     $('#cylinderbooking-' + index).parent().find('.help-block').text(value);
                     
@@ -130,7 +133,7 @@ var opacity;
 function next(param){
     current_fs = $("."+param).parent();
     next_fs = $("."+param).parent().parent().eq(0).next();
-    // console.log(current_fs);
+    console.log(current_fs);
     console.log(next_fs);
     //Add Class Active
     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -144,7 +147,7 @@ function next(param){
             opacity = 1 - now;
             current_fs.css({
                 'display': 'none',
-                'position': 'relative'
+                'position': 'relative',
             });
             next_fs.css({'opacity': opacity});
         },
@@ -189,8 +192,7 @@ function calculateTotalAmount(){
                 dataType: 'json',
                 data: {'cylinderQuantity': cylinderQuantity, 'cylinderType': cylinderType, 'token': token}
             }).done(function (response) {
-                if (response.status == 200) {  
-                   
+                if (response.status == 200) {                   
 
                     $("#GST_value").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.gstAmount));
                     $("#SGST_value").html(new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(response.sgstAmount));
@@ -204,16 +206,3 @@ function calculateTotalAmount(){
         }
     }	
 }
-
-/* cart details show*/
-// $(document).ready(function(){
-//     $(".next").click(function(){       
-//         var cylinderQuantity = $("#cylinderbooking-cylinder_quantity").val();
-//         var orderDate = $("#cylinderbooking-order_date").val();
-//         var date = new Date(orderDate);
-
-//         console.log(date);
-//         $('#cylinderQuantity').html(cylinderQuantity);
-//         $('#orderDate').html(date.toDateString());		
-// 	});
-// });

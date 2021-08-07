@@ -31,7 +31,6 @@ function supplierSignupFormCityList(){
             $(response.cityLists).each(function(index,value){
                 cityList += '<option value ="'+value.city_name+'">'+value.city_name+'</option>'
             });
-            console.log(response.cityLists);
             $("#suppliersignupform-city").html(cityList);   
         }
     });	
