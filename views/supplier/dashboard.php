@@ -66,7 +66,7 @@ $this->title = 'My Yii Application';
 <!-- js file -->
 <?php
   $this->registerJsFile(
-    Yii::getAlias('@homeUrl') . '/js/supplier_dashboard.js',
+    Yii::getAlias('@homeUrl') . '/js/supplier_chart.js',
     ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
   );
 ?>

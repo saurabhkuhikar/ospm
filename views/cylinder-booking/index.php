@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\daterange\DateRangePicker; 
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CylinderBookingSearch */
@@ -17,11 +19,25 @@ $this->title = 'Cylinder Bookings';
             <div class="panel-heading"><?= $_GET['status'] ?></div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <!-- <p>
-                            <?= Html::a('Create Cylinder Booking', ['create'], ['class' => 'btn btn-success']) ?>
-                        </p> -->
-
+                    <div class="col-md-12"> 
+                        <div class="row">
+                            <div class="col-md-6 mt-20 mb-20">
+                            <?= DateRangePicker::widget([
+                                'dataProvider'=>$dataProvider,
+                                'attribute' => 'created',
+                                'useWithAddon'=>true,
+                                'convertFormat'=>true,
+                                'presetDropdown'=>true,
+                                'hideInput'=>true,
+                                'startAttribute' => 'start',
+                                'endAttribute' => 'end',
+                                'pluginOptions'=>[
+                                    'locale'=>['format' => 'Y-m-d H:i:s'],
+                                ]
+                            ]);
+                            ?>
+                            </div>                            
+                        </div>                 
                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
                         <?= GridView::widget([
                             'dataProvider' => $dataProvider,
@@ -64,6 +80,8 @@ $this->title = 'Cylinder Bookings';
                                 // ['class' => 'yii\grid\ActionColumn'],
                             ],
                         ]); ?>
+
+                        
                     </div>
                 </div>
             </div>

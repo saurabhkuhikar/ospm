@@ -120,6 +120,19 @@ class CustomerController extends \yii\web\Controller
         }
         
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
-    }    
+    } 
+
+    public function actionShowBookingStatus(){
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            $cylinderBookingStatus = CylinderBooking::find()->select(['SUM( IF(order_status = "Pending", 1, 0) ) AS pending', 
+            'SUM( IF(order_status = "Process", 1, 0) ) AS process','SUM( IF(order_status = "Delivered", 1, 0) ) AS delivered'])->where(['customer_id' => Helper::getCurrentUserId()])->Asarray()->one();
+            if(in_array("",$cylinderBookingStatus)){
+                $cylinderBookings = ["pending"=>0,"process"=>0,"delivered"=>0];
+            }
+            $bookingStatus = array_values($cylinderBookingStatus);
+        }        
+        return json_encode(['status'=>200,'bookingStatus'=>$bookingStatus]);
+    }
 
 }
