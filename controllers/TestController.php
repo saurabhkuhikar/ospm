@@ -65,7 +65,23 @@ class TestController extends Controller
         Instamojo::send_request();
     }  
 
+/* mail send */
 
+public function actionSend() {
+
+    \Yii::$app->mailer->htmlLayout = "@app/mail/layouts/html";
+    $content = ['saurabh','123456'];
+    $send = Yii::$app->mailer->compose('layouts/text.php', ['content' => $content])
+    ->setFrom('saurabhkuhikar55@gmail.com')
+    ->setTo('saurabhkuhikar6@gmail.com')
+    ->setSubject('Testing Mails')
+    ->setTextBody('Plain text content. YII2 Application')
+    // ->setHtmlBody('<b style="color:red;">HTML content <i>Ram Pukar</i></b>')
+    ->send();
+    if($send){  
+        echo "Send";
+    }
+}
     /**
      * Displays homepage.
      *
