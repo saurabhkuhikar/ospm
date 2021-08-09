@@ -20,7 +20,7 @@ class CylinderBookingSearch extends CylinderBooking
     {
 
         return [
-            [[ 'supplier_id','customer_id', 'covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'total_amount', 'order_date', 'order_status', 'payment_id', 'payment_token', 'payment_status', 'created', 'updated'], 'safe'],
+            [[ 'supplier_id','customer_id','covid_test_result', 'covid_test_date', 'cylinder_type_id', 'cylinder_quantity', 'total_amount', 'order_date', 'order_status', 'payment_id', 'payment_token', 'payment_status', 'created', 'updated'], 'safe'],
             [['id'], 'integer'],
             [['cylinder_type'],'string']
         ];
@@ -67,7 +67,7 @@ class CylinderBookingSearch extends CylinderBooking
             'customer_id'=>\Yii::$app->user->identity->id,
             'supplier_id'=> $this->supplier_id, 
             'covid_test_date' => $this->covid_test_date,
-            'order_date' => $this->order_date,
+            // 'order_date' => $this->order_date,
             'created' => $this->created,
             'updated' => $this->updated,
         ]);
@@ -90,6 +90,12 @@ class CylinderBookingSearch extends CylinderBooking
             ->andFilterWhere(['like', 'payment_status', $this->payment_status]);
         $query->andFilterWhere(['=', 'cylinder_types.litre_quantity', $this->cylinder_type]);
 
+        if(isset($this->order_date) && $this->order_date!=""){
+            $date_range = explode(" - ", $this->order_date);
+            $query->andFilterWhere(['>=', 'order_date',  $date_range[0]])
+            ->andFilterWhere(['<', 'order_date',  $date_range[1]]);
+        }
+        
         return $dataProvider;
     }
 }

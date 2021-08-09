@@ -27,7 +27,6 @@ $this->title = 'Cylinder Lists';
                             <div class="col-md-12">
                                 <p>
                                     <?= Html::a('Add Cylinder', ['create'], ['class' => 'btn btn-success mt-24']) ?>
-                                    <!-- <?= Html::a('Excel Export', ['cylinder-list/export-cylinder-stock'], ['class' => 'btn btn-info mt-24']) ?> -->
                                     <?= Html::button('Excel Export', ['class' => 'btn btn-info mt-24','id'=>'supplierInfo']) ?>
                                 </p>
                             </div>

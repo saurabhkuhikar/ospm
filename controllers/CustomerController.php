@@ -137,7 +137,7 @@ class CustomerController extends \yii\web\Controller
         return json_encode(['status'=>200,'bookingStatus'=>$bookingStatus]);
     }
 
-    public function actionGetCylinderBookingStatus(){
+    public function actionGetCylinderBookingStatus($status){
         // get your HTML raw content without any layouts or scripts
         $contents = '';
         $contents .='
@@ -151,7 +151,7 @@ class CustomerController extends \yii\web\Controller
         <th>Payment Option</th>
         </tr>';
         
-        $cylinderBookingStatus = CylinderBooking::find()->where(['customer_id'=>Helper::getCurrentUserId()])->joinWith('cylinderTypes')->all();
+        $cylinderBookingStatus = CylinderBooking::find()->where(['order_status'=>$status,'customer_id'=>Helper::getCurrentUserId()])->joinWith('cylinderTypes')->all();
         foreach($cylinderBookingStatus as $list){
             $contents .='
             <tr>                
@@ -165,11 +165,10 @@ class CustomerController extends \yii\web\Controller
         }
         $contents .='</table>';
         
-        // Helper::dd($contents);
-        $destination = Pdf::DEST_BROWSER;
-        // $destination = Pdf::DEST_DOWNLOAD;
+        // $destination = Pdf::DEST_BROWSER;//show pdf in browser
+        $destination = Pdf::DEST_DOWNLOAD;//download pdf 
 
-        $filename = "mydata.pdf";
+        $filename = "cylinderStatusLists.pdf";
 
         $pdf = new Pdf([
             // set to use core fonts only
@@ -196,7 +195,7 @@ class CustomerController extends \yii\web\Controller
                 'SetFooter' => ['Page {PAGENO}'],
             ]
         ]);
-
+        
         // return the pdf output as per the destination setting
         return $pdf->render();
     }

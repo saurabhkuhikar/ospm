@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BookingRequesttSearch */
@@ -16,7 +17,9 @@ $this->title = 'Booking Requests';
         <div class="panel">
             <div class="panel-heading"><?=$_GET['status']?></div>
             <div class="panel-body">
-            <?= Html::a('Export', ['booking-request/export-booking-list','status'=>$_GET['status'],], ['class' => 'btn btn-success mt-24']) ?>
+                <?= Html::a('Excel Export', ['booking-request/export-booking-list','status'=>$_GET['status'],], ['class' => 'btn btn-success mt-24']) ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/supplier/get-cylinder-status-list?status=<?= $_GET['status'] ?>" class="btn btn-info mt-24"><i class="fa fa-download"></i> Download PDF</a>
+
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -47,7 +50,33 @@ $this->title = 'Booking Requests';
                         ],
                         'cylinder_quantity',
                         'total_amount',
-                        'order_date',
+                        // 'order_date',
+                        [
+                            'attribute'=>'order_date',
+                            'value' => function($searchModel) {                                   
+                                if (isset($searchModel->order_date) && $searchModel->order_date !== null) {
+                                    /*$d = $searchModel->created_date;
+                                    $expDate = explode('-',$d);
+                                    $dbDate = $expDate[2].'-'.$expDate[1].'-'.$expDate[0]; 
+                                    return $dbDate;*/
+                                    return $searchModel->order_date;
+                                } else {
+                                    return "";
+                                }
+                            },
+                            'filter'=>DateRangePicker::widget([
+                                'model'=>$searchModel,
+                                'attribute'=>'order_date',
+                                'convertFormat'=>true,
+                                'pluginOptions'=>[
+                                    //'timePicker'=>true,
+                                    //'timePickerIncrement'=>30,
+                                    'locale'=>[
+                                        'format'=>'Y-m-d'
+                                    ]
+                                ],
+                            ]),
+                        ],
                         'order_status',
                         //'payment_id',
                         //'payment_token',

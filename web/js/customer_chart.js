@@ -17,7 +17,7 @@ function cylinder_status(){
             data: {
                 labels: ['Pending','Process','Delivered'],
                 datasets: [{
-                    label: 'Booking status',
+                    label: 'Cylinder status',
                     data: response.bookingStatus,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

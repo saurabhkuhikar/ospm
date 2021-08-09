@@ -63,7 +63,7 @@ class BookingRequestSearch extends BookingRequest
             'id' => $this->id,
             'supplier_id'=>\Yii::$app->user->identity->id,
             'covid_test_date' => $this->covid_test_date,
-            'order_date' => $this->order_date,
+            // 'order_date' => $this->order_date,
             'created' => $this->created,
             'updated' => $this->updated,
         ]);
@@ -87,6 +87,12 @@ class BookingRequestSearch extends BookingRequest
             ->andFilterWhere(['like', 'payment_status', $this->payment_status]);
 
        $query->andFilterWhere(['=', 'cylinder_types.litre_quantity', $this->litre_quantity]);
+      
+        if(isset($this->order_date) && $this->order_date!=""){
+            $date_range = explode(" - ", $this->order_date);
+            $query->andFilterWhere(['>=', 'order_date',  $date_range[0]])
+            ->andFilterWhere(['<', 'order_date',  $date_range[1]]);
+        }
         
         return $dataProvider;
     }
