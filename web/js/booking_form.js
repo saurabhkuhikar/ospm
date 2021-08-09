@@ -64,6 +64,23 @@ $(document).ready(function(){
             }
         });
     });
+    $('body').on('click', '.previous_save_covid_details', function (event) {
+    
+        
+        $.ajax({
+            url: '/cylinder-booking/save-cylinder-detail',
+            type: 'post',
+            dataType: 'json',
+            data: "cylinderDetails",
+        }).done(function (Response) {
+            if (Response.status == 200) {
+                prev('previous_save_covid_details');
+            }
+            
+        });
+    });
+
+    
     
     $('body').on('click', '.save_cart_details', function (event) {
         var cartDetailsData = $('#formCartDetails').serializeArray();
@@ -133,8 +150,7 @@ var opacity;
 function next(param){
     current_fs = $("."+param).parent();
     next_fs = $("."+param).parent().parent().eq(0).next();
-    console.log(current_fs);
-    console.log(next_fs);
+  
     //Add Class Active
     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
     
@@ -158,9 +174,10 @@ function next(param){
 function prev(param){
     current_fs = $("."+param).parent();
     previous_fs = $("."+param).parent().parent().eq(0).prev();
-    
+    console.log(current_fs);
+    console.log(previous_fs);
     //Remove class active
-    $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+    $("#progressbar li").eq($("fieldset").index(previous_fs)).removeClass("active");
     
     //show the previous fieldset
     previous_fs.show();

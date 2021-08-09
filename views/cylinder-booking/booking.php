@@ -102,7 +102,7 @@
                                             </div>
                                         </div>
                                     </div> 
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
+                                    <input type="button" name="previous" class="previous_save_covid_details action-button-previous" value="Previous" /> 
                                     <input type="button" name="next" class="save_covid_details btn btn-info" value="Next Step" />
                                 <?php ActiveForm::end(); ?>
                             </fieldset>

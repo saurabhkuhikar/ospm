@@ -126,6 +126,8 @@ class SupplierController extends \yii\web\Controller
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
     }
 
+/* Cylinder Stock Graph  */
+
     public function actionShowCylinderStockGraph(){
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
@@ -140,6 +142,19 @@ class SupplierController extends \yii\web\Controller
         return json_encode(['status'=>200,'label'=>$label,'cylinder_quantity'=>$cylinder_quantity]);
     }
 
+    
+/* Booked Cylinder Status Graph  */
+
+    public function actionShowStatusGraph(){
+        if (Yii::$app->request->isAjax) {
+        $bookingRequestsDetails = BookingRequest::find()->select(['SUM( IF(order_status = "Pending", 1, 0) ) AS pending', 
+        'SUM( IF(order_status = "Process", 1, 0) ) AS process','SUM( IF(order_status = "Delivered", 1, 0) ) AS delivered'])->where(['supplier_id' => Helper::getCurrentUserId()])->Asarray()->one();
+        $bookingStatus = array_values($bookingRequestsDetails);   
+        }
+        return json_encode(['status'=>200,'bookingStatus'=>$bookingStatus]);
+    }
+
+/* Donwload PDF  */
     public function actionGetCylinderStatusList($status){
         // get your HTML raw content without any layouts or scripts
         $contents = '';

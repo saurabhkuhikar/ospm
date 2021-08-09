@@ -123,29 +123,34 @@ class CylinderBookingController extends Controller
      */
     public function actionSaveCylinderDetail()
     {
-        if (Yii::$app->request->isAjax) {
-            $model = new CylinderBooking();
-            $model->setScenario('cylinderDetail');
-
-            $data = Yii::$app->request->post();           
-            $data['CylinderBooking']['customer_id'] = Helper::getCurrentUserId();
-            $data['CylinderBooking']['supplier_id'] = base64_decode($data['CylinderBooking']['token']);
-            $data['CylinderBooking']['cylinder_type_id'] = $data['CylinderBooking']['cylinder_type_id'];
-            $data['CylinderBooking']['cylinder_quantity'] = $data['CylinderBooking']['cylinder_quantity'];
-            $data['CylinderBooking']['order_date'] = $data['CylinderBooking']['order_date'];
-
+        if(isset($_POST['cylinderDetails'])){
            
-            $model->attributes = $data['CylinderBooking'];
+        }
+        if (Yii::$app->request->isAjax) {
+            if(isset($_POST['CylinderBooking'])){
+                $model = new CylinderBooking();
+                $model->setScenario('cylinderDetail');
+                
+                $data = Yii::$app->request->post();           
+                $data['CylinderBooking']['customer_id'] = Helper::getCurrentUserId();
+                $data['CylinderBooking']['supplier_id'] = base64_decode($data['CylinderBooking']['token']);
+                $data['CylinderBooking']['cylinder_type_id'] = $data['CylinderBooking']['cylinder_type_id'];
+                $data['CylinderBooking']['cylinder_quantity'] = $data['CylinderBooking']['cylinder_quantity'];
+                $data['CylinderBooking']['order_date'] = $data['CylinderBooking']['order_date'];
 
-            if ($model->save()) {
-                Helper::createSession('user_id',$model->id);          
-                return json_encode(['status' => 200,'message'=>'Your Cylinder Details Saved Successfully.',]);
-            } else {
-                $errors = [];
-                foreach ($model->getErrors() as $errorKey => $errorValue) {
-                    $errors += [$errorKey => $errorValue[0]];
+            
+                $model->attributes = $data['CylinderBooking'];
+
+                if ($model->save()) {
+                    Helper::createSession('user_id',$model->id);          
+                    return json_encode(['status' => 200,'message'=>'Your Cylinder Details Saved Successfully.',]);
+                } else {
+                    $errors = [];
+                    foreach ($model->getErrors() as $errorKey => $errorValue) {
+                        $errors += [$errorKey => $errorValue[0]];
+                    }
+                    return json_encode(['status' => 401, 'errors' => $errors]);
                 }
-                return json_encode(['status' => 401, 'errors' => $errors]);
             }
         }
         return $this->redirect(['failure-page']);
@@ -158,7 +163,6 @@ class CylinderBookingController extends Controller
      */
     public function actionSaveCovidDetail()
     {
-        
         if (Yii::$app->request->isAjax) {
             $model = $this->findModel(Helper::getSession('user_id')); 
             $model->setScenario('covidDetail');

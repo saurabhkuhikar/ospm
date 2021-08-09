@@ -10,7 +10,6 @@ function cylinder_status(){
         data:  {_csrf: yii.getCsrfToken()},                   
     }).done(function (response) {
         if (response.status == 200){
-            console.log(response.bookingStatus);
             var ctx = document.getElementById('booking_status').getContext('2d');
             var myChart = new Chart(ctx, {
             type: 'line',

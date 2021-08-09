@@ -1,7 +1,10 @@
 $( document ).ready(function(){
     
     cylinder_stocks();
+    cylinder_status();
+
 });
+
 function cylinder_stocks(){
     $.ajax({
         url: '/supplier/show-cylinder-stock-graph',		
@@ -10,7 +13,7 @@ function cylinder_stocks(){
         data:  {_csrf: yii.getCsrfToken()},                   
     }).done(function (response) {
         if (response.status == 200){
-            console.log(response.cylinder_quantity);
+            // console.log(response.cylinder_quantity);
             var ctx = document.getElementById('cylinder_stocks').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
@@ -45,7 +48,8 @@ function cylinder_stocks(){
                             title: {
                                 display: true,
                                 text: 'Cylinder Quantity',
-                                font: {size: 15 }
+                                font: {size: 15 },
+                                color:'#73879C',
                             },
                             ticks: {
                                 padding: 10,
@@ -56,7 +60,8 @@ function cylinder_stocks(){
                             title: {
                                 display: true,
                                 text: 'Cylinder Types',
-                                font: { size: 15 }
+                                font: { size: 15 },
+                                color:'#73879C',
                             },
                             ticks: {
                                 padding: 10,
@@ -72,4 +77,43 @@ function cylinder_stocks(){
         }
     });
     
+}
+
+function cylinder_status(){
+    $.ajax({
+        url: '/supplier/show-status-graph',	
+        type: 'post',
+        dataType: 'json',        
+        data:  {_csrf: yii.getCsrfToken()},
+    }).done(function (response) {
+        if (response.status == 200){
+            var myDoughnutChart  = document.getElementById('cylinder_booking_status').getContext('2d');  
+            var myChart = new Chart(myDoughnutChart, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                      'Pending',
+                      'Processs',
+                      'Delivered'
+                    ],
+                    datasets: [{
+                      label: 'My First Dataset',
+                      data: response.bookingStatus,
+                      backgroundColor: [
+                        'darkblue',
+                        'red',
+                        'orange'
+                      ],
+                      hoverOffset: 4
+                    }]
+                  },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    
+                }
+            });
+        }
+    });
+
 }
