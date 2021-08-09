@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\User;
 use app\components\Helper;
 use app\components\Instamojo;
+use kartik\mpdf\Pdf;
 
 class TestController extends Controller
 {
@@ -78,6 +79,46 @@ class TestController extends Controller
         Helper::dd('fail page');
     }
 
+    public function actionGetPdf(){
+      
+        $data = User::find()->one();
+        // Helper::dd($data);
+        // get your HTML raw content without any layouts or scripts
+
+        // $destination = Pdf::DEST_BROWSER;
+        $destination = Pdf::DEST_DOWNLOAD;
+
+        $filename = "mydata.pdf";
+
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => $destination,
+            'filename' => $filename,
+            // your html content input
+            'content' => $this->renderPartial('get-pdf',['data'=>$data]),
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => 'p, td,div { font-family: freeserif; }; body, p { font-family: irannastaliq; font-size: 15pt; }; .kv-heading-1{font-size:18px}table{width: 100%;line-height: inherit;text-align: left; border-collapse: collapse;}table, td, th {border: 1px solid black;}',
+            'marginFooter' => 5,
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetTitle' => ['SAMPLE PDF'],
+                //'SetHeader' => ['SAMPLE'],
+                'SetFooter' => ['Page {PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+    }
     /**
      * @inheritdoc
      */

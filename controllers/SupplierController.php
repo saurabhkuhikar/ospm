@@ -139,40 +139,6 @@ class SupplierController extends \yii\web\Controller
         return json_encode(['status'=>200,'label'=>$label,'cylinder_quantity'=>$cylinder_quantity]);
     }
 
-
-    public function actionExportBookingList($status){
-        $booking_data = '';
-
-        $booking_data .='
-        <table bordered="1"> 
-        <tr>            
-            <th>Customer id</th>
-            <th>Cylinder Type</th>
-            <th>Cylinder Quantity</th>
-            <th>Total Amount</th>
-            <th>Order Date</th>
-            <th>Order Status</th>
-            <th>Payment Option</th>
-        </tr>';
-
-        $booking_lists = CylinderBooking::find()->all();
-        foreach($booking_lists as $booking_list){
-            $booking_data .='
-            <tr>                
-                <td>'.$booking_list->customer_id.'</td>
-                <td>'.$booking_list->cylinder_type.'</td>
-                <td>'.$booking_list->cylinder_quantity.'</td>
-                <td>'.$booking_list->total_amount.'</td>
-                <td>'.$booking_list->order_date.'</td>
-                <td>'.$booking_list->order_status.'</td>
-                <td>'.$booking_list->payment_option.'</td>  
-            </tr>';
-        }
-        $booking_data .='</table>';
-        Helper::dd($booking_data);
-        header("Content-Type: application/xls");
-        header("Content-Disposition:attachment; filename=CylinderBookingList.xls");
-        return $booking_data;
-    }   
+ 
 
 }

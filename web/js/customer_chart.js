@@ -32,14 +32,39 @@ function cylinder_status(){
                     borderWidth: 1
                     }]
                 },
-                options: {        
+                options: {   
                     responsive: true,                    
-                    maintainAspectRatio: false,
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Cylinder Quantity',
+                                color:'Blue',
+                                
+                                font: {size: 15,}
+                            },
+                            ticks: {
+                                padding: 10,
+                            }
+                        },
+                        x: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Cylinder Status',
+                                color:'Blue',
+                                font: { size: 15 }
+                            },
+                            ticks: {
+                                padding: 10,
+                                
+                            }
                         }
-                    
+                    },
+                    plugins: {
+                        legend: {display:false},
                     }
                 }
             }); 

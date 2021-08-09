@@ -20,11 +20,10 @@ use kartik\select2\Select2;
                 <div class="row">
                     <div class="col-md-12">
                         <?= $form->field($model, 'cylinder_type_id')->widget(Select2::classname(), [
-                            'data' => ArrayHelper::map(CylinderType::find()->all(),'id','litre_quantity'),                                        
-                            'options' => ['placeholder' => 'Select Cylinder Types'],
+                            'data'=>ArrayHelper::map(CylinderType::find()->all(),'id',function($litre){return $litre->litre_quantity.' '.$litre->label;}),                                        
+                            'options' => ['placeholder' => 'Select Cylinder Types',],
                             'pluginOptions' => ['allowClear' => true],  
-                        ]); 
-                        ?> 
+                        ]);?> 
                     </div>
                     <div class="col-md-12">
                     <?= $form->field($model, 'cylinder_quantity')->textInput(['maxlength' => true,'placeholder'=>'Enter the Quantity','type' => 'number','min'=>1,'max'=>50]) ?>
@@ -32,7 +31,6 @@ use kartik\select2\Select2;
                     </div>
                     <div class="col-md-12">
                         <?= $form->field($model, 'selling_price')->textInput(['placeholder'=>'Enter the Cylinder Price','maxlength' => true]) ?>
-
                     </div>
                 </div> 
                 <div class="row">

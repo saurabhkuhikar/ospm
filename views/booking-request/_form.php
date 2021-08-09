@@ -23,7 +23,11 @@ use yii\helpers\ArrayHelper;
                                      
                     <div class="row">
                         <div class="col-md-6">
-                            <?= $form->field($model, 'cylinder_type_id')->textInput(['maxlength' => true,'readOnly'=>true])?>
+                            <?= $form->field($model, 'cylinder_type_id')->widget(Select2::classname(), [
+                                'data'=>ArrayHelper::map(CylinderType::find()->all(),'id',function($litre){return $litre->litre_quantity.' '.$litre->label;}),                                        
+                                'options' => ['placeholder' => 'Select Cylinder Types',],
+                                'pluginOptions' => ['allowClear' => true],  
+                            ]);?>                        
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($model, 'cylinder_quantity')->textInput(['maxlength' => true,'readOnly'=>true,'type' => 'number','min'=>1,'max'=>5]) ?>
@@ -41,11 +45,10 @@ use yii\helpers\ArrayHelper;
                         <div class="col-md-12">
                             <?php $data = array('Pending'=>'Pending','Process'=>'Process','Delivered'=>'Delivered')?>
                             <?= $form->field($model, 'order_status')->widget(Select2::classname(), [
-                                'data' => $data,       
-                                                                
+                                'data' => $data,              
                                 'options' => ['placeholder' => 'Select order status'],
                                 'pluginOptions' => ['allowClear' => true],  
-                                    ]); 
+                                ]); 
                             ?>
                         </div>  
                     </div>

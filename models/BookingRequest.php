@@ -15,7 +15,7 @@ use app\models\CylinderType;
  * @property string|null $supplier_id
  * @property string $covid_test_result
  * @property string $covid_test_date
- * @property string $cylinder_type
+ * @property string $cylinder_type_id
  * @property string $cylinder_quantity
  * @property string $total_amount
  * @property string $order_date
@@ -44,7 +44,7 @@ class BookingRequest extends \yii\db\ActiveRecord
         return [
             [['order_status'], 'required'],
             [['covid_test_date','payment_option', 'order_date','customer_id', 'supplier_id','created', 'updated'], 'safe'],
-            [['cylinder_type', 'order_status', 'payment_id', 'payment_token', 'payment_status'], 'string', 'max' => 255],
+            [['cylinder_type_id', 'order_status', 'payment_id', 'payment_token', 'payment_status'], 'string', 'max' => 255],
             [['covid_test_result', ], 'string', 'max' => 20],
             [['total_amount','cylinder_quantity'], 'number'],
         ];

@@ -107,11 +107,12 @@ class CylinderBookingController extends Controller
     public function actionBooking($token)   
     {      
         $this->layout = 'dashboard';     
-        Helper::checkAccess("Customer");  
-        $model = new CylinderBooking();  
-        $model->setScenario('cylinderDetail');          
-        
-              
+        Helper::checkAccess("Customer"); 
+        if(isset($token)) {
+            $model = new CylinderBooking();  
+            $model->setScenario('cylinderDetail');
+        }
+    
         return $this->render('booking', ['model' => $model,'token' => $token]);         
     }
 
@@ -272,8 +273,8 @@ class CylinderBookingController extends Controller
             return $this->redirect(['failure-page']);
         }
         $model = $this->findModel(Helper::getSession('user_id'));
+        unset($_SESSION["user_id"]);
         if($model->order_status == "Pending"){
-            session_unset();
             $order_id = ''; 
             $order_id .= str_replace("-","",$model->order_date).'-'.$model->customer_id.'-'.$model->id .'-'.$model->cylinder_quantity;
         }

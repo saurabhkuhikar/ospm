@@ -22,20 +22,21 @@ $this->title = 'Cylinder Bookings';
                     <div class="col-md-12"> 
                         <div class="row">
                             <div class="col-md-6 mt-20 mb-20">
-                            <?= DateRangePicker::widget([
-                                'dataProvider'=>$dataProvider,
-                                'attribute' => 'created',
-                                'useWithAddon'=>true,
-                                'convertFormat'=>true,
-                                'presetDropdown'=>true,
-                                'hideInput'=>true,
-                                'startAttribute' => 'start',
-                                'endAttribute' => 'end',
-                                'pluginOptions'=>[
-                                    'locale'=>['format' => 'Y-m-d H:i:s'],
-                                ]
-                            ]);
-                            ?>
+                            <?php 
+                            // DateRangePicker::widget([
+                            //     'dataProvider'=>$dataProvider,
+                            //     'attribute' => 'created',
+                            //     'useWithAddon'=>true,
+                            //     'convertFormat'=>true,
+                            //     'presetDropdown'=>true,
+                            //     'hideInput'=>true,
+                            //     'startAttribute' => 'start',
+                            //     'endAttribute' => 'end',
+                            //     'pluginOptions'=>[
+                            //         'locale'=>['format' => 'Y-m-d H:i:s'],
+                            //     ]
+                            // ]);
+                            ?> 
                             </div>                            
                         </div>                 
                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

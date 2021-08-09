@@ -15,6 +15,7 @@ use app\components\Helper;
 use app\models\CylinderBooking;
 use app\models\Cities;
 use app\models\States;
+use kartik\mpdf\Pdf;
 
 class CustomerController extends \yii\web\Controller
 {
@@ -120,8 +121,9 @@ class CustomerController extends \yii\web\Controller
         }
         
         return json_encode(['status'=>200,'cityLists'=>$cityLists]);
-    } 
+    }
 
+    /* Show Cylinder Booked status */   
     public function actionShowBookingStatus(){
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();
@@ -133,6 +135,70 @@ class CustomerController extends \yii\web\Controller
             $bookingStatus = array_values($cylinderBookingStatus);
         }        
         return json_encode(['status'=>200,'bookingStatus'=>$bookingStatus]);
+    }
+
+    public function actionGetCylinderBookingStatus(){
+        // get your HTML raw content without any layouts or scripts
+        $contents = '';
+        $contents .='
+        <table bordered="1"> 
+        <tr>            
+        <th>Cylinder Type</th>
+        <th>Cylinder Quantity</th>
+        <th>Total Amount</th>
+        <th>Order Date</th>
+        <th>Order Status</th>
+        <th>Payment Option</th>
+        </tr>';
+        
+        $cylinderBookingStatus = CylinderBooking::find()->where(['customer_id'=>Helper::getCurrentUserId()])->joinWith('cylinderTypes')->all();
+        foreach($cylinderBookingStatus as $list){
+            $contents .='
+            <tr>                
+            <td>'.$list->cylinderTypes->litre_quantity.' '.$list->cylinderTypes->label.'</td>
+            <td>'.$list->cylinder_quantity.'</td>
+            <td>'.$list->total_amount.'</td>
+            <td>'.$list->order_date.'</td>
+            <td>'.$list->order_status.'</td>
+            <td>'.$list->payment_option.'</td>  
+            </tr>';
+        }
+        $contents .='</table>';
+        
+        // Helper::dd($contents);
+        $destination = Pdf::DEST_BROWSER;
+        // $destination = Pdf::DEST_DOWNLOAD;
+
+        $filename = "mydata.pdf";
+
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => $destination,
+            'filename' => $filename,
+            // your html content input
+            'content' => $contents,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => 'p, td,div { font-family: freeserif; }; body, p { font-family: irannastaliq; font-size: 15pt; }; .kv-heading-1{font-size:18px}table{width: 100%;line-height: inherit;text-align: left; border-collapse: collapse;}table, td, th {border: 1px solid black;text-align:center}',
+            'marginFooter' => 5,
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetTitle' => ['Oxygen Cylinder Details'],
+                //'SetHeader' => ['SAMPLE'],
+                'SetFooter' => ['Page {PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
     }
 
 }

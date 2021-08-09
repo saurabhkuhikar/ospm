@@ -18,13 +18,13 @@ $(document).ready(function(){
             type: 'post',
             dataType: 'json',
             data: cylinderDetailsData,
-        }).done(function (cylinderDetailsResponce) {
-            if (cylinderDetailsResponce.status == 200) {
+        }).done(function (cylinderDetailsResponse) {
+            if (cylinderDetailsResponse.status == 200) {
                 next('save_cylinder_details');
             }
 
-            if (cylinderDetailsResponce.status == 401) {
-                $.each(cylinderDetailsResponce.errors, function (index, value) {                    
+            if (cylinderDetailsResponse.status == 401) {
+                $.each(cylinderDetailsResponse.errors, function (index, value) {                    
                     if(index == "order_date"){
                         $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
                         $('#cylinderbooking-' + index).parent().parent().find('.help-block').text(value);
@@ -47,12 +47,12 @@ $(document).ready(function(){
             type: 'post',
             dataType: 'json',
             data: covidDetailsData,
-        }).done(function (covidDetailsResponce) {
-            if (covidDetailsResponce.status == 200) {
+        }).done(function (covidDetailsResponse) {
+            if (covidDetailsResponse.status == 200) {
                 next('save_covid_details');
             }
-            if (covidDetailsResponce.status == 401) {
-                $.each(covidDetailsResponce.errors, function (index, value) {
+            if (covidDetailsResponse.status == 401) {
+                $.each(covidDetailsResponse.errors, function (index, value) {
                     if(index == "covid_test_date"){
                         $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
                         $('#cylinderbooking-' + index).parent().parent().find('.help-block').text(value);
@@ -66,44 +66,44 @@ $(document).ready(function(){
     });
     
     $('body').on('click', '.save_cart_details', function (event) {
-        var cylinderDetailsData = $('#formCartDetails').serializeArray();
-        cylinderDetailsData.push({ name: "CylinderBooking[token]", value: $("#msform").attr('data-token') });    
+        var cartDetailsData = $('#formCartDetails').serializeArray();
+        cartDetailsData.push({ name: "CylinderBooking[token]", value: $("#msform").attr('data-token') });    
         
         $.ajax({
             url: '/cylinder-booking/save-cart-detail',
             type: 'post',
             dataType: 'json',
-            data: cylinderDetailsData,
-        }).done(function (cylinderDetailsResponce) {
-            if (cylinderDetailsResponce.status == 200) {
+            data: cartDetailsData,
+        }).done(function (cartDetailsDataResponse) {
+            if (cartDetailsDataResponse.status == 200) {
                 next('save_cart_details');
             }
-            if (cylinderDetailsResponce.status == 401) {                
+            if (cartDetailsDataResponse.status == 401) {                
                 
             }
         });
     });
     
     $('body').on('click', '.save_payment_information', function (event) {
-        var cylinderDetailsData = $('#formPaymentInformation').serializeArray();
-        cylinderDetailsData.push({ name: "CylinderBooking[token]", value: $("#msform").attr('data-token') });    
+        var paymentDetailsData = $('#formPaymentInformation').serializeArray();
+        paymentDetailsData.push({ name: "CylinderBooking[token]", value: $("#msform").attr('data-token') });    
         
         $.ajax({
             url: '/cylinder-booking/save-payment-information',
             type: 'post',
             dataType: 'json',
-            data: cylinderDetailsData,
-        }).done(function (cylinderDetailsResponce) {
-            if (cylinderDetailsResponce.status == 200) {
-                if(cylinderDetailsResponce.order_status == "Online"){
+            data: paymentDetailsData,
+        }).done(function (paymentDetailsDataResponse) {
+            if (paymentDetailsDataResponse.status == 200) {
+                if(paymentDetailsDataResponse.order_status == "Online"){
                   window.location='/cylinder-booking/online-payment';
                 }else{
                     window.location='/cylinder-booking/successful-page';
                 }
             }
 
-            if (cylinderDetailsResponce.status == 401) {
-                $.each(cylinderDetailsResponce.errors, function (index, value) { 
+            if (paymentDetailsDataResponse.status == 401) {
+                $.each(paymentDetailsDataResponse.errors, function (index, value) { 
                     $('#cylinderbooking-' + index).parent().parent().addClass('has-error');
                     $('#cylinderbooking-' + index).parent().find('.help-block').text(value);
                     

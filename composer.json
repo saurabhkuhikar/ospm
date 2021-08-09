@@ -23,7 +23,8 @@
         "2amigos/yii2-date-picker-widget" : "~1.0",
         "faryshta/yii2-disable-submit-buttons": "~2.0.0",
         "kartik-v/yii2-grid": "dev-master",
-        "kartik-v/yii2-date-range": "dev-master"
+        "kartik-v/yii2-date-range": "dev-master",
+        "kartik-v/yii2-mpdf": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
