@@ -32,9 +32,9 @@ username = username  (optional)
                                     <table width="80%" border="0" cellspacing="0" cellpadding="0" align="left" style="font-family:Times New Roman;font-size:19px;color:#000000">
                                         <tbody>
                                             <tr>
-                                                <td style="    padding: 10px;">
+                                                <td style="padding: 10px;">
                                                     <font style="font-size:36px">Verify Email Address</font><br>
-                                                    <?php echo $first_name; ?>                                                    
+                                                    <?php echo $userDetails['first_name']; ?>                                                    
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -44,7 +44,7 @@ username = username  (optional)
                             <tr><td colspan="3" height="17"></td></tr>
                             <tr>
                                 <td></td>
-                                <td>Dear <?= isset($first_name) ? $first_name : 'Member' ?> </td>
+                                <td>Dear <?= isset($userDetails['first_name']) ? $userDetails['first_name'] : 'Member' ?> </td>
                                 <td></td>
                             </tr>
                             <tr><td colspan="3" height="20"></td></tr>
@@ -60,10 +60,10 @@ username = username  (optional)
                             <tr>
                             <td colspan="3">
                                 <div >
-                                    <p>User Id : <?= $user_id ?></p>
-                                     <p>Password : <?= $password ?></p>
+                                    <p>User Id : <?= $userDetails['user_id'] ?></p>
+                                     <p>Password : <?= $userDetails['password'] ?></p>
                                 </div>
-
+                                <a href="http://localhost:8080/supplier/download?fileName=Y3lsaW5kZXJTdGF0dXNMaXN0czEucGRm" target="_blank" rel="noopener noreferrer"> Click to download</a>
                             </td>
                             </tr>                            
                             <tr>

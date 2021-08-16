@@ -15,7 +15,9 @@ use app\models\BookingRequest;
 use app\models\CylinderBooking;
 use app\models\Cities;
 use app\models\CylinderList;
+use app\models\SupplierFile;//save pdf locations
 use kartik\mpdf\Pdf;
+
 
 class SupplierController extends \yii\web\Controller
 {    
@@ -154,7 +156,7 @@ class SupplierController extends \yii\web\Controller
         return json_encode(['status'=>200,'bookingStatus'=>$bookingStatus]);
     }
 
-    /* Donwload PDF  */
+    /* Download PDF Cylinder Status List  */
     public function actionGetCylinderStatusList($status){
         if(isset($status)){
             
@@ -224,5 +226,112 @@ class SupplierController extends \yii\web\Controller
         }else{
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    
+    /* save PDF of all cylinder booking order list in serve   */
+    public function actionBookingOrderPdfList(){ 
+
+        $contents = '';
+        $contents .='
+        <table style="border:1px solid;border-collapse: collapse;"> 
+        <tr style="border:1px solid;border-collapse: collapse;">            
+        <th style="border:1px solid;border-collapse: collapse;">Name of Customer</th>
+        <th style="border:1px solid;border-collapse: collapse;">Cylinder Type</th>
+        <th style="border:1px solid;border-collapse: collapse;">Cylinder Quantity</th>
+        <th style="border:1px solid;border-collapse: collapse;">Total Amount</th>
+        <th style="border:1px solid;border-collapse: collapse;">Order Date</th>
+        <th style="border:1px solid;border-collapse: collapse;">Order Status</th>
+        <th style="border:1px solid;border-collapse: collapse;">Payment Option</th>
+        </tr>';
+        
+
+        $cylinderBookingStatus = BookingRequest::find()->where(['supplier_id'=>Helper::getCurrentUserId()])->joinWith('cylindertypes')->with('userdetails')->all();
+
+        setlocale(LC_MONETARY,"en_US");
+        foreach($cylinderBookingStatus as $list){
+            if($list->order_status == "Incomplete"){
+                continue;
+            }
+            $contents .='
+            <tr style="border:1px solid;border-collapse: collapse;">                
+            <td style="border:1px solid;border-collapse: collapse;">'.$list->userdetails->first_name.' '.$list->userdetails->last_name.'</td>
+            <td style="border:1px solid;border-collapse: collapse;">'.$list->cylindertypes->litre_quantity.' '.$list->cylindertypes->label.'</td>
+            <td style="border:1px solid;border-collapse: collapse;">'.$list->cylinder_quantity.'</td>
+            <td style="border:1px solid;border-collapse: collapse;">'.'Rs. '.number_format($list->total_amount).'</td>
+            <td style="border:1px solid;border-collapse: collapse;">'.$list->order_date.'</td>
+            <td style="border:1px solid;border-collapse: collapse;">'.$list->order_status.'</td>
+            <td style="border:1px solid;border-collapse: collapse;">'.$list->payment_option.'</td>  
+            </tr>';
+        }
+        $contents .='</table>';
+        
+        $destination = Pdf::DEST_BROWSER;//show pdf in browser
+
+        // $destination = Pdf::DEST_DOWNLOAD;//download pdf 
+        $filename = 'cylinderStatusLists'.Helper::getCurrentUserId().'.pdf';
+
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => $destination,
+            'filename' => $filename ,
+            // your html content input
+            'content' => $contents,         
+            // any css to be embedded if required
+            'cssInline' => 'p, td,div { font-family: freeserif; }; body, p { font-family: irannastaliq; font-size: 15pt; }; .kv-heading-1{font-size:18px}table{width: 100%;line-height: inherit;text-align: left; border-collapse: collapse;}table, td, th {border: 1px solid black;text-align:center}',
+            'marginFooter' => 5,
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetTitle' => ['Oxygen Cylinder Details'],
+                'SetHeader' => ['Oxygen Supply Plant Management (OSPM)'],
+                'SetFooter' => ['Page {PAGENO}'],
+            ]
+        ]);
+        $mpdf = $pdf->api;
+        $mpdf->WriteHTML($contents);
+
+        $getDetails = SupplierFile::find()->where(['supplier_id'=>Helper::getCurrentUserId()])->all();       
+        
+        if(empty($getDetails)){
+            $model = new SupplierFile();        
+            $model->supplier_id = Helper::getCurrentUserId();
+            $model->file_name = $filename;            
+            $model->save(); 
+        }else{
+            foreach($getDetails as $getDetail){
+                $getDetail['file_name'] = $filename;
+                $getDetail->save();
+            }
+        }   
+        // return the pdf output as per the destination setting
+        return $mpdf->Output(Yii::getAlias('@app').'/web/upload/pdf/'.$filename,'F');
+     
+    }
+
+    /* dowenload supplier list pdf from link */
+    public function actionDownload($fileName){ 
+        
+        Helper::dd(base64_decode($fileName));
+        $path = Yii::$app->getBasePath().'/web/upload/pdf/'.$fileName;       
+
+        $root = Yii::getAlias('@web').$path;        
+        if (file_exists($root)) {
+            return Yii::$app->response->sendFile($root);
+        } else {
+            throw new \yii\web\NotFoundHttpException("{$path} is not found!");
+        }
+    }
+
+    /* Send mail */
+    public function actionSendEmail(){
+        $mail_id = "kuhikarpalash@gmail.com";
+        $details = ['first_name'=>Yii::$app->user->identity->first_name,'user_id'=>'saurabhkuhikar6@gmail.com','password'=>123456];
+        Helper::sendMail($details,$mail_id);
     }
 }

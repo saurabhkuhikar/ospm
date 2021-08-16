@@ -48,17 +48,16 @@ class Helper extends Component {
     throw new \yii\web\NotFoundHttpException('Somthing is going to be wrong.');
   }
 
-  public static function sendMail($userDetails,$user_email_id){
-    $send = Yii::$app->mailer->compose('templates/contact', ['name' => 'saurabh', 'phone' => '123456'])
+  public static function sendMail($userDetails,$user_email_id){ 
+    $send = Yii::$app->mailer->compose('templates/contact', ['userDetails'=>$userDetails])
     ->setFrom('saurabhkuhikar55@gmail.com')
-    ->setTo('$user_email_id')
-    ->setSubject('Testing Mails')
-    //->setTextBody('Plain text content. YII2 Application')
-    // ->setHtmlBody('<b style="color:red;">HTML content <i>Ram Pukar</i></b>')
+    ->setTo($user_email_id)
+    ->setSubject('Testing Mails')  
     ->send();
-    // if($send){  
-    //   echo "Send";
-    // }
+    if($send){  
+      echo "<script>alert('email send Successfully')</script>";
+    }
+  
   }
 } 
 ?>

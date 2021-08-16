@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 05, 2021 at 03:36 PM
+-- Generation Time: Aug 16, 2021 at 09:04 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -925,6 +925,20 @@ INSERT INTO `countries` (`id`, `countryCode`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customer_files`
+--
+
+DROP TABLE IF EXISTS `customer_files`;
+CREATE TABLE IF NOT EXISTS `customer_files` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cylinder_bookings`
 --
 
@@ -947,16 +961,83 @@ CREATE TABLE IF NOT EXISTS `cylinder_bookings` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cylinder_bookings`
 --
 
 INSERT INTO `cylinder_bookings` (`id`, `customer_id`, `supplier_id`, `covid_test_result`, `covid_test_date`, `cylinder_type_id`, `cylinder_quantity`, `total_amount`, `order_date`, `order_status`, `payment_id`, `payment_option`, `payment_token`, `payment_status`, `created`, `updated`) VALUES
-(1, 19, 1, NULL, NULL, 2, '4', NULL, '2021-07-30', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-05 15:23:00', '2021-08-05 15:23:00'),
-(2, 19, 1, NULL, NULL, 1, '2', NULL, '2021-08-04', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-05 15:24:08', '2021-08-05 15:24:08'),
-(3, 19, 1, 'Negative', '2021-08-06', 2, '4', 42000, '2021-08-05', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-05 15:28:47', '2021-08-05 15:28:47');
+(35, 15, 2, 'Negative', '2021-08-10', 1, '3', 22050, '2021-08-27', 'Delivered', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-08 16:56:50', '2021-08-08 16:56:50'),
+(3, 19, 1, 'Negative', '2021-08-06', 2, '4', 42000, '2021-08-05', 'Process', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-05 15:28:47', '2021-08-05 15:28:47'),
+(4, 15, 2, 'Negative', '2021-08-17', 1, '2', 14700, '2021-08-13', 'Pending', NULL, 'Online', NULL, NULL, '2021-08-06 18:17:36', '2021-08-06 18:17:36'),
+(5, 15, 2, 'Negative', '2021-08-06', 2, '2', 21000, '2021-08-12', 'Process', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-06 18:21:49', '2021-08-06 18:21:49'),
+(6, 15, 1, 'Negative', '2021-08-17', 2, '3', 31500, '2021-08-18', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-06 19:16:06', '2021-08-06 19:16:06'),
+(7, 15, 1, 'Positive', '2021-08-11', 3, '4', 58800, '2021-08-03', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-06 19:18:21', '2021-08-06 19:18:21'),
+(8, 15, 1, 'Positive', '2021-08-11', 3, '4', 58800, '2021-07-30', 'Process', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-06 19:20:36', '2021-08-06 19:20:36'),
+(9, 15, 1, 'Negative', '2021-08-11', 2, '3', 31500, '2021-08-04', 'Delivered', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-06 19:21:57', '2021-08-06 19:21:57'),
+(10, 15, 1, 'Positive', '2021-08-23', 1, '3', 25200, '2021-08-02', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-06 19:24:22', '2021-08-06 19:24:22'),
+(11, 15, 1, 'Positive', '2021-08-17', 1, '3', 25200, '2021-08-27', 'Pending', NULL, 'Online', NULL, NULL, '2021-08-06 19:37:11', '2021-08-06 19:37:11'),
+(12, 15, 1, 'Negative', '2021-08-05', 2, '3', 31500, '2021-08-26', 'Process', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-06 20:40:53', '2021-08-06 20:40:53'),
+(13, 15, 6, 'Negative', '2021-08-17', 3, '2', 31500, '2021-08-12', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 16:43:39', '2021-08-07 16:43:39'),
+(14, 15, 6, 'Negative', '2021-08-11', 2, '2', 21000, '2021-08-04', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 16:51:21', '2021-08-07 16:51:21'),
+(15, 15, 4, 'Positive', '2021-07-28', 2, '3', 37800, '2021-08-19', 'Process', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 16:53:35', '2021-08-07 16:53:35'),
+(16, 15, 4, 'Negative', '2021-08-18', 1, '2', 14700, '2021-09-01', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 16:56:38', '2021-08-07 16:56:38'),
+(17, 15, 6, 'Negative', '2021-08-25', 1, '4', 29400, '2021-08-31', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 17:04:57', '2021-08-07 17:04:57'),
+(18, 15, 6, 'Negative', '2021-08-24', 1, '3', 22050, '2021-08-25', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 17:09:15', '2021-08-07 17:09:15'),
+(19, 15, 1, 'Positive', '2021-08-24', 2, '2', 31500, '2021-08-25', 'Delivered', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 17:12:54', '2021-08-07 17:12:54'),
+(20, 20, 3, NULL, NULL, 2, '3', NULL, '2021-08-18', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-07 17:15:35', '2021-08-07 17:15:35'),
+(21, 20, 3, 'Positive', '2021-08-16', 2, '3', NULL, '2021-08-12', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-07 17:15:54', '2021-08-07 17:15:54'),
+(22, 20, 2, 'Positive', '2021-08-17', 1, '4', 29400, '2021-08-12', 'Process', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 17:18:02', '2021-08-07 17:18:02'),
+(23, 15, 2, 'Positive', '2021-08-12', 1, '5', 36750, '2021-08-18', 'Delivered', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 17:22:17', '2021-08-07 17:22:17'),
+(24, 21, 2, 'Negative', '2021-08-09', 1, '4', 29400, '2021-08-19', 'Delivered', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 17:23:27', '2021-08-07 17:23:27'),
+(25, 15, 1, 'Positive', '2021-08-25', 1, '2', 16800, '2021-08-16', 'Delivered', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 17:27:33', '2021-08-07 17:27:33'),
+(26, 15, 2, 'Positive', '2021-08-04', 1, '3', NULL, '2021-08-05', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-07 17:49:09', '2021-08-07 17:49:09'),
+(27, 15, 2, NULL, NULL, 1, '2', NULL, '2021-08-03', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-07 17:51:03', '2021-08-07 17:51:03'),
+(28, 15, 2, NULL, NULL, 2, '2', NULL, '2021-07-31', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-07 17:55:13', '2021-08-07 17:55:13'),
+(29, 15, 2, NULL, NULL, 1, '2', NULL, '2021-08-10', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-07 17:56:09', '2021-08-07 17:56:09'),
+(30, 15, 2, NULL, NULL, 2, '4', NULL, '2021-08-12', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-07 18:00:20', '2021-08-07 18:00:20'),
+(31, 15, 1, 'Negative', '2021-08-17', 1, '2', NULL, '2021-08-10', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-07 18:03:43', '2021-08-07 18:03:43'),
+(32, 15, 1, 'Positive', '2021-08-24', 1, '2', 16800, '2021-08-12', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 18:05:59', '2021-08-07 18:05:59'),
+(33, 15, 1, 'Positive', '2021-08-09', 3, '1', 14700, '2021-08-10', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 18:07:16', '2021-08-07 18:07:16'),
+(34, 20, 6, 'Negative', '2021-08-18', 2, '4', 42000, '2021-08-19', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-07 18:09:21', '2021-08-07 18:09:21'),
+(36, 15, 1, 'Positive', '2021-08-10', 1, '4', 29400, '2021-08-17', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-08 17:00:15', '2021-08-08 17:00:15'),
+(37, 15, 1, 'Positive', '2021-08-16', 2, '3', 37800, '2021-08-26', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-08 17:01:28', '2021-08-08 17:01:28'),
+(38, 15, 2, 'Negative', '2021-08-17', 2, '3', 47250, '2021-08-19', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-08 21:18:35', '2021-08-08 21:18:35'),
+(39, 15, 2, 'Positive', '2021-08-24', 2, '2', 31500, '2021-08-17', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 00:38:37', '2021-08-09 00:38:37'),
+(40, 15, 2, 'Positive', '2021-08-09', 1, '4', 29400, '2021-08-04', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-09 00:42:09', '2021-08-09 00:42:09'),
+(41, 15, 2, NULL, NULL, 2, '3', NULL, '2021-07-30', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 00:47:00', '2021-08-09 00:47:00'),
+(42, 15, 1, NULL, NULL, 3, '3', NULL, '2021-07-27', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 00:48:30', '2021-08-09 00:48:30'),
+(43, 15, 1, 'Positive', '2021-08-01', 1, '3', 22050, '2021-08-26', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-09 00:49:07', '2021-08-09 00:49:07'),
+(44, 15, 1, 'Negative', '2021-08-02', 2, '3', 37800, '2021-07-29', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-09 00:54:11', '2021-08-09 00:54:11'),
+(45, 15, 1, 'Negative', '2021-08-17', 1, '4', 29400, '2021-08-13', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-09 01:11:16', '2021-08-09 01:11:16'),
+(46, 15, 2, NULL, NULL, 2, '4', NULL, '2021-08-07', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:36:25', '2021-08-09 17:36:25'),
+(47, 15, 2, NULL, NULL, 2, '4', NULL, '2021-08-07', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:36:46', '2021-08-09 17:36:46'),
+(48, 15, 2, NULL, NULL, 2, '4', NULL, '2021-08-25', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:39:38', '2021-08-09 17:39:38'),
+(49, 15, 2, NULL, NULL, 2, '4', NULL, '2021-08-25', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:39:42', '2021-08-09 17:39:42'),
+(50, 15, 2, NULL, NULL, 2, '4', NULL, '2021-08-10', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:40:12', '2021-08-09 17:40:12'),
+(51, 15, 2, NULL, NULL, 2, '4', NULL, '2021-08-10', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:40:18', '2021-08-09 17:40:18'),
+(52, 15, 2, NULL, NULL, 2, '3', NULL, '2021-08-05', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:43:44', '2021-08-09 17:43:44'),
+(53, 15, 2, NULL, NULL, 2, '3', NULL, '2021-08-05', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:43:54', '2021-08-09 17:43:54'),
+(54, 15, 2, NULL, NULL, 2, '3', NULL, '2021-08-05', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:49:56', '2021-08-09 17:49:56'),
+(55, 15, 2, NULL, NULL, 1, '3', NULL, '2021-08-13', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:50:15', '2021-08-09 17:50:15'),
+(56, 15, 2, NULL, NULL, 1, '3', NULL, '2021-08-13', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:50:19', '2021-08-09 17:50:19'),
+(57, 15, 2, NULL, NULL, 1, '1', NULL, '2021-08-05', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:53:31', '2021-08-09 17:53:31'),
+(58, 15, 2, NULL, NULL, 1, '1', NULL, '2021-08-05', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:53:35', '2021-08-09 17:53:35'),
+(59, 15, 2, NULL, NULL, 2, '3', NULL, '2021-08-19', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:56:12', '2021-08-09 17:56:12'),
+(60, 15, 2, NULL, NULL, 2, '3', NULL, '2021-08-19', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:56:13', '2021-08-09 17:56:13'),
+(61, 15, 2, NULL, NULL, 1, '4', NULL, '2021-07-30', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:58:13', '2021-08-09 17:58:13'),
+(62, 15, 2, NULL, NULL, 1, '4', NULL, '2021-07-30', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:58:15', '2021-08-09 17:58:15'),
+(63, 15, 2, NULL, NULL, 1, '2', NULL, '2021-08-05', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:58:58', '2021-08-09 17:58:58'),
+(64, 15, 2, NULL, NULL, 1, '2', NULL, '2021-08-05', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 17:59:00', '2021-08-09 17:59:00'),
+(65, 15, 2, NULL, NULL, 1, '4', NULL, '2021-08-13', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 18:02:44', '2021-08-09 18:02:44'),
+(66, 15, 2, NULL, NULL, 2, '3', NULL, '2021-07-30', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 18:03:34', '2021-08-09 18:03:34'),
+(67, 15, 2, NULL, NULL, 2, '3', NULL, '2021-07-30', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 18:05:22', '2021-08-09 18:05:22'),
+(68, 15, 2, NULL, NULL, 2, '3', NULL, '2021-07-29', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 18:11:04', '2021-08-09 18:11:04'),
+(69, 15, 2, NULL, NULL, 2, '3', NULL, '2021-07-29', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 18:14:36', '2021-08-09 18:14:36'),
+(70, 15, 2, NULL, NULL, 2, '2', NULL, '2021-07-29', 'Incomplete', NULL, NULL, NULL, NULL, '2021-08-09 18:17:00', '2021-08-09 18:17:00'),
+(71, 15, 1, 'Negative', '2021-08-18', 2, '4', 50400, '2021-08-12', 'Pending', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-09 18:45:33', '2021-08-09 18:45:33'),
+(72, 21, 4, 'Negative', '2021-08-18', 2, '4', 50400, '2021-08-27', 'Delivered', NULL, 'Cash on Delivery', NULL, NULL, '2021-08-09 20:01:25', '2021-08-09 20:01:25');
 
 -- --------------------------------------------------------
 
@@ -974,22 +1055,25 @@ CREATE TABLE IF NOT EXISTS `cylinder_lists` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cylinder_lists`
 --
 
 INSERT INTO `cylinder_lists` (`id`, `user_id`, `cylinder_type_id`, `cylinder_quantity`, `selling_price`, `created`, `updated`) VALUES
-(1, 1, 1, '10', 8000, '2021-07-24 12:39:19', '2021-07-24 12:39:19'),
-(2, 1, 2, '30', 10000, '2021-07-24 12:40:50', '2021-07-24 12:40:50'),
-(3, 1, 3, '10', 14000, '2021-07-24 12:44:43', '2021-07-24 12:44:43'),
-(4, 2, 1, '10', 7000, '2021-07-26 13:43:39', '2021-07-26 13:43:39'),
-(5, 2, 2, '20', 10000, '2021-07-26 13:44:03', '2021-07-26 13:44:03'),
+(1, 1, 1, '16', 7000, '2021-07-24 12:39:19', '2021-08-08 16:04:16'),
+(2, 1, 2, '40', 12000, '2021-07-24 12:40:50', '2021-08-08 16:05:56'),
+(3, 1, 3, '20', 15000, '2021-07-24 12:44:43', '2021-08-08 16:05:16'),
+(4, 2, 1, '31', 7000, '2021-07-26 13:43:39', '2021-08-09 19:56:54'),
+(5, 2, 2, '21', 15000, '2021-07-26 13:44:03', '2021-08-08 16:11:08'),
 (6, 2, 3, '40', 15000, '2021-07-26 13:44:17', '2021-07-26 13:44:17'),
 (7, 4, 1, '39', 7000, '2021-07-26 14:10:24', '2021-07-27 13:05:33'),
-(8, 4, 2, '20', 12000, '2021-07-26 14:10:52', '2021-07-26 14:10:52'),
-(9, 4, 3, '50', 15000, '2021-07-26 14:11:12', '2021-07-26 14:11:22');
+(8, 4, 2, '16', 12000, '2021-07-26 14:10:52', '2021-08-09 20:02:35'),
+(9, 4, 3, '50', 15000, '2021-07-26 14:11:12', '2021-07-26 14:11:22'),
+(10, 6, 1, '23', 7000, '2021-08-06 19:54:04', '2021-08-06 19:54:04'),
+(11, 6, 2, '11', 10000, '2021-08-06 20:11:45', '2021-08-06 20:12:08'),
+(12, 6, 3, '21', 15000, '2021-08-06 20:13:50', '2021-08-06 20:14:26');
 
 -- --------------------------------------------------------
 
@@ -1095,6 +1179,29 @@ INSERT INTO `states` (`id`, `state_name`, `country_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `supplier_files`
+--
+
+DROP TABLE IF EXISTS `supplier_files`;
+CREATE TABLE IF NOT EXISTS `supplier_files` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `supplier_id` int(11) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `supplier_files`
+--
+
+INSERT INTO `supplier_files` (`id`, `supplier_id`, `file_name`) VALUES
+(1, 1, 'cylinderStatusLists1.pdf'),
+(2, 2, 'cylinderStatusLists2.pdf'),
+(3, 4, 'cylinderStatusLists4.pdf');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -1129,7 +1236,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `auth_key`, `phone_number`, `age`, `gender`, `address`, `state`, `city`, `company_name`, `profile_picture`, `identity_proof`, `identity_proof_type`, `aadhar_card_number`, `account_type`, `status`, `created`, `updated`) VALUES
-(1, 'SAURABH', 'KUHIKAR', 'saurabhkuhikar6@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'OSdccQVQDmWFLWWd90Q4zryhl1vP1xOV', 0958991475, 25, 'female', 'xyz', 'ARUNACHAL PRADESH', 'Dibang Valley', 'sk oxygen supply pvt', '1626414936.jpg', 'Ration Card with address', NULL, '147852369852', 'Supplier', 'Enabled', '2021-07-11 21:53:01', '2021-07-11 21:53:01'),
+(1, 'SAURABH', 'KUHIKAR', 'saurabhkuhikar6@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'OSdccQVQDmWFLWWd90Q4zryhl1vP1xOV', 0958991475, 25, 'female', 'xyz', 'GUJRAT', 'Ahmedabad', 'sk oxygen supply pvt', '1626414936.jpg', 'Ration Card with address', NULL, '147852369852', 'Supplier', 'Enabled', '2021-07-11 21:53:01', '2021-07-11 21:53:01'),
 (2, 'Nandini', 'k', 'nandinikose@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'mIaJ1lL-6nOKPnq93J9CMqSxWvDTzS2R', 9157991475, 23, 'female', 'snansna', 'MAHARASHTRA', 'Nagpur', 'nandini oxygen supply pvt', 'avatar.png', 'Passport', NULL, '145215625874', 'Supplier', 'Enabled', '2021-07-11 21:55:07', '2021-07-11 21:55:07'),
 (3, 'Palash', 'kuhikar', 'palash@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Kl07Z5Sgs_h5PHJczyP6qu_d9_Sqmlmh', 1234567890, NULL, 'male', 'old mumbai', 'MAHARASHTRA', 'Nagpur', 'Palash oxygen supply management', '1626415014.jpg', NULL, NULL, '154796322541', 'Supplier', 'Enabled', '2021-07-11 22:01:32', '2021-07-11 22:01:32'),
 (4, 'Harsh', 'kk', 'harsh@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'ECSYWzdmQtJmhhDgAuWswEHRxLfZ1pfn', 1246250147, 23, 'male', 'home', 'MAHARASHTRA', 'Nagpur', 'Harsh oxygen supply', 'avatar.png', 'Adhaar card(UID)', NULL, '012654875692', 'Supplier', 'Enabled', '2021-07-11 22:02:56', '2021-07-11 22:02:56'),
