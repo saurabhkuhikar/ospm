@@ -157,10 +157,11 @@ class BookingRequestController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
     /**
-     * Export status wise data of booked cylinder 
+     * Export Excelsheet status wise data of booked cylinder 
      */
 
     public function actionExportBookingList($status){
+
         $booking_data = '';
 
         $booking_data .='
@@ -197,6 +198,8 @@ class BookingRequestController extends Controller
         header("Content-Disposition:attachment; filename=CylinderBookingList.xls");
         return $booking_data;
     }     
+    
+    /* order date wise cylinder booking status   */
 
     public function actionCylinderBookingStatusPdf()
     {
@@ -273,6 +276,8 @@ class BookingRequestController extends Controller
                 // return the pdf output as per the destination setting
                 return $pdf->render();
             }          
+        }else{
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 

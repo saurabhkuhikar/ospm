@@ -31,7 +31,7 @@ class CustomerController extends \yii\web\Controller
                 'only' => ['logout','dashboard','profile'],
                 'rules' => [
                     [
-                        'actions' => ['logout','dashboard','profile','get-city-list'],
+                        'actions' => ['logout','dashboard','get-cylinder-booking-status','profile','get-city-list'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

@@ -148,7 +148,6 @@ class SiteController extends Controller
             if(count($cylinderLists) > 0){
                 $cylinders = $cylinderLists;
             }
-            // helper::dd( $cylinders);
             return json_encode(['status'=>200,'cylinders'=>$cylinders]);
         }
     }

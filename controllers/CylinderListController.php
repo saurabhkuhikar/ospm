@@ -156,7 +156,7 @@ class CylinderListController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    /* Export cylinder List */
+    /* Export cylinder List for Supplier*/
 
     public function actionExportCylinderStock(){
 
@@ -194,6 +194,8 @@ class CylinderListController extends Controller
                 
                 return $stock_data;
             }          
+        }else{
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
         
     }      

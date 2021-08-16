@@ -143,7 +143,7 @@ class SupplierController extends \yii\web\Controller
     }
 
     
-/* Booked Cylinder Status Graph  */
+    /* Booked Cylinder Status Graph  */
 
     public function actionShowStatusGraph(){
         if (Yii::$app->request->isAjax) {
@@ -156,72 +156,73 @@ class SupplierController extends \yii\web\Controller
 
     /* Donwload PDF  */
     public function actionGetCylinderStatusList($status){
-        // get your HTML raw content without any layouts or scripts
-        $contents = '';
-        $contents .='
-        <table bordered="1"> 
-        <tr>            
-        <th>Name of Customer</th>
-        <th>Cylinder Type</th>
-        <th>Cylinder Quantity</th>
-        <th>Total Amount</th>
-        <th>Order Date</th>
-        <th>Order Status</th>
-        <th>Payment Option</th>
-        </tr>';
-        
-        $cylinderBookingStatus = BookingRequest::find()->where(['order_status'=>$status,'supplier_id'=>Helper::getCurrentUserId()])->joinWith('cylindertypes')->with('userdetails')->all();
-        // Helper::dd($cylinderBookingStatus );
-        setlocale(LC_MONETARY,"en_US");
-        foreach($cylinderBookingStatus as $list){
+        if(isset($status)){
+            
+            $contents = '';
             $contents .='
-            <tr>                
-            <td>'.$list->userdetails->first_name.' '.$list->userdetails->last_name.'</td>
-            <td>'.$list->cylindertypes->litre_quantity.' '.$list->cylindertypes->label.'</td>
-            <td>'.$list->cylinder_quantity.'</td>
-            <td>'.'Rs. '.number_format($list->total_amount).'</td>
-            <td>'.$list->order_date.'</td>
-            <td>'.$list->order_status.'</td>
-            <td>'.$list->payment_option.'</td>  
+            <table bordered="1"> 
+            <tr>            
+            <th>Name of Customer</th>
+            <th>Cylinder Type</th>
+            <th>Cylinder Quantity</th>
+            <th>Total Amount</th>
+            <th>Order Date</th>
+            <th>Order Status</th>
+            <th>Payment Option</th>
             </tr>';
+            
+            $cylinderBookingStatus = BookingRequest::find()->where(['order_status'=>$status,'supplier_id'=>Helper::getCurrentUserId()])->joinWith('cylindertypes')->with('userdetails')->all();
+            // Helper::dd($cylinderBookingStatus);
+            setlocale(LC_MONETARY,"en_US");
+            foreach($cylinderBookingStatus as $list){
+                $contents .='
+                <tr>                
+                <td>'.$list->userdetails->first_name.' '.$list->userdetails->last_name.'</td>
+                <td>'.$list->cylindertypes->litre_quantity.' '.$list->cylindertypes->label.'</td>
+                <td>'.$list->cylinder_quantity.'</td>
+                <td>'.'Rs. '.number_format($list->total_amount).'</td>
+                <td>'.$list->order_date.'</td>
+                <td>'.$list->order_status.'</td>
+                <td>'.$list->payment_option.'</td>  
+                </tr>';
+            }
+            $contents .='</table>';
+            
+            // $destination = Pdf::DEST_BROWSER;//show pdf in browser
+            $destination = Pdf::DEST_DOWNLOAD;//download pdf 
+
+            $filename = "cylinderStatusLists.pdf";
+
+            $pdf = new Pdf([
+                // set to use core fonts only
+                'mode' => Pdf::MODE_UTF8,
+                // A4 paper format
+                'format' => Pdf::FORMAT_A4,
+                // portrait orientation
+                'orientation' => Pdf::ORIENT_PORTRAIT,
+                // stream to browser inline
+                'destination' => $destination,
+                'filename' => $filename,
+                // your html content input
+                'content' => $contents,
+                // format content from your own css file if needed or use the
+                // enhanced bootstrap css built by Krajee for mPDF formatting 
+                // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                // any css to be embedded if required
+                'cssInline' => 'p, td,div { font-family: freeserif; }; body, p { font-family: irannastaliq; font-size: 15pt; }; .kv-heading-1{font-size:18px}table{width: 100%;line-height: inherit;text-align: left; border-collapse: collapse;}table, td, th {border: 1px solid black;text-align:center}',
+                'marginFooter' => 5,
+                // call mPDF methods on the fly
+                'methods' => [
+                    'SetTitle' => ['Oxygen Cylinder Details'],
+                    'SetHeader' => ['Oxygen Supply Plant Management (OSPM)'],
+                    'SetFooter' => ['Page {PAGENO}'],
+                ]
+            ]);
+            
+            // return the pdf output as per the destination setting
+            return $pdf->render();
+        }else{
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
-        $contents .='</table>';
-        
-        // $destination = Pdf::DEST_BROWSER;//show pdf in browser
-        $destination = Pdf::DEST_DOWNLOAD;//download pdf 
-
-        $filename = "cylinderStatusLists.pdf";
-
-        $pdf = new Pdf([
-            // set to use core fonts only
-            'mode' => Pdf::MODE_UTF8,
-            // A4 paper format
-            'format' => Pdf::FORMAT_A4,
-            // portrait orientation
-            'orientation' => Pdf::ORIENT_PORTRAIT,
-            // stream to browser inline
-            'destination' => $destination,
-            'filename' => $filename,
-            // your html content input
-            'content' => $contents,
-            // format content from your own css file if needed or use the
-            // enhanced bootstrap css built by Krajee for mPDF formatting 
-            // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
-            // any css to be embedded if required
-            'cssInline' => 'p, td,div { font-family: freeserif; }; body, p { font-family: irannastaliq; font-size: 15pt; }; .kv-heading-1{font-size:18px}table{width: 100%;line-height: inherit;text-align: left; border-collapse: collapse;}table, td, th {border: 1px solid black;text-align:center}',
-            'marginFooter' => 5,
-            // call mPDF methods on the fly
-            'methods' => [
-                'SetTitle' => ['Oxygen Cylinder Details'],
-                'SetHeader' => ['Oxygen Supply Plant Management (OSPM)'],
-                'SetFooter' => ['Page {PAGENO}'],
-            ]
-        ]);
-        
-        // return the pdf output as per the destination setting
-        return $pdf->render();
-
     }
- 
-
 }
