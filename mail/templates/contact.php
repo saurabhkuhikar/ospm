@@ -9,9 +9,9 @@ username = username  (optional)
             <tr>
                 <td> </td>
                 <td>
-                    <img src="http://www.abc.com/images/logo2.png" width="193" height="50" vspace="10" hspace="0" align="left" border="0" alt="abc.com" class="CToWUd">
+                    <img src="https://www.luxottica.com/sites/luxottica.com/files/styles/brand_breakpoints_theme_luxottica13rwd_thr1366_1x/public/brand/mainimage/opsm_4_0.jpg?timestamp=1606909159" width="193" height="50" vspace="10" hspace="0" align="left" border="0" alt="abc.com" class="CToWUd">
                     <table border="0" cellpadding="0" cellspacing="0" align="right" width="240"><tbody><tr><td width="184" height="64" style="font-family:Arial;font-size:12px;color:#474646">
-                                    <img src="http://abc.com/images/call.png" width="24" height="24" vspace="0" hspace="0" align="absmiddle" class="CToWUd">
+                                    <img src="https://mpng.subpng.com/20190622/kuu/kisspng-font-awesome-computer-icons-scalable-vector-graphi-buckle-square-high-heels-lace-up-ankle-lady-fashio-5d0ecfc6caf299.5041264315612517828313.jpg" width="24" height="24" vspace="0" hspace="0" align="absmiddle" class="CToWUd">
                                     <font style="font-size:13px" color="#474646">
                                     <strong>Call us at:</strong>
                                     </font>  (Toll free)
@@ -28,13 +28,13 @@ username = username  (optional)
                         <tbody>
                             <tr>
                                 <td height="117" colspan="3" background="" bgcolor="#FFFBCA" style="padding-left:16px">
-                                    <img src="http://abc.com/images/envelope_letter.png" vspace="0" hspace="0" align="left" width="92" class="CToWUd">
+                                    <img src="https://d29fhpw069ctt2.cloudfront.net/icon/image/38198/preview.svg" vspace="0" hspace="0" align="left" width="92" class="CToWUd">
                                     <table width="80%" border="0" cellspacing="0" cellpadding="0" align="left" style="font-family:Times New Roman;font-size:19px;color:#000000">
                                         <tbody>
                                             <tr>
                                                 <td style="    padding: 10px;">
                                                     <font style="font-size:36px">Verify Email Address</font><br>
-                                                    <?php echo $name; ?>                                                    
+                                                    <?php echo $first_name; ?>                                                    
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -44,12 +44,12 @@ username = username  (optional)
                             <tr><td colspan="3" height="17"></td></tr>
                             <tr>
                                 <td></td>
-                                <td>Dear <?= isset($username) ? $username : 'Member' ?> </td>
+                                <td>Dear <?= isset($first_name) ? $first_name : 'Member' ?> </td>
                                 <td></td>
                             </tr>
                             <tr><td colspan="3" height="20"></td></tr>
                             <tr><td></td>
-                                <td>Welcome to abc.com </td>
+                                <td>Welcome to OSPM.com </td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -57,7 +57,15 @@ username = username  (optional)
                                 <td height="50">Please verify your email account. </td>
                                 <td></td>
                             </tr>
-                           
+                            <tr>
+                            <td colspan="3">
+                                <div >
+                                    <p>User Id : <?= $user_id ?></p>
+                                     <p>Password : <?= $password ?></p>
+                                </div>
+
+                            </td>
+                            </tr>                            
                             <tr>
                                 <td colspan="3" height="30"></td>
                             </tr>
@@ -128,7 +136,8 @@ username = username  (optional)
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td valign="top" style="padding-top: 5px;"><img src="http://abc.com/images/home.png" align="absmiddle" height="36" width="31" class="CToWUd"></td>
+                                                                <td valign="top" style="padding-top: 5px;">
+                                                                <img src="https://i.pinimg.com/564x/ad/4a/67/ad4a67a25bc3732713de694a782d441b.jpg" align="absmiddle" height="36" width="31" class="CToWUd"></td>
                                                                 <td style="font-family:Arial;font-size:12px;padding-top: 5px;" align="left">
                                                                     Address <strong>abc.com:</strong><br>
                                                                 </td>

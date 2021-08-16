@@ -84,9 +84,9 @@ class TestController extends Controller
     }
 
     public function actionMail() {
-        $send = Yii::$app->mailer->compose('templates/contact', ['name' => 'saurabh', 'phone' => '123456'])
+        $send = Yii::$app->mailer->compose('templates/contact', ['user_id' => 'saurabhkuhikar6@gmail.com','first_name'=>'saurabh' ,'password' => '123456'])
         ->setFrom('saurabhkuhikar55@gmail.com')
-        ->setTo('shubhamyelne1@gmail.com')
+        ->setTo('saurabhkuhikar6@gmail.com')
         ->setSubject('Testing Mails')
         //->setTextBody('Plain text content. YII2 Application')
         // ->setHtmlBody('<b style="color:red;">HTML content <i>Ram Pukar</i></b>')

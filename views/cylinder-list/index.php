@@ -47,7 +47,6 @@ $this->title = 'Cylinder Lists';
                                     'label' => 'Cylinder Type',
                                     'filterInputOptions' => [
                                         'class'       => 'form-control',
-                                        'placeholder' => 'Cylinder Type'
                                     ],
                                     'value' => function ($model) {
                                         if (isset($model->cylinderTypes->litre_quantity) && $model->cylinderTypes->litre_quantity !== null) {

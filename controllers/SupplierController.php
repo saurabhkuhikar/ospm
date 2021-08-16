@@ -154,7 +154,7 @@ class SupplierController extends \yii\web\Controller
         return json_encode(['status'=>200,'bookingStatus'=>$bookingStatus]);
     }
 
-/* Donwload PDF  */
+    /* Donwload PDF  */
     public function actionGetCylinderStatusList($status){
         // get your HTML raw content without any layouts or scripts
         $contents = '';
@@ -213,7 +213,7 @@ class SupplierController extends \yii\web\Controller
             // call mPDF methods on the fly
             'methods' => [
                 'SetTitle' => ['Oxygen Cylinder Details'],
-                //'SetHeader' => ['SAMPLE'],
+                'SetHeader' => ['Oxygen Supply Plant Management (OSPM)'],
                 'SetFooter' => ['Page {PAGENO}'],
             ]
         ]);

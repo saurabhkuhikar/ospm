@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use app\components\Helper;
 use app\models\CylinderList;
 use app\models\CylinderBooking;
+use kartik\mpdf\Pdf;
 
 /**
  * BookingRequestController implements the CRUD actions for BookingRequest model.
@@ -176,7 +177,7 @@ class BookingRequestController extends Controller
             <th>Payment Option</th>
         </tr>';
 
-        $booking_lists = BookingRequest::find()->where(['order_status'=>$status])->joinWith('cylindertypes')->innerJoinWith('userdetails')->all();
+        $booking_lists = BookingRequest::find()->where(['order_status'=>$status,'supplier_id'=>Helper::getCurrentUserId()])->joinWith('cylindertypes')->innerJoinWith('userdetails')->all();
         foreach($booking_lists as $booking_list){
             $booking_data .='
             <tr>
@@ -196,5 +197,83 @@ class BookingRequestController extends Controller
         header("Content-Disposition:attachment; filename=CylinderBookingList.xls");
         return $booking_data;
     }     
+
+    public function actionCylinderBookingStatusPdf()
+    {
+        $this->layout = 'dashboard'; 
+        
+        if (Yii::$app->request->post()) {
+            $data = Yii::$app->request->post();
+            $cylinderOrderDate = $data['order_date'];
+            if(!empty($cylinderOrderDate)){
+                $bookingDetails = BookingRequest::find()->where(['order_date'=>$data['order_date'], 'supplier_id'=>Helper::getCurrentUserId()])->joinWith('cylindertypes')->with('userdetails')->all();
+                // if(empty($bookingDetails)){
+                //   Yii::$app->session->setFlash('fail', "Conents are not fount please select another date.")
+                // }
+                $booking_status_data = '';
+                $booking_status_data .='
+                <table border="1"> 
+                <tr>          
+                <th>First Name</th>
+                <th>Last Name</th>               
+                <th>Order Date</th>
+                <th>Order Status</th>
+                <th>Payment Mode</th>
+                <th>Cylinder Type</th>
+                <th>Cylinder Quantity</th>
+                <th>Total Amount</th>
+                </tr>';
+                
+                foreach($bookingDetails as $bookingDetail){
+                    $booking_status_data .='
+                    <tr>       
+                    <td>'.$bookingDetail->userdetails->first_name.'</td>
+                    <td>'.$bookingDetail->userdetails->last_name.'</td>             
+                    <td>'.$bookingDetail->order_date.'</td>             
+                    <td>'.$bookingDetail->order_status.'</td>             
+                    <td>'.$bookingDetail->payment_option.'</td>             
+                    <td>'.$bookingDetail->cylindertypes->litre_quantity.' '.$bookingDetail->cylindertypes->label.'</td>
+                    <td>'.$bookingDetail->cylinder_quantity.'</td>
+                    <td>'.'Rs. '.number_format($bookingDetail->total_amount).'</td>                   
+                    </tr>';
+                }
+                $booking_status_data .='</table>';               
+                
+                $destination = Pdf::DEST_BROWSER;//show pdf in browser
+                // $destination = Pdf::DEST_DOWNLOAD;//download pdf 
+
+                $filename = "CylinderBookingStatus.pdf";
+
+                $pdf = new Pdf([
+                    // set to use core fonts only
+                    'mode' => Pdf::MODE_UTF8,
+                    // A4 paper format
+                    'format' => Pdf::FORMAT_A4,
+                    // portrait orientation
+                    'orientation' => Pdf::ORIENT_PORTRAIT,
+                    // stream to browser inline
+                    'destination' => $destination,
+                    'filename' => $filename,
+                    // your html content input
+                    'content' => $booking_status_data,
+                    // format content from your own css file if needed or use the
+                    // enhanced bootstrap css built by Krajee for mPDF formatting 
+                    // 'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                    // any css to be embedded if required
+                    'cssInline' => 'p, td,div { font-family: freeserif; }; body, p { font-family: irannastaliq; font-size: 15pt; }; .kv-heading-1{font-size:18px}table{width: 100%;line-height: inherit;text-align: left; border-collapse: collapse;}table, td, th {border: 1px solid black;text-align:center}',
+                    'marginFooter' => 5,
+                    // call mPDF methods on the fly
+                    'methods' => [
+                        'SetTitle' => ['Oxygen Cylinder Details'],
+                        'SetHeader' => ['Oxygen Supply Plant Management (OSPM)'],
+                        'SetFooter' => ['Page {PAGENO}'],
+                    ]
+                ]);
+                
+                // return the pdf output as per the destination setting
+                return $pdf->render();
+            }          
+        }
+    }
 
 }

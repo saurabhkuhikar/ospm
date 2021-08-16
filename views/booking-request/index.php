@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use kartik\daterange\DateRangePicker;
-
+use yii\widgets\ActiveForm;
+use dosamigos\datepicker\DatePicker;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BookingRequesttSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,7 +20,8 @@ $this->title = 'Booking Requests';
             <div class="panel-body">
                 <?= Html::a('Excel Export', ['booking-request/export-booking-list','status'=>$_GET['status'],], ['class' => 'btn btn-success mt-24']) ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="/supplier/get-cylinder-status-list?status=<?= $_GET['status'] ?>" class="btn btn-info mt-24"><i class="fa fa-download"></i> Download PDF</a>
-
+                <?= Html::button('PDF Export', ['class' => 'btn btn-dark mt-24','id'=>'cylinderBookOrderStatus']) ?>   
+               
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -37,8 +39,7 @@ $this->title = 'Booking Requests';
                             'format' => 'html',
                             'label' => 'Cylinder Type',
                             'filterInputOptions' => [
-                                'class'       => 'form-control',
-                                'placeholder' => 'Cylinder Type',
+                                'class'       => 'form-control',                                
                             ],
                             'value' => function ($model) {                         
                                 if (isset($model->cylindertypes->litre_quantity) && $model->cylindertypes->litre_quantity !== null) {
@@ -91,3 +92,63 @@ $this->title = 'Booking Requests';
         </div>
     </div>
 </div>
+
+<!-- Availble Cylinders popup :: start -->
+
+<div id="orderStatusModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Export Cylinders Stock</h4>
+         </div>
+        <div class="modal-body">
+        <?php $form = ActiveForm::begin(['action'=>'cylinder-booking-status-pdf','method'=>'post']); ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"> 
+                        <label for="cylinderType">Select Order Date</label>                       
+                        <?= DatePicker::widget([
+                            'name' => 'order_date',
+                            'id' => 'orderDate',
+                            'value' => '',
+                            'options' => ['placeholder' => 'Select Order Date ','autocomplete'=> 'off'],
+                            'template' => '{addon}{input}',
+                                'clientOptions' => [
+                                    'autoclose' => true,
+                                    'format' => 'yyyy-mm-dd'
+                                ]
+                            ]);
+                        ?> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 mt-24">
+                        <?= Html::SubmitButton('Download', ['class' => 'btn btn-success','id'=>'export_btn']) ?>
+                    </div>  
+                </div>
+            </div>
+            <?php if (Yii::$app->session->hasFlash('fail')): ?>
+                <div class="alert alert-error alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <?= Yii::$app->session->getFlash('fail') ?>
+                </div>
+            <?php endif; ?>
+            <p class="error-message"></p>
+            <?php ActiveForm::end(); ?>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Availble Cylinders popup :: End -->
+
+<?php
+  $this->registerJsFile(
+    Yii::getAlias('@homeUrl') . '/js/order_status_export.js',
+    ['depends' => [\yii\bootstrap\BootstrapAsset::className(), \yii\web\JqueryAsset::className()]]
+  );
+?>
