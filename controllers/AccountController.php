@@ -97,7 +97,7 @@ class AccountController extends Controller
      * @return Response
      */
    
-        /* Supplier Signup form */
+    /* Supplier Signup form */
 
         public function actionSupplierSignup()
     {
