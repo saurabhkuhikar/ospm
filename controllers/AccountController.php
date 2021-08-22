@@ -17,7 +17,7 @@ use app\models\Cities;
 use app\models\States;
 use app\components\Helper;
 use yii\web\UploadedFile;
- 
+
 /**
  * OsmpController implements the CRUD actions for Users model.
  */
