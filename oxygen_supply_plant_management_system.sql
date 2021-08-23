@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 16, 2021 at 09:04 PM
+-- Generation Time: Aug 23, 2021 at 09:36 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -18,8 +18,118 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `oxygen_supply_plant_management_system`
+-- Database: `yii2basic`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_assignment`
+--
+
+DROP TABLE IF EXISTS `auth_assignment`;
+CREATE TABLE IF NOT EXISTS `auth_assignment` (
+  `item_name` varchar(64) NOT NULL,
+  `user_id` varchar(64) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`item_name`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `auth_assignment`
+--
+
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('booking-request/create', '3', '2021-08-23 03:49:19'),
+('booking-request/update', '3', '2021-08-23 03:49:19'),
+('booking-request/view', '3', '2021-08-23 03:49:19'),
+('cylinder-booking/create', '20', '2021-08-23 06:45:03'),
+('cylinder-booking/view', '15', '2021-08-23 03:26:03'),
+('cylinder-booking/view', '16', '2021-08-23 03:26:50'),
+('cylinder-booking/view', '20', '2021-08-23 06:45:03'),
+('cylinder-list/create', '1', '2021-08-23 08:54:34'),
+('cylinder-list/create', '2', '2021-08-23 08:37:56'),
+('cylinder-list/create', '3', '2021-08-23 03:49:19'),
+('cylinder-list/update', '1', '2021-08-23 08:54:34'),
+('cylinder-list/update', '2', '2021-08-23 08:37:56'),
+('cylinder-list/update', '25', '2021-08-23 01:34:46'),
+('cylinder-list/update', '3', '2021-08-23 03:49:20'),
+('cylinder-list/view', '1', '2021-08-23 08:54:34'),
+('cylinder-list/view', '2', '2021-08-23 08:37:56'),
+('cylinder-list/view', '25', '2021-08-23 01:33:53'),
+('cylinder-list/view', '3', '2021-08-23 03:49:20'),
+('cylinder-type/update', '25', '2021-08-23 01:32:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_item`
+--
+
+DROP TABLE IF EXISTS `auth_item`;
+CREATE TABLE IF NOT EXISTS `auth_item` (
+  `name` varchar(64) NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` text,
+  `rule_name` varchar(64) DEFAULT NULL,
+  `data` text,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`name`),
+  KEY `rule_name` (`rule_name`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `auth_item`
+--
+
+INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
+('booking-request/create', 4, NULL, NULL, NULL, '2021-08-23 03:20:50', '2021-08-23 03:20:50'),
+('booking-request/delete', 4, NULL, NULL, NULL, '2021-08-23 03:22:46', '2021-08-23 03:22:46'),
+('booking-request/update', 4, NULL, NULL, NULL, '2021-08-23 03:22:32', '2021-08-23 03:22:32'),
+('booking-request/view', 4, NULL, NULL, NULL, '2021-08-23 03:23:36', '2021-08-23 03:23:36'),
+('cylinder-booking/create', 3, '', NULL, '', '2021-08-23 03:15:33', '2021-08-23 03:15:33'),
+('cylinder-booking/delete', 3, '', NULL, '', '2021-08-23 03:15:38', '2021-08-23 03:15:38'),
+('cylinder-booking/update', 3, '', NULL, '', '2021-08-23 03:15:42', '2021-08-23 03:15:42'),
+('cylinder-booking/view', 3, '', NULL, '', '2021-08-23 03:16:00', '2021-08-23 03:16:00'),
+('cylinder-list/create', 1, '', NULL, '', '2021-08-23 03:13:01', '2021-08-23 03:13:01'),
+('cylinder-list/delete', 1, '', NULL, '', '2021-08-23 03:13:07', '2021-08-23 03:13:07'),
+('cylinder-list/update', 1, '', NULL, '', '2021-08-23 03:13:12', '2021-08-23 03:13:12'),
+('cylinder-list/view', 1, '', NULL, '', '2021-08-23 03:13:16', '2021-08-23 03:13:16'),
+('cylinder-type/create', 2, '', NULL, '', '2021-08-23 03:15:47', '2021-08-23 03:15:47'),
+('cylinder-type/delete', 2, '', NULL, '', '2021-08-23 03:15:50', '2021-08-23 03:15:50'),
+('cylinder-type/update', 2, '', NULL, '', '2021-08-23 03:15:53', '2021-08-23 03:15:53'),
+('cylinder-type/view', 2, '', NULL, '', '2021-08-23 03:15:56', '2021-08-23 03:15:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_item_child`
+--
+
+DROP TABLE IF EXISTS `auth_item_child`;
+CREATE TABLE IF NOT EXISTS `auth_item_child` (
+  `parent` varchar(64) NOT NULL,
+  `child` varchar(64) NOT NULL,
+  PRIMARY KEY (`parent`,`child`),
+  KEY `child` (`child`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_rule`
+--
+
+DROP TABLE IF EXISTS `auth_rule`;
+CREATE TABLE IF NOT EXISTS `auth_rule` (
+  `name` varchar(64) NOT NULL,
+  `data` text,
+  `created_at` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1229,7 +1339,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` timestamp NOT NULL,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -1259,7 +1369,32 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `auth
 (21, 'amol', 'kuhikar', 'amolkuhikar@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'W8o8gIH4CtFsMGAztadyr6eBvOlFnrDT', 1597863214, NULL, NULL, NULL, NULL, NULL, NULL, 'avatar.png', NULL, NULL, NULL, 'Customer', 'Enabled', '2021-07-20 03:39:02', '2021-07-20 03:39:02'),
 (22, 'sashank', 'kuhikar', 'shshankkuhikar@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'q7g-o-GZTn1W9edLNeT1whgovssI0due', 4578963125, NULL, NULL, NULL, NULL, NULL, NULL, 'avatar.png', NULL, NULL, NULL, 'Customer', 'Enabled', '2021-07-20 03:46:33', '2021-07-20 03:46:33'),
 (23, 'IND', 'Amol', 'indamol@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'aPomuKGKdAfJPdH_s1ddSSEmOZCTeOBq', 4785693214, NULL, NULL, NULL, NULL, NULL, NULL, 'avatar.png', NULL, NULL, NULL, 'Customer', 'Enabled', '2021-07-20 03:52:16', '2021-07-20 03:52:16'),
-(24, 'riya', 'riya', 'riya@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'n_8VhDSTpXijDuAMeU2emNcvC2OH8wsr', 1254023658, NULL, 'female', 'cbcbsv', 'WEST BENGAL', 'Kolkata', 'Oxygen supplier', 'avatar.png', NULL, NULL, '102457896520', 'Supplier', 'Enabled', '2021-07-26 05:17:20', '2021-07-26 05:17:20');
+(24, 'riya', 'riya', 'riya@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'n_8VhDSTpXijDuAMeU2emNcvC2OH8wsr', 1254023658, NULL, 'female', 'cbcbsv', 'WEST BENGAL', 'Kolkata', 'Oxygen supplier', 'avatar.png', NULL, NULL, '102457896520', 'Supplier', 'Enabled', '2021-07-26 05:17:20', '2021-07-26 05:17:20'),
+(25, 'admin', 'admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'fMg8u8hzjn1PaqzoIWs1-dMp4PYysCXs', 1234560036, 25, 'male', 'xyz', 'ARUNACHAL PRADESH', 'East Kameng', 'xyz', 'avatar.png', 'Ration Card with address', NULL, '012365478520', 'Admin', 'Enabled', '2021-08-18 23:55:13', '2021-08-18 23:55:13'),
+(26, 'dfgd', 'dfgdf', 'demo12@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'L8EuebxkSsuos4pnRz27UKzMDnHjxuZR', 1023548954, NULL, NULL, NULL, NULL, NULL, NULL, 'avatar.png', NULL, NULL, NULL, 'Customer', 'Enabled', '2021-08-19 02:47:30', '2021-08-19 02:47:30');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

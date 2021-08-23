@@ -48,7 +48,11 @@ AppAsset::register($this);
                         <?php }if($accountType == "Supplier"){ ?>
                             <li><a href="/cylinder-list/index">Cylinder List</a></li>  
                             <li><a href="/supplier/dashboard">Dashboard</a></li>
-                            <li><a href="/supplier/profile">My Profile</a></li>  
+                            <li><a href="/supplier/profile">My Profile</a></li>                        
+                        <?php }if($accountType == "Admin"){ ?>
+                            <li><a href="/cylinder-list/index">Cylinder List</a></li>  
+                            <li><a href="/admin/admin/dashboard">Dashboard</a></li>
+                            <li><a href="/admin/admin/profile">My Profile</a></li>  
                         <?php } ?>                                           
                         <li> 
                             <form action="<?= Yii::getAlias('@homeUrl') .'/site/logout';?>" method="post">

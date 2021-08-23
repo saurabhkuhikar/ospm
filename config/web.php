@@ -13,10 +13,19 @@ $config = [
         '@homeUrl' => 'http://localhost:8080',
         '@mode' => 'dev'
     ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Admin',
+        ],
+    ],
     'components' => [
         'Helper' =>[
             'class' => 'app\components\Helper',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest'],
+        ],        
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '-orF3y0T_PLNlWzRDZAtSefebcUgm_ly',

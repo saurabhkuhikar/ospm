@@ -18,16 +18,20 @@
             <li><a href ="/site/index">Home</a></li>    
             <li><a href ="/customer/dashboard">Dashboard</a></li>
             <li><a href ="/customer/profile">My Profile</a></li>  
-          <?php }if($accountType == "Supplier"){ ?>
+          <?php }elseif($accountType == "Supplier"){ ?>
             <li><a href="/cylinder-list/index">Cylinder List</a></li>  
             <li><a href="/supplier/dashboard">Dashboard</a></li>
             <li><a href="/supplier/profile">My Profile</a></li>  
+          <?php }else{ ?>
+            <li><a href="/cylinder-list/index">Cylinder List</a></li>  
+            <li><a href="/admin/admin/dashboard">Dashboard</a></li>
+            <li><a href="/admin/admin/profile">My Profile</a></li>  
           <?php } ?>                                           
           <li> 
-              <form action="<?= Yii::getAlias('@homeUrl') .'/site/logout';?>" method="post">
-                  <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
-                  <button type="submit" class="btn btn-link logout">Logout (<?= Yii::$app->user->identity->first_name; ?>)</button>
-              </form>
+            <form action="<?= Yii::getAlias('@homeUrl') .'/site/logout';?>" method="post">
+                <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
+                <button type="submit" class="btn btn-link logout">Logout (<?= Yii::$app->user->identity->first_name; ?>)</button>
+            </form>
           </li>
         <?php }else{ ?>
           <li><a href="/site/index">Home</a></li>  

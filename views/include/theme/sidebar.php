@@ -49,6 +49,16 @@
                             </ul>
                         </li> 
                         <li><a href="/cylinder-list/index"><i class="fa fa-edit"></i>Manage Cylinders </a></li>               
+                    <?php }else{?>
+                        <li><a href ="/admin/admin/dashboard"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a><i class="fa fa-edit"></i> Order List <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="../../booking-request/index?status=Pending">Pending</a></li>
+                                <li><a href="../../booking-request/index?status=Process">Process</a></li>
+                                <li><a href="../booking-request/index?status=Delivered">Delivered</a></li>
+                            </ul>
+                        </li> 
+                        <li><a href="/cylinder-list/index"><i class="fa fa-edit"></i>Manage Cylinders </a></li>               
                     <?php } ?>
                 </ul>                   
             </div> 

@@ -13,10 +13,12 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <?php  $accountType = Yii::$app->user->identity->account_type;?>
-                                    <?php if($accountType == "Supplier"):?>                            
+                                    <?php if($accountType == "Supplier"){?>                            
                                         <li><a href="/supplier/profile">My Profile</a></li>  
-                                    <?php else: ?><li><a href ="/customer/profile">My Profile</a></li> 
-                                    <?php endif;?>
+                                    <?php }elseif($accountType == "Customer") {?>
+                                        <li><a href ="/customer/profile">My Profile</a></li> 
+                                    <?php }else{?><li><a href ="/admin/admin/profile">My Profile</a></li> 
+                                    <?php }?>
                                         
                                     <li><a href="javascript:;">Help</a></li>
                                     <li>
