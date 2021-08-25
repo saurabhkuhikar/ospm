@@ -60,7 +60,7 @@ class CylinderTypeController extends Controller
                 'model' => $this->findModel($id),
             ]);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist 404.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
     }
 
@@ -82,7 +82,7 @@ class CylinderTypeController extends Controller
             ]);
             
         }else{
-            throw new NotFoundHttpException('The requested page does not exist 404.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
         
     }
@@ -96,7 +96,7 @@ class CylinderTypeController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(Yii::$app->user->can('cylinder-type/create')){
+        if(Yii::$app->user->can('cylinder-type/update')){
             $model = $this->findModel($id);
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -107,7 +107,7 @@ class CylinderTypeController extends Controller
                 'model' => $model,
             ]);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist 404.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
     }
 
@@ -120,12 +120,12 @@ class CylinderTypeController extends Controller
      */
     public function actionDelete($id)
     {
-        if(Yii::$app->user->can('cylinder-type/create')){
+        if(Yii::$app->user->can('cylinder-type/delete')){
             $this->findModel($id)->delete();
 
             return $this->redirect(['index']);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist 404.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
 
     }

@@ -69,10 +69,14 @@ class BookingRequestController extends Controller
      */
     public function actionView($id)
     {    
-        $this->layout = 'dashboard';  
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $this->layout = 'dashboard'; 
+        if(Yii::$app->user->can('booking-request/view')){ 
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }else{
+            throw new NotFoundHttpException('You are not authorized to access.');
+        }
     }
 
     /**
@@ -82,17 +86,21 @@ class BookingRequestController extends Controller
      */
     public function actionCreate()
     {
-        $this->layout = 'dashboard';  
-        $model = new BookingRequest();       
+        $this->layout = 'dashboard'; 
+        if(Yii::$app->user->can('booking-request/create')){  
+            $model = new BookingRequest();       
 
-        if ($model->load(Yii::$app->request->post())) {               
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
-            }        
+            if ($model->load(Yii::$app->request->post())) {               
+                if($model->save()){
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }        
+            }
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }else{
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
-        return $this->render('create', [
-            'model' => $model,
-        ]);
                 
     }
 
@@ -106,24 +114,29 @@ class BookingRequestController extends Controller
     public function actionUpdate($id)
     {   
         $this->layout = 'dashboard';  
-        $model = $this->findModel($id);        
 
-        if ($model->load(Yii::$app->request->post())){
-            if($model->order_status == "Delivered"){
-                $cylinderLists = CylinderList::find()->where(['user_id'=> $model->supplier_id ,'cylinder_type_id'=>$model->cylinder_type_id])->joinWith('cylinderTypes')->one();               
-                $cylinderLists->cylinder_quantity = $cylinderLists->cylinder_quantity - $model->cylinder_quantity;                
-                $cylinderLists->save();
-            }            
-            if($model->save()){       
-                return $this->redirect(['view', 'id' => $model->id]);       
+        if(Yii::$app->user->can('booking-request/update')){ 
+            $model = $this->findModel($id);        
+
+            if ($model->load(Yii::$app->request->post())){
+                if($model->order_status == "Delivered"){
+                    $cylinderLists = CylinderList::find()->where(['user_id'=> $model->supplier_id ,'cylinder_type_id'=>$model->cylinder_type_id])->joinWith('cylinderTypes')->one();               
+                    $cylinderLists->cylinder_quantity = $cylinderLists->cylinder_quantity - $model->cylinder_quantity;                
+                    $cylinderLists->save();
+                }            
+                if($model->save()){       
+                    return $this->redirect(['view', 'id' => $model->id]);       
+                }
             }
-        }
-        if($model->order_status != "Delivered"){
-            return $this->render('update', [
-                'model' => $model,
-            ]);                    
+            if($model->order_status != "Delivered"){
+                return $this->render('update', [
+                    'model' => $model,
+                ]);                    
+            }else{
+                throw new NotFoundHttpException('Your customer order is Successfully delivered.');
+            }
         }else{
-            throw new NotFoundHttpException('Your customer order is Successfully delivered.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
     }
 
@@ -136,10 +149,14 @@ class BookingRequestController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->layout = 'dashboard';  
-        $this->findModel($id)->delete();
+        $this->layout = 'dashboard';
+        if(Yii::$app->user->can('booking-request/update')){ 
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }else{
+            throw new NotFoundHttpException('You are not authorized to access.');
+        }
     }
 
     /**

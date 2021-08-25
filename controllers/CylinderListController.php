@@ -73,7 +73,7 @@ class CylinderListController extends Controller
                 'model' => $this->findModel($id),
             ]);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist not authoried.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
     }
 
@@ -106,7 +106,7 @@ class CylinderListController extends Controller
                 'model' => $model,
             ]);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist not authoried.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }          
     
     }
@@ -136,7 +136,7 @@ class CylinderListController extends Controller
                 'model' => $model,
             ]);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist not authoried.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
     }
 
@@ -156,7 +156,7 @@ class CylinderListController extends Controller
 
             return $this->redirect(['index']);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist not authoried.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
     }
 

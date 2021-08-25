@@ -91,8 +91,7 @@ class AdminController extends \yii\web\Controller
                         $model = new AuthAssignment();
                         $model->item_name = $permissionDetail;
                         $model->user_id = base64_decode($token); 
-                        $model->save();                 
-                            
+                        $model->save();  
                     }                    
                 }
                 Yii::$app->session->setFlash('permission', "Permission Succesfully Allowed.");              

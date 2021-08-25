@@ -74,7 +74,7 @@ class CylinderBookingController extends Controller
                 'model' => $this->findModel(base64_decode($id)),
             ]);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist 404.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
     }
 
@@ -103,7 +103,7 @@ class CylinderBookingController extends Controller
             
             return $this->render('create', ['model' => $model,'token' => $token]);  
         }else{
-            throw new NotFoundHttpException('The requested page does not exist 404.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }       
     }
 
@@ -124,7 +124,7 @@ class CylinderBookingController extends Controller
         
             return $this->render('booking', ['model' => $model,'token' => $token]);   
         }else{
-            throw new NotFoundHttpException('The requested page does not exist 404.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }             
     }
 
@@ -279,7 +279,7 @@ class CylinderBookingController extends Controller
                 'model' => $model,
             ]);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist 404.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
     }
 
@@ -329,7 +329,7 @@ class CylinderBookingController extends Controller
             $this->findModel($id)->delete();
             return $this->redirect(['index']);
         }else{
-            throw new NotFoundHttpException('The requested page does not exist 404.');
+            throw new NotFoundHttpException('You are not authorized to access.');
         }
     }
 
